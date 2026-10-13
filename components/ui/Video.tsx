@@ -1,12 +1,19 @@
 import { videoEmbed } from "@/lib/format";
 import { Play } from "lucide-react";
 
+// YouTube embeds use a fixed 16:9 frame. Uploaded mp4s keep their natural shape
+// (vertical reels stay vertical) and never get cropped.
 export function VideoFrame({ src, label }: { src: string; label: string }) {
   const v = videoEmbed(src);
+  if (v.type === "mp4") {
+    const poster = v.url.startsWith("/videos/") ? v.url.replace(/\.mp4(\?.*)?$/i, ".jpg") : undefined;
+    return (
+      <video src={v.url} poster={poster} controls playsInline preload="metadata" aria-label={label} className="mx-auto block max-h-[78vh] w-auto max-w-full rounded-[28px] border border-white/10 bg-black" />
+    );
+  }
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#0a0a0a]">
       {v.type === "yt" && <iframe src={v.url} title={label} className="absolute inset-0 h-full w-full" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowFullScreen loading="lazy" />}
-      {v.type === "mp4" && <video src={v.url} controls playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />}
       {v.type === "none" && (
         <div className="absolute inset-0 grid place-items-center text-center">
           <div>

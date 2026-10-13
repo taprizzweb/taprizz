@@ -3,7 +3,16 @@ import { supabaseAdmin, supabaseAnon } from "./supabase";
 import type { SiteContent } from "./types";
 
 // Older saved rows predate some fields; fill them so the admin editor always shows them.
-const normalize = (c: SiteContent): SiteContent => ({ ...c, products: (c.products ?? []).map((p) => ({ ...p, salePrice: p.salePrice ?? 0 })) });
+// Bundled videos (public/videos) are used until a different link is set in Admin → Settings.
+const normalize = (c: SiteContent): SiteContent => ({
+  ...c,
+  settings: {
+    ...c.settings,
+    introVideo: c.settings.introVideo || defaultContent.settings.introVideo,
+    fullDemoVideo: c.settings.fullDemoVideo || defaultContent.settings.fullDemoVideo,
+  },
+  products: (c.products ?? []).map((p) => ({ ...p, salePrice: p.salePrice ?? 0 })),
+});
 
 // Public pages render on the server, so they read with the service key when it exists
 // (no dependence on anon-key/RLS setup). The key never reaches the browser.

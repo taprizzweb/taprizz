@@ -17,9 +17,23 @@ export function Importance({ c }: { c: SiteContent }) {
       </div>
       <div className="mt-16"><PillRows tags={TAGS} /></div>
       <div className="mx-auto mt-24 max-w-[1100px] px-5 md:px-8">
-        <Reveal><p className="mb-4 text-sm uppercase tracking-[0.25em] text-lime-400">The story · 1:40</p><VideoFrame src={c.settings.introVideo} label="The Importance of Reviews (1:40)" /></Reveal>
+        <Reveal>
+          <p className="mb-6 text-sm uppercase tracking-[0.25em] text-lime-400">The story</p>
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,420px)_1fr]">
+            <VideoFrame src={c.settings.introVideo} label="The Importance of Reviews" />
+            <ul className="space-y-6">
+              {i.points.map((p, n) => (
+                <li key={p.title} className="border-b border-white/10 pb-6 last:border-0">
+                  <span className="text-sm text-lime-400">0{n + 1}</span>
+                  <h3 className="mt-1 text-2xl">{p.title}</h3>
+                  <p className="mt-1 text-white/55">{p.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
         <div className="mt-24">
-          <Reveal><p className="mb-4 text-sm uppercase tracking-[0.25em] text-lime-400">Full product demo</p><VideoFrame src={c.settings.fullDemoVideo} label="Full Taprizz Demo" /></Reveal>
+          <Reveal><p className="mb-6 text-sm uppercase tracking-[0.25em] text-lime-400">Full product demo</p><VideoFrame src={c.settings.fullDemoVideo} label="Full Taprizz Demo" /></Reveal>
         </div>
       </div>
     </section>

@@ -11,8 +11,8 @@ export const defaultContent: SiteContent = {
     upiId: "9672999166@fam",
     upiName: "Taprizz",
     announcement: "Now onboarding a limited number of premium businesses in Jaipur · 1-Year Plaque Warranty on Plus Retainer",
-    introVideo: "",
-    fullDemoVideo: "",
+    introVideo: "/videos/launch-promo.mp4",
+    fullDemoVideo: "/videos/full-demo.mp4",
     demoBusiness: "Your Business Name",
   },
   hero: {
