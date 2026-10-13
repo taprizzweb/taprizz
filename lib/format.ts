@@ -7,3 +7,8 @@ export function videoEmbed(src: string): { type: "yt" | "mp4" | "none"; url: str
   return m ? { type: "yt", url: `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1` } : { type: "mp4", url: src };
 }
 export const months = (m: number) => (m === 1 ? "1 Month" : `${m} Months`);
+
+type Priced = { price: number; discount: number; salePrice?: number };
+// Selling price: an explicit salePrice wins; otherwise MRP minus discount %.
+export const sellPrice = (p: Priced) => (p.salePrice && p.salePrice > 0 ? Math.round(p.salePrice) : discounted(p.price, p.discount));
+export const offPercent = (p: Priced) => (p.price > 0 ? Math.max(0, Math.round((1 - sellPrice(p) / p.price) * 100)) : 0);

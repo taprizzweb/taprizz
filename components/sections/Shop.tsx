@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Check, Minus, Palette, Plus, ShoppingBag, Zap } from "lucide-react";
 import type { Addon, Product, SiteContent } from "@/lib/types";
 import { useCart } from "@/lib/cart";
-import { discounted, inr } from "@/lib/format";
+import { inr, offPercent, sellPrice } from "@/lib/format";
 import { Plaque } from "@/components/ui/Plaque";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 
@@ -13,14 +13,15 @@ function ProductCard({ p }: { p: Product }) {
   const router = useRouter();
   const [qty, setQty] = useState(1);
   const [img, setImg] = useState(0);
-  const price = discounted(p.price, p.discount);
+  const price = sellPrice(p);
+  const off = offPercent(p);
   const line = { kind: "product" as const, refId: p.id, name: p.name, unitPrice: price, image: p.images[0], qty };
   const out = p.stock <= 0;
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[28px] bg-lime-400 text-black">
       <div className="relative grid aspect-[5/4] place-items-center p-8">
         {p.badge && <span className="absolute left-5 top-5 z-10 rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-white">{p.badge}</span>}
-        {p.discount > 0 && <span className="absolute right-5 top-5 z-10 rounded-full border-2 border-black px-4 py-1 text-xs font-bold">{p.discount}% OFF</span>}
+        {off > 0 && <span className="absolute right-5 top-5 z-10 rounded-full border-2 border-black px-4 py-1 text-xs font-bold">{off}% OFF</span>}
         {p.images[img] ? <img src={p.images[img]} alt={p.name} className="h-full w-full object-contain" /> : <Plaque variant={p.id.includes("luxe") ? "blue" : "graphite"} className="max-w-[250px] border-black/20 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />}
       </div>
       {p.images.length > 1 && (
@@ -36,7 +37,7 @@ function ProductCard({ p }: { p: Product }) {
         </ul>
         <div className="mt-5 flex items-baseline gap-3">
           <span className="text-4xl font-bold text-lime-400">{inr(price)}</span>
-          {p.discount > 0 && <span className="text-white/35 line-through">{inr(p.price)}</span>}
+          {off > 0 && <span className="text-white/35 line-through">{inr(p.price)}</span>}
         </div>
         <div className="mt-auto flex flex-wrap items-center gap-3 pt-5">
           <div className="inline-flex items-center rounded-full border border-white/20">

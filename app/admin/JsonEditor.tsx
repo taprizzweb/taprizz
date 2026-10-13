@@ -3,7 +3,8 @@ import { Plus, Trash2, Upload } from "lucide-react";
 
 type J = any;
 const LONG = /text|subtitle|description|answer|^a$|announcement|message|tagline|notes/i;
-const label = (k: string) => k.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase());
+const NAMES: Record<string, string> = { price: "MRP (struck-through price)", salePrice: "Selling price ₹ (0 = use discount % below)", discount: "Discount % (only if selling price is 0)" };
+const label = (k: string) => NAMES[k] ?? k.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase());
 
 function blank(sample: J): J {
   if (Array.isArray(sample)) return [];

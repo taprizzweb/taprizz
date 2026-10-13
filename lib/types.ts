@@ -3,7 +3,8 @@ export type Product = {
   name: string;
   tagline: string;
   price: number; // MRP in INR
-  discount: number; // percent
+  discount: number; // percent (used only when salePrice is 0)
+  salePrice: number; // direct selling price in INR; 0 = derive from MRP and discount
   images: string[];
   stock: number;
   active: boolean;

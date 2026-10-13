@@ -1,5 +1,5 @@
 import type { SiteContent } from "./types";
-import { discounted, months } from "./format";
+import { months, sellPrice } from "./format";
 
 export type OrderItemInput = { kind: "product" | "addon" | "plan"; refId: string; months?: number; qty?: number };
 export type PricedItem = { kind: string; refId: string; name: string; months?: number; unitPrice: number; qty: number };
@@ -13,7 +13,7 @@ export function priceItems(items: OrderItemInput[], c: SiteContent): { items: Pr
       const p = c.products.find((x) => x.id === it.refId && x.active);
       if (!p) return { error: "A product in your cart is no longer available." };
       if (p.stock < qty) return { error: `${p.name}: only ${p.stock} left in stock.` };
-      out.push({ kind: "product", refId: p.id, name: p.name, unitPrice: discounted(p.price, p.discount), qty });
+      out.push({ kind: "product", refId: p.id, name: p.name, unitPrice: sellPrice(p), qty });
     } else if (it.kind === "addon") {
       const a = c.addons.find((x) => x.id === it.refId && x.active);
       if (!a) return { error: "An add-on in your cart is no longer available." };
