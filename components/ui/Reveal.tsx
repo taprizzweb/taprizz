@@ -5,7 +5,7 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -15,12 +15,15 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
   );
 }
 
-export function SectionHead({ eyebrow, title, subtitle }: { eyebrow?: string; title: string; subtitle?: string }) {
+export function SectionHead({ title, subtitle, light = false }: { eyebrow?: string; title: string; subtitle?: string; light?: boolean }) {
   return (
-    <Reveal className="mx-auto mb-14 max-w-3xl text-center">
-      {eyebrow && <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-gold-400">{eyebrow}</p>}
-      <h2 className="font-serif text-4xl leading-tight md:text-5xl">{title}</h2>
-      {subtitle && <p className="mt-4 text-base text-white/60 md:text-lg">{subtitle}</p>}
+    <Reveal className="mb-12 max-w-3xl md:mb-16">
+      <h2 className={`text-5xl leading-[0.95] md:text-7xl ${light ? "text-ink" : "text-white"}`}>{title}</h2>
+      {subtitle && <p className={`mt-5 max-w-xl text-lg ${light ? "text-black/55" : "text-white/55"}`}>{subtitle}</p>}
     </Reveal>
   );
+}
+
+export function LimeButton({ children, className = "", ...p }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return <button {...p} className={`inline-flex items-center justify-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300 disabled:opacity-40 ${className}`}>{children}</button>;
 }

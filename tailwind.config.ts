@@ -5,14 +5,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#07070a",
-        panel: "#0e0e14",
-        line: "#23232e",
-        gold: { 300: "#f3dd9b",400: "#e6c466", 500: "#d4a937", 600: "#b08a22" },
+        ink: "#050505",
+        panel: "#0d0d0d",
+        line: "#242424",
+        paper: "#fafcf3",
+        lime: { 300: "#d6ff7d", 400: "#b6ff2e", 500: "#a2f01a", 600: "#7ec10f", dim: "#1e3a09" },
+        gold: { 300: "#d6ff7d", 400: "#b6ff2e", 500: "#a2f01a", 600: "#7ec10f" },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        serif: ["var(--font-outfit)", "system-ui", "sans-serif"],
       },
       keyframes: {
         marquee: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
