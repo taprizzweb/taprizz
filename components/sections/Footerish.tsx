@@ -120,7 +120,7 @@ export function Contact({ c }: { c: SiteContent }) {
 export function Footer({ c }: { c: SiteContent }) {
   return (
     <footer className="border-t border-line px-4 py-10 text-center text-sm text-white/40">
-      <p className="font-serif text-xl gold-text">{c.settings.brand}</p>
+      <img src="/logo-light.svg" alt={c.settings.brand} className="mx-auto h-12 w-auto" />
       <p className="mt-2">Premium AI review plaques · {c.settings.city}</p>
       <p className="mt-4">© {new Date().getFullYear()} {c.settings.brand}. All rights reserved.</p>
       <a href={`https://wa.me/${c.settings.whatsapp}`} aria-label="WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:scale-110"><MessageCircle className="h-7 w-7" /></a>

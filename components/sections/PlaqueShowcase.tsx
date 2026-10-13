@@ -12,6 +12,7 @@ export function PlaqueShowcase({ c }: { c: SiteContent }) {
   const rotateY = useTransform(p, [0, 0.25, 0.5, 0.75, 1], [-35, 20, -20, 30, 0]);
   const rotateX = useTransform(p, [0, 0.5, 1], [12, -8, 6]);
   const scale = useTransform(p, [0, 0.25, 0.5, 0.75, 1], [0.85, 1.05, 1.2, 1.0, 1.1]);
+  const blueOpacity = useTransform(p, [0.47, 0.53], [0, 1]);
   const glow = useTransform(p, [0, 1], [0.15, 0.5]);
   const steps = c.showcase.steps;
 
@@ -35,7 +36,10 @@ export function PlaqueShowcase({ c }: { c: SiteContent }) {
           </div>
           <div className="order-1 flex justify-center [perspective:1400px] md:order-2">
             <motion.div style={{ rotateY, rotateX, scale, transformStyle: "preserve-3d" }}>
-              <Plaque brand={c.settings.brand} className="max-w-[260px] md:max-w-[320px]" />
+              <div className="relative w-[260px] md:w-[340px]">
+                <Plaque variant="graphite" className="max-w-none" />
+                <motion.div style={{ opacity: blueOpacity }} className="absolute inset-0"><Plaque variant="blue" className="max-w-none" /></motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -45,9 +49,13 @@ export function PlaqueShowcase({ c }: { c: SiteContent }) {
 }
 
 function Step({ i, n, p, title, text }: { i: number; n: number; p: ReturnType<typeof useSpring>; title: string; text: string }) {
-  const a = i / n, b = (i + 1) / n, pad = 0.04;
-  const opacity = useTransform(p, [a - pad, a + pad, b - pad, b + pad], [i === 0 ? 1 : 0, 1, 1, i === n - 1 ? 1 : 0]);
-  const y = useTransform(p, [a - pad, a + pad, b - pad, b + pad], [i === 0 ? 0 : 30, 0, 0, i === n - 1 ? 0 : -30]);
+  // Sequential fades (no overlap) so two steps never show on top of each other.
+  const a = i / n, b = (i + 1) / n, pad = 0.035;
+  const pts = i === 0 ? [a, b - pad, b] : i === n - 1 ? [a, a + pad, b] : [a, a + pad, b - pad, b];
+  const op = i === 0 ? [1, 1, 0] : i === n - 1 ? [0, 1, 1] : [0, 1, 1, 0];
+  const dy = i === 0 ? [0, 0, -24] : i === n - 1 ? [24, 0, 0] : [24, 0, 0, -24];
+  const opacity = useTransform(p, pts, op);
+  const y = useTransform(p, pts, dy);
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-0">
       <h3 className="font-serif text-2xl text-gold-300">{title}</h3>

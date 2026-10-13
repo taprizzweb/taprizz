@@ -26,7 +26,7 @@ export function Hero({ c }: { c: SiteContent }) {
           </motion.div>
         </div>
         <motion.div initial={{ opacity: 0, scale: 0.9, rotateY: -25 }} animate={{ opacity: 1, scale: 1, rotateY: -12 }} transition={{ duration: 1.1, delay: 0.2 }} className="flex justify-center [perspective:1200px]">
-          <div className="animate-float"><Plaque brand={c.settings.brand} /></div>
+          <div className="animate-float"><Plaque /></div>
         </motion.div>
       </div>
       <div className="relative mx-auto mt-20 grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-4">

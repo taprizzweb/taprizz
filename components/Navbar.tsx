@@ -13,7 +13,8 @@ export function Navbar({ brand, announcement }: { brand: string; announcement?: 
       )}
       <div className="mx-auto mt-3 flex max-w-6xl items-center justify-between rounded-full border border-white/10 bg-ink/70 px-5 py-2.5 backdrop-blur-xl">
         <Link href="/" className="font-serif text-xl tracking-wide">
-          <span className="gold-text">{brand}</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-light.svg" alt={brand} className="h-9 w-auto" />
         </Link>
         <nav className="hidden gap-6 text-sm text-white/70 lg:flex">
           {links.map(([h, t]) => (

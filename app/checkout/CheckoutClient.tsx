@@ -50,7 +50,7 @@ export function CheckoutClient({ settings }: { settings: SiteContent["settings"]
 
   return (
     <main className="mx-auto min-h-screen max-w-5xl px-4 py-10">
-      <Link href="/" className="font-serif text-2xl gold-text">{settings.brand}</Link>
+      <Link href="/"><img src="/logo-light.svg" alt={settings.brand} className="h-10 w-auto" /></Link>
       <ol className="mt-6 flex gap-3 text-xs text-white/50">
         {(["details", "pay", "done"] as Step[]).map((s, i) => (<li key={s} className={`rounded-full border px-3 py-1 ${step === s ? "border-gold-400 text-gold-300" : "border-line"}`}>{i + 1}. {s === "details" ? "Your details" : s === "pay" ? "Payment" : "Done"}</li>))}
       </ol>

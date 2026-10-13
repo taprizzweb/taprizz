@@ -9,7 +9,7 @@ import { Plaque } from "@/components/ui/Plaque";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import { SpotlightCard } from "@/components/ui/Spotlight";
 
-function ProductCard({ p, brand }: { p: Product; brand: string }) {
+function ProductCard({ p }: { p: Product }) {
   const { add } = useCart();
   const router = useRouter();
   const [qty, setQty] = useState(1);
@@ -26,7 +26,7 @@ function ProductCard({ p, brand }: { p: Product; brand: string }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={p.images[img]} alt={p.name} className="h-full w-full object-contain" />
         ) : (
-          <Plaque brand={brand} className="max-w-[170px]" />
+          <Plaque variant={p.id.includes("luxe") ? "blue" : "graphite"} className="max-w-[230px]" />
         )}
       </div>
       {p.images.length > 1 && (
@@ -90,7 +90,7 @@ export function Shop({ c }: { c: SiteContent }) {
       <div className="mx-auto max-w-6xl">
         <SectionHead eyebrow="Shop" title="Choose your Taprizz plaque" subtitle="Online payment only · Secure UPI · Dispatched across India" />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((p, i) => (<Reveal key={p.id} delay={i * 0.08}><ProductCard p={p} brand={c.settings.brand} /></Reveal>))}
+          {products.map((p, i) => (<Reveal key={p.id} delay={i * 0.08}><ProductCard p={p} /></Reveal>))}
         </div>
         {addons.map((a) => (<AddonCard key={a.id} a={a} />))}
       </div>
