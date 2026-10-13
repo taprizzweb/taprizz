@@ -3,13 +3,16 @@ import { supabaseAdmin, supabaseAnon } from "./supabase";
 import type { SiteContent } from "./types";
 
 // Older saved rows predate some fields; fill them so the admin editor always shows them.
+// A video setting only counts if it is a real link or site path; blanks or stray text fall back to the bundled video.
+const validVideo = (v?: string) => (v && /^(https?:\/\/|\/)\S+$/.test(v.trim()) ? v.trim() : null);
+
 // Bundled videos (public/videos) are used until a different link is set in Admin → Settings.
 const normalize = (c: SiteContent): SiteContent => ({
   ...c,
   settings: {
     ...c.settings,
-    introVideo: c.settings.introVideo || defaultContent.settings.introVideo,
-    fullDemoVideo: c.settings.fullDemoVideo || defaultContent.settings.fullDemoVideo,
+    introVideo: validVideo(c.settings.introVideo) ?? defaultContent.settings.introVideo,
+    fullDemoVideo: validVideo(c.settings.fullDemoVideo) ?? defaultContent.settings.fullDemoVideo,
   },
   products: (c.products ?? []).map((p) => ({ ...p, salePrice: p.salePrice ?? 0 })),
 });
