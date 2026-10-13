@@ -124,15 +124,59 @@ export function Contact({ c }: { c: SiteContent }) {
   );
 }
 
-export function Footer({ c }: { c: SiteContent }) {
+function InstagramIcon({ className = "" }: { className?: string }) {
   return (
-    <footer className="bg-black px-5 py-14 md:px-8">
-      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-8">
-        <img src="/logo-light.svg" alt={c.settings.brand} className="h-14 w-auto" />
-        <p className="max-w-sm text-sm text-white/50">Premium AI review plaques · {c.settings.city}. © {new Date().getFullYear()} {c.settings.brand}.</p>
-        <p className="text-sm text-white/50">{c.settings.email}<br />{c.settings.phone}</p>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function Footer({ c }: { c: SiteContent }) {
+  const s = c.settings;
+  const f = c.footer;
+  const col = "text-sm text-white/55 transition hover:text-lime-400";
+  const head = "mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-white";
+  return (
+    <footer className="bg-[#0a0a0a] px-5 pt-16 md:px-8">
+      <div className="mx-auto grid max-w-[1280px] gap-12 border-b border-white/10 pb-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+        <div>
+          <img src="/logo-light.svg" alt={s.brand} className="h-14 w-auto" />
+          <p className="mt-5 max-w-xs text-sm text-white/55">{f.tagline}</p>
+          <div className="mt-6 flex items-center gap-3">
+            <a href={f.instagram} target="_blank" rel="noopener noreferrer" aria-label={`Instagram ${f.instagramHandle}`} className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition hover:border-lime-400 hover:text-lime-400"><InstagramIcon className="h-5 w-5" /></a>
+            <a href={`https://wa.me/${s.whatsapp}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition hover:border-lime-400 hover:text-lime-400"><MessageCircle className="h-5 w-5" /></a>
+            <a href={f.instagram} target="_blank" rel="noopener noreferrer" className="text-sm text-white/55 hover:text-lime-400">{f.instagramHandle}</a>
+          </div>
+        </div>
+        <nav aria-label="Quick links">
+          <p className={head}>Quick links</p>
+          <ul className="space-y-3">
+            {[["/#about", "About Taprizz"], ["/#plaque", "The Plaque"], ["/#demo", "Live Demo"], ["/#shop", "Shop"], ["/#plans", "Retainer Plans"], ["/#compare", "Compare"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+          </ul>
+        </nav>
+        <nav aria-label="Policies">
+          <p className={head}>Terms &amp; policies</p>
+          <ul className="space-y-3">
+            {[["/terms", "Terms & Conditions"], ["/privacy", "Privacy Policy"], ["/refund", "Cancellation & Refund Policy"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+          </ul>
+        </nav>
+        <div>
+          <p className={head}>Help &amp; support</p>
+          <ul className="space-y-3">
+            <li><a href="/#contact" className={col}>Contact us</a></li>
+            <li><a href="/#contact" className={col}>FAQ</a></li>
+            <li><a href={`tel:${s.phone.replace(/[^+\d]/g, "")}`} className={`${col} flex items-center gap-2`}><Phone className="h-4 w-4" />{s.phone}</a></li>
+            <li><a href={`mailto:${s.email}`} className={`${col} flex items-center gap-2`}><Mail className="h-4 w-4" />{s.email}</a></li>
+            <li className="flex items-center gap-2 text-sm text-white/55"><MapPin className="h-4 w-4 shrink-0" />{s.city}</li>
+          </ul>
+        </div>
       </div>
-      <a href={`https://wa.me/${c.settings.whatsapp}`} aria-label="WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:scale-110"><MessageCircle className="h-7 w-7" /></a>
+      <div className="mx-auto max-w-[1280px] pb-24 pt-8 text-xs leading-relaxed text-white/40 md:pb-10">
+        <p>© {new Date().getFullYear()} {s.brand}. All rights reserved. Made in Jaipur.</p>
+        <p className="mt-4"><b className="text-white/60">Disclaimer:</b> {f.disclaimer}</p>
+      </div>
+      <a href={`https://wa.me/${s.whatsapp}`} aria-label="Chat on WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:scale-110"><MessageCircle className="h-7 w-7" /></a>
     </footer>
   );
 }

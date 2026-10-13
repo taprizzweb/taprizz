@@ -50,5 +50,7 @@ export type SiteContent = {
   about: { title: string; text: string; points: string[] };
   faq: { q: string; a: string }[];
   roadmap: { title: string; subtitle: string; items: { name: string; text: string; status: string }[] };
+  footer: { instagram: string; instagramHandle: string; tagline: string; disclaimer: string };
+  legal: { updated: string; terms: string; privacy: string; refund: string };
   testimonialsNote: string;
 };
