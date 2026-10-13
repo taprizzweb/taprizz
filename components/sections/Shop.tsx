@@ -19,7 +19,7 @@ function ProductCard({ p }: { p: Product }) {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[28px] bg-lime-400 text-black">
       <div className="relative grid aspect-[5/4] place-items-center p-8">
-        {p.badge && <span className="absolute left-5 top-5 z-10 rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-lime-400">{p.badge}</span>}
+        {p.badge && <span className="absolute left-5 top-5 z-10 rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-white">{p.badge}</span>}
         {p.discount > 0 && <span className="absolute right-5 top-5 z-10 rounded-full border-2 border-black px-4 py-1 text-xs font-bold">{p.discount}% OFF</span>}
         {p.images[img] ? <img src={p.images[img]} alt={p.name} className="h-full w-full object-contain" /> : <Plaque variant={p.id.includes("luxe") ? "blue" : "graphite"} className="max-w-[250px] border-black/20 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />}
       </div>
@@ -65,7 +65,7 @@ function AddonCard({ a }: { a: Addon }) {
       </div>
       <div className="text-right">
         <p className="text-3xl font-bold">+ {inr(a.price)}</p>
-        <button disabled={has} onClick={() => add({ kind: "addon", refId: a.id, name: `Add-on: ${a.name}`, unitPrice: a.price })} className="mt-2 rounded-full bg-black px-6 py-2.5 text-sm font-semibold text-lime-400 disabled:opacity-50">{has ? "Added ✓" : "Add to order"}</button>
+        <button disabled={has} onClick={() => add({ kind: "addon", refId: a.id, name: `Add-on: ${a.name}`, unitPrice: a.price })} className="mt-2 rounded-full bg-black px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50">{has ? "Added ✓" : "Add to order"}</button>
       </div>
     </div>
   );

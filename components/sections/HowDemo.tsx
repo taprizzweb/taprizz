@@ -13,9 +13,9 @@ export function How({ c }: { c: SiteContent }) {
         <div className="grid gap-5 md:grid-cols-2">
           {c.how.steps.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.08}>
-              <div className="flex h-full min-h-[220px] flex-col justify-between rounded-[28px] bg-lime-400 p-8">
-                <span className="text-7xl font-bold leading-none text-black/20">0{i + 1}</span>
-                <div><h3 className="text-4xl">{s.title}</h3><p className="mt-2 max-w-sm text-black/70">{s.text}</p></div>
+              <div className="flex h-full min-h-[220px] flex-col justify-between rounded-[28px] bg-black p-8 text-white">
+                <span className="text-7xl font-bold leading-none text-white/20">0{i + 1}</span>
+                <div><h3 className="text-4xl">{s.title}</h3><p className="mt-2 max-w-sm text-white/65">{s.text}</p></div>
               </div>
             </Reveal>
           ))}
@@ -41,7 +41,7 @@ export function LiveDemo({ c }: { c: SiteContent }) {
           <p className="mt-5 max-w-md text-lg text-white/55">{d.subtitle}</p>
           <p className="mt-8 flex items-center gap-2 text-sm text-lime-400"><Smartphone className="h-4 w-4" /> A real working preview. Tap the stars.</p>
         </div>
-        <div className="mx-auto w-full max-w-[330px] rounded-[44px] border-[6px] border-[#1d1d1d] bg-[#0a0a0a] p-5 shadow-[0_0_120px_-30px_rgba(182,255,46,0.45)]">
+        <div className="mx-auto w-full max-w-[330px] rounded-[44px] border-[6px] border-[#1d1d1d] bg-[#0a0a0a] p-5 shadow-[0_0_120px_-30px_rgba(255,255,255,0.12)]">
           <div className="mx-auto mb-4 h-1.5 w-20 rounded-full bg-[#1d1d1d]" />
           <p className="text-center text-lg font-semibold">{c.settings.demoBusiness}</p>
           <div className="mt-3 flex justify-center gap-1.5">

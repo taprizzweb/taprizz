@@ -18,8 +18,8 @@ void main(){
   float line=1.-smoothstep(0.,.045,band);
   float glow=exp(-length(p-mm)*2.2);
   float vig=smoothstep(1.25,.2,length(p*vec2(.8,1.)));
-  vec3 lime=vec3(.71,1.,.18);
-  vec3 col=lime*line*(.14+.95*glow)*vig + lime*.035*f*vig + vec3(.01,.02,0.)*glow;
+  vec3 lime=vec3(.80,.82,.86);
+  vec3 col=lime*line*(.14+.95*glow)*vig + lime*.035*f*vig + vec3(.02,.02,.025)*glow;
   gl_FragColor=vec4(col,1.);
 }`;
 

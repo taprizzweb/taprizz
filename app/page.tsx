@@ -13,8 +13,8 @@ import { SliceDivider } from "@/components/ui/SliceDivider";
 
 export const dynamic = "force-dynamic";
 
-const INK = "#050505";
-const PAPER = "#fafcf3";
+const INK = "#141517";
+const PAPER = "#f3f3f1";
 
 export default async function Home() {
   const c = await getContent();

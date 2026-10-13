@@ -24,7 +24,7 @@ export function Hero({ c }: { c: SiteContent }) {
         <div>
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6 inline-block rounded-full border border-lime-400/50 px-4 py-1.5 text-sm text-lime-400">{h.eyebrow}</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8 }} className="text-[clamp(2.8rem,7.4vw,6.6rem)] leading-[0.92] text-white">
-            {h.title} <span className="text-lime-400">{h.highlight}</span>
+            {h.title} <span className="metal-text">{h.highlight}</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</motion.p>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 flex flex-wrap gap-4">
@@ -34,7 +34,7 @@ export function Hero({ c }: { c: SiteContent }) {
         </div>
         <div className="flex justify-center [perspective:1200px]">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
-            <Plaque className="max-w-[420px] shadow-[0_40px_120px_-20px_rgba(182,255,46,0.35)]" />
+            <Plaque className="max-w-[420px] shadow-[0_40px_120px_-20px_rgba(255,255,255,0.14)]" />
           </motion.div>
         </div>
       </div>

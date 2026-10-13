@@ -5,12 +5,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#050505",
-        panel: "#0d0d0d",
-        line: "#242424",
-        paper: "#fafcf3",
-        lime: { 300: "#d6ff7d", 400: "#b6ff2e", 500: "#a2f01a", 600: "#7ec10f", dim: "#1e3a09" },
-        gold: { 300: "#d6ff7d", 400: "#b6ff2e", 500: "#a2f01a", 600: "#7ec10f" },
+        black: "#141517",
+        ink: "#141517",
+        panel: "#1a1b1e",
+        line: "#2c2d31",
+        paper: "#f3f3f1",
+        lime: { 300: "#f1f1f2", 400: "#dcdddf", 500: "#c6c7ca", 600: "#a3a4a8", dim: "#26272b" },
+        gold: { 300: "#f1f1f2", 400: "#dcdddf", 500: "#c6c7ca", 600: "#a3a4a8" },
       },
       fontFamily: {
         sans: ["var(--font-outfit)", "system-ui", "sans-serif"],

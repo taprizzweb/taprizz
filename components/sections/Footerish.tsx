@@ -12,9 +12,9 @@ export function Audience({ c }: { c: SiteContent }) {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {c.audience.items.map((a, i) => (
             <Reveal key={a.name} delay={i * 0.05}>
-              <div className="group flex h-full min-h-[190px] flex-col justify-between rounded-[26px] border border-black/10 bg-white p-7 transition hover:bg-lime-400">
+              <div className="group flex h-full min-h-[190px] flex-col justify-between rounded-[26px] border border-black/10 bg-white p-7 transition hover:bg-black hover:text-white">
                 <ArrowUpRight className="h-6 w-6 self-end opacity-40 transition group-hover:opacity-100" />
-                <div><h3 className="text-2xl">{a.name}</h3><p className="mt-2 text-sm text-black/55 group-hover:text-black/70">{a.text}</p></div>
+                <div><h3 className="text-2xl">{a.name}</h3><p className="mt-2 text-sm text-black/55 group-hover:text-white/70">{a.text}</p></div>
               </div>
             </Reveal>
           ))}
@@ -56,7 +56,7 @@ export function About({ c }: { c: SiteContent }) {
         <Reveal><h2 className="text-6xl md:text-8xl">{c.about.title}</h2></Reveal>
         <Reveal delay={0.1}><p className="mt-8 max-w-4xl text-2xl font-medium leading-snug text-black/70 md:text-4xl">{c.about.text}</p></Reveal>
         <ul className="mt-12 grid gap-4 sm:grid-cols-3">
-          {c.about.points.map((p) => (<li key={p} className="rounded-[22px] bg-lime-400 p-6 text-lg font-semibold">{p}</li>))}
+          {c.about.points.map((p) => (<li key={p} className="rounded-[22px] bg-black p-6 text-lg font-semibold text-white">{p}</li>))}
         </ul>
       </div>
     </section>

@@ -4,25 +4,26 @@
 
 :root { color-scheme: dark; }
 html { scroll-behavior: smooth; }
-body { background: #050505; color: #f2f4ea; }
-::selection { background: #b6ff2e; color: #000; }
+body { background: #141517; color: #ededee; }
+::selection { background: #dcdddf; color: #141517; }
 .font-serif, h1, h2, h3 { font-weight: 700; letter-spacing: -0.035em; }
-.gold-text { color: #b6ff2e; }
-.shimmer-btn { background: #b6ff2e; transition: transform .2s, box-shadow .2s; }
-.shimmer-btn:hover { box-shadow: 0 0 0 6px #b6ff2e33; }
+.gold-text { color: #dcdddf; }
+.metal-text { background: linear-gradient(100deg,#ffffff 0%,#b9bbc0 45%,#f4f4f5 70%,#9a9ca1 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.shimmer-btn { background: #e4e4e6; color:#141517; transition: transform .2s, box-shadow .2s; }
+.shimmer-btn:hover { box-shadow: 0 0 0 6px #ffffff22; }
 .animate-shimmer { animation: none; }
 .grid-light {
-  background-color: #fafcf3;
-  background-image: linear-gradient(#b6ff2e22 1px, transparent 1px), linear-gradient(90deg, #b6ff2e22 1px, transparent 1px);
+  background-color: #f3f3f1;
+  background-image: linear-gradient(#14151708 1px, transparent 1px), linear-gradient(90deg, #14151708 1px, transparent 1px);
   background-size: 64px 64px;
 }
 .input {
   width: 100%; border-radius: 0.9rem; border: 1px solid #2a2a2a; background: #0b0b0b;
-  padding: 0.75rem 1rem; font-size: 0.95rem; color: #f2f4ea; outline: none;
+  padding: 0.75rem 1rem; font-size: 0.95rem; color: #ededee; outline: none;
 }
-.input:focus { border-color: #b6ff2e; box-shadow: 0 0 0 3px #b6ff2e22; }
-.light .input { background: #fff; border-color: #dfe6cc; color: #0a0a0a; }
-.light .input::placeholder { color: #8a9078; }
+.input:focus { border-color: #dcdddf; box-shadow: 0 0 0 3px #ffffff1a; }
+.light .input { background: #fff; border-color: #d6d6d3; color: #0a0a0a; }
+.light .input::placeholder { color: #8b8c90; }
 label.lbl { display: block; font-size: 0.78rem; color: #9a9a9a; margin-bottom: 0.3rem; }
-.light label.lbl { color: #3c4230; font-weight: 500; }
+.light label.lbl { color: #3a3b3f; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
