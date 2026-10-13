@@ -7,5 +7,9 @@ const service = process.env.SUPABASE_SERVICE_ROLE_KEY;
 export const hasSupabase = Boolean(url && anon);
 export const hasAdminDb = Boolean(url && service);
 
-export const supabaseAnon = () => (url && anon ? createClient(url, anon, { auth: { persistSession: false } }) : null);
-export const supabaseAdmin = () => (url && service ? createClient(url, service, { auth: { persistSession: false } }) : null);
+// Never let Next's data cache serve stale rows: content edits must show up immediately.
+const noStore: typeof fetch = (input, init) => fetch(input, { ...init, cache: "no-store" });
+const opts = { auth: { persistSession: false }, global: { fetch: noStore } };
+
+export const supabaseAnon = () => (url && anon ? createClient(url, anon, opts) : null);
+export const supabaseAdmin = () => (url && service ? createClient(url, service, opts) : null);
