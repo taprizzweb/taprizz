@@ -5,7 +5,7 @@ export const defaultContent: SiteContent = {
   settings: {
     brand: "Taprizz",
     whatsapp: "919672999166",
-    email: "hello@taprizz.com",
+    email: "taprizz.india@gmail.com",
     phone: "+91 96729 99166",
     city: "Jaipur, Rajasthan",
     upiId: "9672999166@fam",
