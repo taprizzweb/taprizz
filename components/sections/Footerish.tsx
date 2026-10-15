@@ -139,7 +139,7 @@ export function Footer({ c }: { c: SiteContent }) {
   const head = "mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-white";
   return (
     <footer className="bg-[#0a0a0a] px-5 pt-16 md:px-8">
-      <div className="mx-auto grid max-w-[1280px] gap-12 border-b border-white/10 pb-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-[1280px] gap-12 border-b border-white/10 pb-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
         <div>
           <img src="/logo-light.svg" alt={s.brand} className="h-14 w-auto" />
           <p className="mt-5 max-w-xs text-sm text-white/55">{f.tagline}</p>
@@ -153,6 +153,12 @@ export function Footer({ c }: { c: SiteContent }) {
           <p className={head}>Quick links</p>
           <ul className="space-y-3">
             {[["/#about", "About Taprizz"], ["/#plaque", "The Plaque"], ["/#demo", "Live Demo"], ["/#shop", "Shop"], ["/#plans", "Retainer Plans"], ["/#compare", "Compare"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+          </ul>
+        </nav>
+        <nav aria-label="Guides">
+          <p className={head}>Guides</p>
+          <ul className="space-y-3">
+            {[["/google-review-stand-jaipur", "Google review stand"], ["/ai-google-review-generator", "AI review generator"], ["/smart-qr-google-review", "Smart QR for reviews"], ["/review-plaque-for-cafes-jaipur", "For cafes"], ["/review-plaque-for-salons-jaipur", "For salons"], ["/nfc-vs-qr-review-plaque", "NFC vs QR"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
           </ul>
         </nav>
         <nav aria-label="Policies">
