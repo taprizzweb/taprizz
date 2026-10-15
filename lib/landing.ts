@@ -8,6 +8,7 @@ export type Landing = {
   keyword: string;
   sections: { h2: string; body: string; bullets?: string[] }[];
   faq: { q: string; a: string }[];
+  demoUrl?: string; // optional live-demo link shown under the hero
 };
 
 const CTA_NOTE = "Taprizz is built for premium businesses in Jaipur, Rajasthan.";
@@ -62,6 +63,36 @@ export const landings: Landing[] = [
     faq: [
       { q: "Are the reviews fake?", a: "No. The guest chooses what to say and posts it themselves. The AI only helps with wording." },
       { q: "Can I change the questions?", a: "Yes. Your retainer includes updates to questions and keywords." },
+    ],
+  },
+  {
+    slug: "gemini-google-review-generator",
+    title: "Gemini-Powered Google Review Generator | Taprizz",
+    description: "Taprizz uses Google's Gemini AI to help customers write genuine Google reviews in seconds. NFC + QR plaque for cafes, salons and stores in Jaipur. Try the live demo.",
+    h1: "Gemini-powered Google reviews: tap, answer, post",
+    lead: "Taprizz uses Google's Gemini AI to turn a guest's quick answers into a natural review draft they can edit and post to your Google listing. Try the live demo below.",
+    keyword: "gemini google reviews",
+    demoUrl: "https://reviews.taprizz.in/s/001",
+    sections: [
+      {
+        h2: "How Gemini helps your customers",
+        body: "Most people do not leave reviews because they do not know what to write. Gemini removes that problem.",
+        bullets: ["The guest taps the plaque or scans the QR code.", "They choose a few options about what they liked.", "Gemini drafts a readable review in natural language.", "The guest edits it if they want and posts it from their own Google account."],
+      },
+      {
+        h2: "Why this works for premium businesses",
+        body: "Reviews written from real answers read like real feedback, because they are. Each business gets its own review page with keywords and services tuned to what customers actually mention.",
+      },
+      {
+        h2: "Genuine and policy-friendly",
+        body: "The guest always reads, edits and posts their own review. Taprizz never posts on a customer's behalf and does not offer rewards for positive reviews, in line with Google's review policies.",
+      },
+      { h2: "Made in Jaipur", body: `${CTA_NOTE} We design the review page and the plaque for each venue.` },
+    ],
+    faq: [
+      { q: "Does Taprizz use Gemini?", a: "Yes. Taprizz uses Google's Gemini AI to help draft the review text from the guest's answers." },
+      { q: "Does the guest have to post what Gemini writes?", a: "No. They can edit or change the draft, and they post it themselves from their own Google account." },
+      { q: "Do customers need an app?", a: "No. The NFC tap or QR scan opens the review page in the phone's browser." },
     ],
   },
   {

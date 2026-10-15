@@ -158,7 +158,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <nav aria-label="Guides">
           <p className={head}>Guides</p>
           <ul className="space-y-3">
-            {[["/google-review-stand-jaipur", "Google review stand"], ["/ai-google-review-generator", "AI review generator"], ["/smart-qr-google-review", "Smart QR for reviews"], ["/review-plaque-for-cafes-jaipur", "For cafes"], ["/review-plaque-for-salons-jaipur", "For salons"], ["/nfc-vs-qr-review-plaque", "NFC vs QR"], ["/blog", "Blog"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+            {[["/google-review-stand-jaipur", "Google review stand"], ["/gemini-google-review-generator", "Gemini review generator"], ["/ai-google-review-generator", "AI review generator"], ["/smart-qr-google-review", "Smart QR for reviews"], ["/review-plaque-for-cafes-jaipur", "For cafes"], ["/review-plaque-for-salons-jaipur", "For salons"], ["/nfc-vs-qr-review-plaque", "NFC vs QR"], ["/blog", "Blog"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
           </ul>
         </nav>
         <nav aria-label="Policies">

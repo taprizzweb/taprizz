@@ -54,6 +54,7 @@ export default async function LandingPage({ params }: { params: { slug: string }
             <p className="mt-6 text-lg text-white/70">{l.lead}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a href={wa} className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300"><MessageCircle className="h-4 w-4" /> Talk to us on WhatsApp</a>
+              {l.demoUrl && <a href={l.demoUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full border border-lime-400 px-7 py-3.5 text-lime-400 transition hover:bg-lime-400 hover:text-black">Try the live demo <ArrowUpRight className="h-4 w-4" /></a>}
               <Link href="/#shop" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-white transition hover:border-lime-400 hover:text-lime-400">See plaques &amp; pricing <ArrowUpRight className="h-4 w-4" /></Link>
             </div>
           </div>
