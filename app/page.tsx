@@ -9,6 +9,7 @@ import { Comparison } from "@/components/sections/Comparison";
 import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
 import { About, Audience, Contact, Faq, Footer, Roadmap } from "@/components/sections/Footerish";
+import { buildJsonLd } from "@/lib/jsonld";
 import { SliceDivider } from "@/components/ui/SliceDivider";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,7 @@ export default async function Home() {
   const c = await getContent();
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(c)).replace(/</g, "\\u003c") }} />
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} />
       <CartDrawer />
       <Hero c={c} />

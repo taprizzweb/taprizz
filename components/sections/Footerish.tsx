@@ -75,7 +75,7 @@ export function Faq({ c }: { c: SiteContent }) {
               <button className="flex w-full items-center justify-between gap-4 p-5 text-left" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
                 <span className="text-lg font-semibold">{f.q}</span><ChevronDown className={`h-5 w-5 shrink-0 transition ${open === i ? "rotate-180" : ""}`} />
               </button>
-              {open === i && <p className="px-5 pb-5 text-black/60">{f.a}</p>}
+              <p hidden={open !== i} className="px-5 pb-5 text-black/60">{f.a}</p>
             </div>
           ))}
         </div>

@@ -8,7 +8,7 @@ export function VideoFrame({ src, label }: { src: string; label: string }) {
   if (v.type === "mp4") {
     const poster = v.url.startsWith("/videos/") ? v.url.replace(/\.mp4(\?.*)?$/i, ".jpg") : undefined;
     return (
-      <video src={v.url} poster={poster} controls playsInline preload="metadata" aria-label={label} className="mx-auto block max-h-[78vh] w-auto max-w-full rounded-[28px] border border-white/10 bg-black" />
+      <video src={v.url} poster={poster} controls playsInline preload={poster ? "none" : "metadata"} aria-label={label} className="mx-auto block max-h-[78vh] w-auto max-w-full rounded-[28px] border border-white/10 bg-black" />
     );
   }
   return (
