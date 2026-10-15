@@ -9,6 +9,7 @@ export function buildJsonLd(c: SiteContent) {
     "@type": ["Organization", "LocalBusiness"],
     "@id": `${SITE_URL}/#org`,
     name: s.brand,
+    alternateName: [`${s.brand}.in`, "Taprizz India", "Taprizz Jaipur"],
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
     image: `${SITE_URL}/plaques/graphite.png`,
@@ -38,6 +39,6 @@ export function buildJsonLd(c: SiteContent) {
     "@type": "FAQPage",
     mainEntity: c.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
-  const site = { "@type": "WebSite", "@id": `${SITE_URL}/#site`, url: SITE_URL, name: s.brand, publisher: { "@id": `${SITE_URL}/#org` }, inLanguage: "en-IN" };
+  const site = { "@type": "WebSite", "@id": `${SITE_URL}/#site`, url: SITE_URL, name: s.brand, alternateName: `${s.brand}.in`, publisher: { "@id": `${SITE_URL}/#org` }, inLanguage: "en-IN" };
   return { "@context": "https://schema.org", "@graph": [org, site, ...products, faq] };
 }
