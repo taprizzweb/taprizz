@@ -4,9 +4,7 @@ import type { SiteContent } from "./types";
 export const defaultContent: SiteContent = {
   settings: {
     brand: "Taprizz",
-    whatsapp: "919672999166",
     email: "taprizz.india@gmail.com",
-    phone: "+91 96729 99166",
     city: "Jaipur, Rajasthan",
     upiId: "9672999166@fam",
     upiName: "Taprizz",
@@ -177,7 +175,7 @@ export const defaultContent: SiteContent = {
     { q: "Do customers need to install an app?", a: "No. The NFC plaque opens your review page directly, and the QR code works with any camera." },
     { q: "What does the Plus Retainer warranty cover?", a: "For one year, we replace a plaque that breaks, gets damaged or has its print removed." },
     { q: "Can I pay on delivery?", a: "No. We accept online payment only, via UPI." },
-    { q: "How long does setup take?", a: "After payment is verified we design your page and dispatch your plaque. We'll confirm timing on WhatsApp." },
+    { q: "How long does setup take?", a: "After payment is verified we design your page and dispatch your plaque. We'll confirm timing with you on Instagram." },
     { q: "Can I change my review questions later?", a: "Yes. Your retainer includes updates to questions and keywords." },
   ],
   roadmap: {
@@ -187,7 +185,7 @@ export const defaultContent: SiteContent = {
       { name: "AI Review Engine", text: "NFC plaques with an AI-written review flow.", status: "Live" },
       { name: "AI Reputation Dashboard", text: "One view of ratings, sentiment and competitors.", status: "Coming soon" },
       { name: "AI Content for Instagram", text: "Posts, reels ideas and captions in your brand voice.", status: "Coming soon" },
-      { name: "AI WhatsApp Assistant", text: "Instant replies, bookings and follow-ups.", status: "Coming soon" },
+      { name: "AI Chat Assistant", text: "Instant replies, bookings and follow-ups.", status: "Coming soon" },
       { name: "Local SEO on Autopilot", text: "Rank higher for the searches your guests make.", status: "Coming soon" },
     ],
   },
@@ -225,7 +223,7 @@ We do not control Google's platform, ratings or review moderation and cannot gua
 We may update these terms from time to time; the version on this page is the current one. These terms are governed by the laws of India, and the courts at Jaipur, Rajasthan have jurisdiction.
 
 # 9. Contact
-Questions about these terms? Reach us on WhatsApp or by email using the details in the website footer.`,
+Questions about these terms? Reach us on Instagram (@taprizz.in) or by email using the details in the website footer.`,
     privacy: `# What we collect
 When you place an order or contact us we collect your name, business name, phone number, email address, delivery address, links you share (such as Instagram or Google Maps), design notes, and the UPI reference (UTR) number you submit. We do not see or store your UPI PIN or bank details.
 
@@ -245,18 +243,18 @@ We store your cart in your browser's local storage so it is still there when you
 You can ask us to access, correct or delete your information by contacting us. We may need to keep order records where the law requires.
 
 # Contact
-For any privacy question, message us on WhatsApp or email us using the details in the website footer.`,
+For any privacy question, message us on Instagram (@taprizz.in) or email us using the details in the website footer.`,
     refund: `# Payments
 All payments are made online by UPI. We do not offer cash on delivery.
 
 # Cancellation
-You can cancel an order before design work or dispatch begins. Contact us on WhatsApp with your order code and, once cancelled, we will refund the amount you paid to the original UPI account.
+You can cancel an order before design work or dispatch begins. Message us on Instagram (@taprizz.in) with your order code and, once cancelled, we will refund the amount you paid to the original UPI account.
 
 # Custom design
 Orders that include the Custom Design add-on cannot be cancelled once design work has started.
 
 # Damaged or incorrect items
-If your plaque arrives damaged or is not what you ordered, message us on WhatsApp with your order code and clear photos as soon as you receive it, and we will repair, replace or refund it.
+If your plaque arrives damaged or is not what you ordered, message us on Instagram (@taprizz.in) with your order code and clear photos as soon as you receive it, and we will repair, replace or refund it.
 
 # Plus plan warranty
 Plus Retainer customers get a 1-year replacement for plaques that break, get damaged or have their print removed, as described in our Terms.
@@ -265,10 +263,10 @@ Plus Retainer customers get a 1-year replacement for plaques that break, get dam
 Retainer plans are billed for the full period selected. If you wish to stop early, please talk to us; we will look at it case by case.
 
 # Shipping
-We dispatch after payment verification and design approval (where applicable). We will share tracking details on WhatsApp.
+We dispatch after payment verification and design approval (where applicable). We will share tracking details with you on Instagram.
 
 # Contact
-To raise a request, message us on WhatsApp or email us using the details in the website footer.`,
+To raise a request, message us on Instagram (@taprizz.in) or email us using the details in the website footer.`,
   },
   testimonialsNote: "",
 };

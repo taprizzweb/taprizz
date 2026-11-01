@@ -1,4 +1,4 @@
-import { getContent } from "@/lib/content";
+import { forPublic, getContent } from "@/lib/content";
 import { Navbar } from "@/components/Navbar";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Hero, Marquee } from "@/components/sections/Hero";
@@ -17,7 +17,7 @@ const INK = "#141517";
 const PAPER = "#f3f3f1";
 
 export default async function Home() {
-  const c = await getContent();
+  const c = forPublic(await getContent());
   return (
     <main>
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} />

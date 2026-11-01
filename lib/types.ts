@@ -27,9 +27,7 @@ export type Plan = {
 export type SiteContent = {
   settings: {
     brand: string;
-    whatsapp: string;
     email: string;
-    phone: string;
     city: string;
     upiId: string;
     upiName: string;

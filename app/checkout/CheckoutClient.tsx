@@ -2,14 +2,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
-import { CheckCircle2, Lock, MessageCircle, Smartphone } from "lucide-react";
+import { CheckCircle2, Lock, Smartphone } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { inr, months } from "@/lib/format";
 import type { SiteContent } from "@/lib/types";
 
 type Step = "details" | "pay" | "done";
 
-export function CheckoutClient({ settings }: { settings: SiteContent["settings"] }) {
+export function CheckoutClient({ settings, footer }: { settings: SiteContent["settings"]; footer: SiteContent["footer"] }) {
   const { lines, subtotal, clear, setQty, remove } = useCart();
   const [step, setStep] = useState<Step>("details");
   const [err, setErr] = useState("");
@@ -46,7 +46,7 @@ export function CheckoutClient({ settings }: { settings: SiteContent["settings"]
   }
 
   const upi = order ? `upi://pay?pa=${encodeURIComponent(settings.upiId)}&pn=${encodeURIComponent(settings.upiName)}&am=${order.total}&cu=INR&tn=${order.code}` : "";
-  const wa = order ? `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hi Taprizz, I paid ${inr(order.total)} for order ${order.code}. UTR: ${utr || "-"}`)}` : "";
+  const dm = `https://ig.me/m/${footer.instagramHandle.replace(/^@/, "")}`;
 
   return (
     <main className="mx-auto min-h-screen max-w-5xl px-4 py-10">
@@ -59,9 +59,10 @@ export function CheckoutClient({ settings }: { settings: SiteContent["settings"]
         <div className="mt-16 text-center">
           <CheckCircle2 className="mx-auto h-16 w-16 text-emerald-400" />
           <h1 className="mt-4 font-serif text-4xl">Thank you{customerName ? `, ${customerName.split(" ")[0]}` : ""}!</h1>
-          <p className="mt-3 text-white/60">Order <b className="text-gold-300">{order.code}</b> received. We will verify your payment and confirm on WhatsApp.</p>
-          {!order.saved && <p className="mt-3 text-sm text-amber-400">Please send us your order code on WhatsApp so we can confirm it.</p>}
-          <a href={wa} className="shimmer-btn animate-shimmer mt-8 inline-flex items-center gap-2 rounded-full px-8 py-3 font-semibold text-black"><MessageCircle className="h-5 w-5" /> Message us on WhatsApp</a>
+          <p className="mt-3 text-white/60">Order <b className="text-gold-300">{order.code}</b> received. We will verify your payment and confirm with you on Instagram.</p>
+          {!order.saved && <p className="mt-3 text-sm text-amber-400">Please DM us your order code on Instagram so we can confirm it.</p>}
+          <p className="mt-4 text-sm text-white/50">Quote your order code <b className="text-gold-300">{order.code}</b> and UTR <b className="text-gold-300">{utr}</b> when you message us.</p>
+          <a href={dm} target="_blank" rel="noopener noreferrer" className="shimmer-btn animate-shimmer mt-6 inline-flex items-center gap-2 rounded-full px-8 py-3 font-semibold text-black">Message us on Instagram {footer.instagramHandle}</a>
         </div>
       )}
 
@@ -75,7 +76,7 @@ export function CheckoutClient({ settings }: { settings: SiteContent["settings"]
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div><label className="lbl" htmlFor="name">Full name *</label><input id="name" name="name" required autoComplete="name" className="input" /></div>
                   <div><label className="lbl" htmlFor="business">Business name *</label><input id="business" name="business" required className="input" /></div>
-                  <div><label className="lbl" htmlFor="phone">Phone / WhatsApp *</label><input id="phone" name="phone" required inputMode="tel" autoComplete="tel" className="input" /></div>
+                  <div><label className="lbl" htmlFor="phone">Phone number *</label><input id="phone" name="phone" required inputMode="tel" autoComplete="tel" className="input" /></div>
                   <div><label className="lbl" htmlFor="email">Email *</label><input id="email" name="email" type="email" required autoComplete="email" className="input" /></div>
                 </div>
                 <div><label className="lbl" htmlFor="address">Delivery address *</label><textarea id="address" name="address" rows={2} required className="input" /></div>
@@ -97,10 +98,10 @@ export function CheckoutClient({ settings }: { settings: SiteContent["settings"]
                 <div className="flex flex-col items-center gap-4 rounded-2xl bg-white/5 p-6 sm:flex-row sm:items-start">
                   <div className="rounded-2xl bg-white p-3"><QRCodeSVG value={upi} size={190} /></div>
                   <div className="text-sm text-white/70">
-                    <p>UPI ID</p><p className="font-mono text-lg text-gold-300 break-all">{settings.upiId}</p>
+                    <p>Pay to</p><p className="text-lg font-semibold text-gold-300">{settings.upiName}</p>
                     <p className="mt-3">Amount</p><p className="font-serif text-2xl text-gold-300">{inr(order.total)}</p>
                     <a href={upi} className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold-400/50 px-4 py-2 text-gold-300 sm:hidden"><Smartphone className="h-4 w-4" /> Open UPI app</a>
-                    <p className="mt-3 text-xs text-white/40">Scan with any UPI app. Keep the amount exactly as shown.</p>
+                    <p className="mt-3 text-xs text-white/40">Scan with any UPI app and check the name shows as {settings.upiName}. Keep the amount exactly as shown.</p>
                   </div>
                 </div>
                 <div>

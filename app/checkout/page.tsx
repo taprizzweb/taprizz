@@ -5,5 +5,5 @@ export const dynamic = "force-dynamic";
 
 export default async function CheckoutPage() {
   const c = await getContent();
-  return <CheckoutClient settings={c.settings} />;
+  return <CheckoutClient settings={c.settings} footer={c.footer} />;
 }

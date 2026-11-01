@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getContent } from "@/lib/content";
+import { forPublic, getContent } from "@/lib/content";
 import { Footer } from "@/components/sections/Footerish";
 
 export async function LegalPage({ title, field }: { title: string; field: "terms" | "privacy" | "refund" }) {
-  const c = await getContent();
+  const c = forPublic(await getContent());
   const blocks = c.legal[field].split(/\n\n+/);
   return (
     <>
