@@ -2,12 +2,17 @@
 
 // Businesses that use Taprizz. To add, change or remove one, edit this list. Logos live in public/clients.
 // An address is only filled in when we have it from the business itself; otherwise just the city shows.
-export const CLIENTS = [
-  { name: "Coffeekaart", slug: "coffeekaart", logo: "/clients/coffeekaart.webp", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
-  { name: "SKY BEACH", slug: "skybeach", logo: "/clients/skybeach.webp", addresses: ["Vaishali Nagar, Jaipur"] },
-  { name: "Jaipur Polo Club", slug: "jaipur-polo", logo: "/clients/jaipur-polo.webp", addresses: ["Jaipur, Rajasthan"] },
-  { name: "Green Feast", slug: "greenfeast", logo: "/clients/greenfeast.webp", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
-  { name: "Nothing Before Coffee", slug: "nbc", logo: "/clients/nbc.webp", addresses: ["Outlets across Jaipur"] },
+export const CATEGORIES = [
+  { id: "cafe", label: "Cafes & Restaurants", one: "cafe or restaurant" },
+  { id: "salon", label: "Salons & Spas", one: "salon or spa" },
+  { id: "hotel", label: "Hotels", one: "hotel" },
+  { id: "gym", label: "Gyms", one: "gym" },
+] as const;
+export type CategoryId = (typeof CATEGORIES)[number]["id"];
+
+export const CLIENTS: { name: string; slug: string; logo: string; category: CategoryId; addresses: string[] }[] = [
+  { name: "Coffeekaart", slug: "coffeekaart", logo: "/clients/coffeekaart.webp", category: "cafe", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
+  { name: "Green Feast", slug: "greenfeast", logo: "/clients/greenfeast.webp", category: "cafe", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
 ];
 
 // Questions an owner asks before booking. They are shown first in the FAQ.

@@ -4,19 +4,20 @@ import { ArrowUpRight, Check, MapPin } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import { InstagramIcon, igDm } from "@/components/sections/Footerish";
-import { CLIENTS } from "@/lib/home-data";
+import { CATEGORIES, CLIENTS, type CategoryId } from "@/lib/home-data";
 
 /* ------------------------------------------------------------------ partners */
 const miniUrl = (slug: string) => `https://link.taprizz.in/${slug}`;
 
-// A thin row at the very top of the page: logo and name of every partner, sliding slowly.
+// A thin row at the very top of the page: logo and name of every partner. It slides when there are many; with a few it just stands still.
 export function ClientsMarquee() {
-  const row = [...CLIENTS, ...CLIENTS, ...CLIENTS];
+  const slide = CLIENTS.length >= 5;
+  const row = slide ? [...CLIENTS, ...CLIENTS, ...CLIENTS] : CLIENTS;
   return (
     <div className="flex items-center gap-4 overflow-hidden px-5 md:px-8">
       <p className="hidden shrink-0 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55 sm:block">Working with Taprizz</p>
-      <div className="min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]">
-        <ul className="flex w-max animate-marquee items-center gap-8 hover:[animation-play-state:paused]">
+      <div className={`min-w-0 flex-1 overflow-hidden ${slide ? "[mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]" : ""}`}>
+        <ul className={`flex items-center gap-8 ${slide ? "w-max animate-marquee hover:[animation-play-state:paused]" : "flex-wrap"}`}>
           {row.map((c, i) => (
             <li key={`${c.slug}-${i}`} aria-hidden={i >= CLIENTS.length || undefined}>
               <a href="#partners" tabIndex={i >= CLIENTS.length ? -1 : undefined} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-white/85 transition hover:text-white">
@@ -32,30 +33,52 @@ export function ClientsMarquee() {
   );
 }
 
+const mapsUrl = (name: string, address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${address.replace(/^[^:]*:\s*/, "")}`)}`;
+
 export function Partners() {
+  const [cat, setCat] = useState<"all" | CategoryId>("all");
+  const shown = cat === "all" ? CLIENTS : CLIENTS.filter((c) => c.category === cat);
+  const count = (id: CategoryId) => CLIENTS.filter((c) => c.category === id).length;
+  const chip = (on: boolean) => `rounded-full border px-5 py-2.5 text-sm font-semibold transition ${on ? "border-black bg-black text-white" : "border-black/20 bg-white hover:border-black/50"}`;
+  const catLabel = (id: CategoryId) => CATEGORIES.find((x) => x.id === id)!.label;
   return (
     <section id="partners" className="grid-light scroll-mt-20 px-5 py-20 text-ink md:px-8 md:py-28">
       <div className="mx-auto max-w-[1280px]">
-        <SectionHead light title="Our partners in Jaipur" subtitle="Real businesses already using Taprizz. Tap a card to open their mini page." />
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {CLIENTS.map((c, i) => (
-            <Reveal key={c.slug} delay={i * 0.05} className="h-full">
-              <li className="list-none">
-                <a href={miniUrl(c.slug)} target="_blank" rel="noopener noreferrer" className="group flex h-full gap-5 rounded-[26px] border border-black/10 bg-white p-5 transition hover:-translate-y-1 hover:border-black/30 hover:shadow-xl md:p-6">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={c.logo} alt={`${c.name} logo`} width={120} height={120} loading="lazy" className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain md:h-28 md:w-28" />
-                  <div className="flex min-w-0 flex-1 flex-col">
-                    <h3 className="text-2xl leading-tight md:text-3xl">{c.name}</h3>
-                    <ul className="mt-2 space-y-1.5">
-                      {c.addresses.map((a) => (<li key={a} className="flex gap-1.5 text-sm text-black/60"><MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" /><span>{a}</span></li>))}
-                    </ul>
-                    <span className="mt-auto flex items-center gap-1 pt-4 text-sm font-semibold break-all">link.taprizz.in/{c.slug}<ArrowUpRight className="h-4 w-4 shrink-0 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
+        <SectionHead light title="Our partners in Jaipur" subtitle="Real businesses already using Taprizz. See all of them, or pick a category. Tap a card to open their mini page." />
+        <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Partner categories">
+          <button type="button" aria-pressed={cat === "all"} onClick={() => setCat("all")} className={chip(cat === "all")}>All <span className="ml-1 opacity-60">{CLIENTS.length}</span></button>
+          {CATEGORIES.map((c) => (<button type="button" key={c.id} aria-pressed={cat === c.id} onClick={() => setCat(c.id)} className={chip(cat === c.id)}>{c.label} <span className="ml-1 opacity-60">{count(c.id)}</span></button>))}
+        </div>
+        {shown.length === 0 ? (
+          <div className="rounded-[26px] border border-dashed border-black/25 bg-white/60 p-8 md:p-12">
+            <p className="text-2xl font-semibold md:text-3xl">No {CATEGORIES.find((x) => x.id === cat)?.one} partner here yet.</p>
+            <p className="mt-2 max-w-xl text-black/60">Be the first {CATEGORIES.find((x) => x.id === cat)?.one} in Jaipur on Taprizz. Your logo, name and address will show here.</p>
+            <a href="#book" className="mt-6 inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 font-semibold text-white transition hover:bg-black/85">Book a meeting <ArrowUpRight className="h-4 w-4" /></a>
+          </div>
+        ) : (
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {shown.map((c) => (
+              <li key={c.slug} className="list-none">
+                <article className="flex h-full flex-col rounded-[26px] border border-black/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
+                  <div className="flex items-center gap-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={c.logo} alt={`${c.name} logo`} width={120} height={120} loading="lazy" className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain" />
+                    <div className="min-w-0">
+                      <span className="rounded-full bg-black/[0.06] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/60">{catLabel(c.category)}</span>
+                      <h3 className="mt-2 text-2xl leading-tight md:text-3xl">{c.name}</h3>
+                    </div>
                   </div>
-                </a>
+                  <ul className="mt-5 space-y-2.5">
+                    {c.addresses.map((a) => (
+                      <li key={a}><a href={mapsUrl(c.name, a)} target="_blank" rel="noopener noreferrer" className="flex gap-2 text-sm text-black/65 transition hover:text-black"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span>{a}</span></a></li>
+                    ))}
+                  </ul>
+                  <a href={miniUrl(c.slug)} target="_blank" rel="noopener noreferrer" className="mt-auto flex w-fit items-center gap-1.5 pt-6 text-sm font-semibold break-all underline-offset-4 hover:underline">link.taprizz.in/{c.slug}<ArrowUpRight className="h-4 w-4 shrink-0" /></a>
+                </article>
               </li>
-            </Reveal>
-          ))}
-        </ul>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );
@@ -180,7 +203,12 @@ const NETWORK = [
 ];
 
 export function GulabiNetwork() {
-  const nodes = CLIENTS.map((c, i) => { const a = ((i * 360) / CLIENTS.length - 90) * (Math.PI / 180); return { ...c, x: 50 + 37 * Math.cos(a), y: 50 + 37 * Math.sin(a) }; });
+  const slots = Math.max(5, CLIENTS.length + 1);
+  const nodes = Array.from({ length: slots }, (_, i) => {
+    const a = ((i * 360) / slots - 90) * (Math.PI / 180);
+    const c = CLIENTS[i];
+    return { key: c?.slug ?? `open-${i}`, name: c?.name ?? "Your business", logo: c?.logo ?? null, x: 50 + 37 * Math.cos(a), y: 50 + 37 * Math.sin(a) };
+  });
   return (
     <section id="gulabi" className="scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#1f0d14] to-black px-5 py-20 text-white md:px-8 md:py-28">
       <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -206,14 +234,18 @@ export function GulabiNetwork() {
         <Reveal delay={0.1}>
           <div className="relative mx-auto aspect-square w-full max-w-[440px]" role="img" aria-label="Partners connected through Gulabi Nagri">
             <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden>
-              {nodes.map((n) => (<line key={n.slug} x1="50" y1="50" x2={n.x} y2={n.y} stroke="rgba(253,205,220,0.35)" strokeWidth="0.4" strokeDasharray="1.2 1.2" />))}
+              {nodes.map((n) => (<line key={n.key} x1="50" y1="50" x2={n.x} y2={n.y} stroke="rgba(253,205,220,0.35)" strokeWidth="0.4" strokeDasharray="1.2 1.2" />))}
             </svg>
             <div className="absolute left-1/2 top-1/2 grid h-[26%] w-[26%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-rose-200 text-center text-[#1f0d14] shadow-[0_0_60px_rgba(253,205,220,0.35)]"><span className="text-[11px] font-bold leading-tight md:text-sm">Gulabi<br />Nagri</span></div>
             {nodes.map((n) => (
-              <div key={n.slug} className="absolute -translate-x-1/2 -translate-y-1/2 text-center" style={{ left: `${n.x}%`, top: `${n.y}%`, width: "19%" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={n.logo} alt={`${n.name} logo`} width={80} height={80} loading="lazy" className="mx-auto aspect-square w-full rounded-full bg-white object-contain p-1 shadow-lg" />
-                <p className="mt-1 text-[10px] font-medium leading-tight text-white/75 md:text-xs">{n.name}</p>
+              <div key={n.key} className="absolute -translate-x-1/2 -translate-y-1/2 text-center" style={{ left: `${n.x}%`, top: `${n.y}%`, width: "19%" }}>
+                {n.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={n.logo} alt={`${n.name} logo`} width={80} height={80} loading="lazy" className="mx-auto aspect-square w-full rounded-full bg-white object-contain p-1 shadow-lg" />
+                ) : (
+                  <a href="#book" aria-label="Join the Gulabi Nagri network" className="mx-auto grid aspect-square w-full place-items-center rounded-full border-2 border-dashed border-rose-200/50 text-lg text-rose-200/70 transition hover:border-rose-200 hover:text-rose-100">+</a>
+                )}
+                <p className={`mt-1 text-[10px] font-medium leading-tight md:text-xs ${n.logo ? "text-white/75" : "text-white/40"}`}>{n.name}</p>
               </div>
             ))}
           </div>
