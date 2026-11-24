@@ -33,6 +33,18 @@ export function InstagramIcon({ className = "" }: { className?: string }) {
   );
 }
 
+export function WhatsAppIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.25-1.5A9.93 9.93 0 1 0 12.04 2Zm0 18.1c-1.5 0-2.97-.4-4.25-1.17l-.3-.18-3.1.89.9-3.02-.2-.31A8.1 8.1 0 1 1 12.04 20.1Zm4.45-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06a6.6 6.6 0 0 1-1.94-1.2 7.3 7.3 0 0 1-1.34-1.67c-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.1 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z" />
+    </svg>
+  );
+}
+
+// wa.me opens a WhatsApp chat with the business number, with the message already typed.
+export const waLink = (number: string, text: string) => `https://wa.me/${number.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+export const waShow = (number: string) => { const d = number.replace(/\D/g, ""); return d.length === 12 && d.startsWith("91") ? `+91 ${d.slice(2, 7)} ${d.slice(7)}` : `+${d}`; };
+
 // ig.me opens a direct message thread with the profile.
 export const igDm = (f: SiteContent["footer"]) => `https://ig.me/m/${f.instagramHandle.replace(/^@/, "")}`;
 
@@ -69,6 +81,7 @@ export function Footer({ c }: { c: SiteContent }) {
           <ul className="space-y-3">
             <li><a href="/#contact" className={col}>Contact us</a></li>
             <li><a href="/#contact" className={col}>FAQ</a></li>
+            {s.whatsapp && <li><a href={waLink(s.whatsapp, "Hi Taprizz, I found you on your website.")} target="_blank" rel="noopener noreferrer" className={`${col} flex items-center gap-2`}><WhatsAppIcon className="h-4 w-4" />WhatsApp {waShow(s.whatsapp)}</a></li>}
             <li><a href={igDm(f)} target="_blank" rel="noopener noreferrer" className={`${col} flex items-center gap-2`}><InstagramIcon className="h-4 w-4" />DM {f.instagramHandle}</a></li>
             <li><a href={`mailto:${s.email}`} className={`${col} flex items-center gap-2`}><Mail className="h-4 w-4" />{s.email}</a></li>
             <li className="flex items-center gap-2 text-sm text-white/55"><MapPin className="h-4 w-4 shrink-0" />{s.city}</li>
@@ -79,7 +92,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <p>© {new Date().getFullYear()} {s.brand}. All rights reserved. Made in Jaipur.</p>
         <p className="mt-4"><b className="text-white/60">Disclaimer:</b> {f.disclaimer}</p>
       </div>
-      <a href={igDm(f)} target="_blank" rel="noopener noreferrer" aria-label={`Message us on Instagram ${f.instagramHandle}`} className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white shadow-xl transition hover:scale-110"><InstagramIcon className="h-7 w-7" /></a>
+      {s.whatsapp && <a href={waLink(s.whatsapp, "Hi Taprizz, I found you on your website.")} target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:scale-110"><WhatsAppIcon className="h-8 w-8" /></a>}
     </footer>
   );
 }

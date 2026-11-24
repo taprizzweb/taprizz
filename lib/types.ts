@@ -18,6 +18,7 @@ export type Partner = {
   image: string; // logo
   category: "cafe" | "salon" | "hotel" | "gym" | "clinic";
   addresses: string[];
+  about?: string; // one short line that helps people recognise the business
 };
 
 export type Addon = { id: string; name: string; description: string; price: number; active: boolean };
@@ -39,6 +40,7 @@ export type SiteContent = {
     city: string;
     upiId: string;
     upiName: string;
+    whatsapp: string; // digits with country code, for wa.me links, e.g. 919672999166
     announcement: string;
   };
   hero: { eyebrow: string; title: string; highlight: string; subtitle: string; cta: string; stats: { value: string; label: string }[] };

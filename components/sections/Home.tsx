@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, Check, MapPin } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
-import { InstagramIcon, igDm } from "@/components/sections/Footerish";
+import { InstagramIcon, WhatsAppIcon, igDm, waLink, waShow } from "@/components/sections/Footerish";
 import type { Partner } from "@/lib/types";
 import { CATEGORIES, type CategoryId } from "@/lib/home-data";
 
@@ -69,6 +69,7 @@ export function Partners({ partners }: { partners: Partner[] }) {
                       <h3 className="mt-2 text-2xl leading-tight md:text-3xl">{c.name}</h3>
                     </div>
                   </div>
+                  {c.about && <p className="mt-4 text-[15px] leading-snug text-black/70">{c.about}</p>}
                   <ul className="mt-5 space-y-2.5">
                     {c.addresses.map((a) => (
                       <li key={a}><a href={mapsUrl(c.name, a)} target="_blank" rel="noopener noreferrer" className="flex gap-2 text-sm text-black/65 transition hover:text-black"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span>{a}</span></a></li>
@@ -270,6 +271,7 @@ function nextDays(): Day[] {
 
 export function BookMeeting({ c }: { c: SiteContent }) {
   const dm = igDm(c.footer);
+  const wa = c.settings.whatsapp;
   const [days, setDays] = useState<Day[]>([]);
   const [day, setDay] = useState<Day | null>(null);
   const [slot, setSlot] = useState(SLOTS[1]);
@@ -294,6 +296,7 @@ export function BookMeeting({ c }: { c: SiteContent }) {
         <div>
           <h2 className="text-6xl md:text-8xl">Book a meeting.</h2>
           <p className="mt-6 max-w-md text-lg text-black/60">Pick a day and a time. No forms, no phone number. About 20 minutes on a real phone, and we will also look at how your business shows up on Google today.</p>
+          {wa && <a href={waLink(wa, "Hi Taprizz, I would like to know more.")} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-3 rounded-full bg-[#25D366] px-7 py-4 font-semibold text-white transition hover:brightness-95"><WhatsAppIcon className="h-5 w-5" /> Chat on WhatsApp {waShow(wa)}</a>}
           <ul className="mt-6 space-y-2 text-black/70">
             {["The Taprizz App and the AI Review QR plaque", "Gulabi Nagri and the Jaipur network", "How to use it with your existing POS"].map((t) => (<li key={t} className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0" />{t}</li>))}
           </ul>
@@ -302,8 +305,11 @@ export function BookMeeting({ c }: { c: SiteContent }) {
           {state === "done" ? (
             <div role="status">
               <p className="text-2xl font-semibold">Your slot is noted: {day?.label}, {slot}.</p>
-              <p className="mt-2 text-black/60">One last step: message us on Instagram so we can confirm it with you. Without a message we cannot reach you.</p>
-              <a href={dm} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 font-semibold text-white transition hover:bg-black/85"><InstagramIcon className="h-5 w-5" /> Message us on Instagram</a>
+              <p className="mt-2 text-black/60">One last step: send us the message on WhatsApp or Instagram so we can confirm it with you. Without a message we cannot reach you.</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {wa && <a href={waLink(wa, `Hi Taprizz, I booked a meeting for ${day?.label}, ${slot} (${want}).`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 rounded-full bg-[#25D366] px-7 py-4 font-semibold text-white transition hover:brightness-95"><WhatsAppIcon className="h-5 w-5" /> Confirm on WhatsApp</a>}
+                <a href={dm} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 font-semibold text-white transition hover:bg-black/85"><InstagramIcon className="h-5 w-5" /> Or on Instagram</a>
+              </div>
             </div>
           ) : (
             <div className="space-y-6">
@@ -312,7 +318,7 @@ export function BookMeeting({ c }: { c: SiteContent }) {
               <fieldset><legend className="lbl">Pick a time</legend><div className="flex flex-wrap gap-2">{SLOTS.map((s) => (<button type="button" key={s} aria-pressed={slot === s} onClick={() => setSlot(s)} className={chip(slot === s)}>{s}</button>))}</div></fieldset>
               <button type="button" onClick={book} disabled={!day || state === "sending"} className="inline-flex items-center gap-2 rounded-full bg-black px-8 py-4 font-semibold text-white transition hover:bg-black/85 disabled:opacity-60">{state === "sending" ? "Booking…" : "Book this slot"}</button>
               {state === "err" && <p role="alert" className="text-sm text-red-600">Could not save the slot. Please message us on Instagram instead.</p>}
-              <p className="text-sm text-black/50">After booking, we will ask you to message us on Instagram to confirm.</p>
+              <p className="text-sm text-black/50">After booking, you send us one message on WhatsApp or Instagram, and we confirm.</p>
             </div>
           )}
         </div>

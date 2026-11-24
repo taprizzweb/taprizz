@@ -8,6 +8,7 @@ export const defaultContent: SiteContent = {
     city: "Jaipur, Rajasthan",
     upiId: "9672999166@fam",
     upiName: "Taprizz",
+    whatsapp: "919672999166",
     announcement: "Now onboarding a limited number of businesses in Jaipur",
   },
   hero: {
@@ -20,13 +21,13 @@ export const defaultContent: SiteContent = {
     stats: [],
   },
   partners: [
-    { name: "Coffeekaart", slug: "coffeekaart", image: "/clients/coffeekaart.webp", category: "cafe", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
-    { name: "Green Feast", slug: "greenfeast", image: "/clients/greenfeast.webp", category: "cafe", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
-    { name: "The Tattoo Cafe & Lounge", slug: "", image: "/clients/tattoo.webp", category: "cafe", addresses: ["Opposite Hawa Mahal, Jaipur"] },
-    { name: "Jaipur Vista", slug: "", image: "/clients/jaipurvista.webp", category: "cafe", addresses: ["Opposite Hawa Mahal, Jaipur"] },
-    { name: "24 Society Salon & Wellness", slug: "", image: "/clients/24society.webp", category: "salon", addresses: ["Jaipur"] },
-    { name: "Chitra Katha", slug: "", image: "/clients/chitrakatha.webp", category: "hotel", addresses: ["Homestay, Jaipur"] },
-    { name: "NG Ayurveda", slug: "", image: "/clients/ngayurveda.webp", category: "clinic", addresses: ["Ayurvedic clinic, Jaipur"] },
+    { name: "Coffeekaart", slug: "coffeekaart", image: "/clients/coffeekaart.webp", category: "cafe", about: "A coffee cafe by Batra's Takeaway Corner, with outlets at Raja Park and Gandhi Nagar.", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
+    { name: "Green Feast", slug: "greenfeast", image: "/clients/greenfeast.webp", category: "cafe", about: "Healthy food and fresh exotic fruits and veggies, with a subscription option.", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
+    { name: "The Tattoo Cafe & Lounge", slug: "", image: "/clients/tattoo.webp", category: "cafe", about: "A cafe and lounge with a view of Hawa Mahal.", addresses: ["3rd Floor, 30, Opposite Hawa Mahal, Hawa Mahal Road, Jaipur 302002"] },
+    { name: "Jaipur Vista", slug: "", image: "/clients/jaipurvista.webp", category: "cafe", about: "A cafe with a view, opposite Hawa Mahal.", addresses: ["Opposite Hawa Mahal, Jaipur"] },
+    { name: "24 Society Salon & Wellness", slug: "", image: "/clients/24society.webp", category: "salon", about: "A salon and wellness studio in Jaipur.", addresses: ["Jaipur"] },
+    { name: "Chitra Katha", slug: "", image: "/clients/chitrakatha.webp", category: "hotel", about: "A homestay in Jaipur: a story per stay.", addresses: ["60 Hathroi Fort, Hari Kishan Somani Marg, Ajmer Road, Jaipur 302001"] },
+    { name: "NG Ayurveda", slug: "", image: "/clients/ngayurveda.webp", category: "clinic", about: "An Ayurvedic clinic in Jaipur.", addresses: ["Jaipur"] },
   ],
   // The old plaque catalog and retainer plans were removed. A new catalog is added from Admin when it is ready.
   products: [],
