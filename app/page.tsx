@@ -18,10 +18,10 @@ export default async function Home() {
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} shop={c.products.some((p) => p.active)} />
       <CartDrawer />
       <Hero c={c} />
-      <Partners />
+      <Partners partners={c.partners} />
       <Products />
       <Advantages />
-      <GulabiNetwork />
+      <GulabiNetwork partners={c.partners} />
       <BookMeeting c={c} />
       <Shop c={c} />
       <Plans c={c} />

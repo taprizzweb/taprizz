@@ -14,14 +14,16 @@ const normalize = (raw: SiteContent): SiteContent => {
   const c = { ...raw } as SiteContent;
   for (const k of REFRESH_IF_STALE) if (mentionsRetiredContact(c[k])) (c as Record<string, unknown>)[k] = defaultContent[k];
   if (c.hero?.title === OLD_HERO_TITLE) c.hero = defaultContent.hero;
+  c.footer = { ...defaultContent.footer, ...c.footer }; // a saved footer may hold only some fields
   if (c.footer?.tagline === OLD_FOOTER_TAGLINE) c.footer = { ...c.footer, tagline: defaultContent.footer.tagline };
-  const settings = { ...c.settings } as SiteContent["settings"] & { phone?: string; whatsapp?: string };
+  const settings = { ...defaultContent.settings, ...c.settings } as SiteContent["settings"] & { phone?: string; whatsapp?: string };
   delete settings.phone;
   delete settings.whatsapp;
   if (mentionsRetiredContact(settings.announcement)) settings.announcement = defaultContent.settings.announcement;
   return {
   ...c,
   settings,
+  partners: Array.isArray(c.partners) ? c.partners.filter((p) => p?.name && p?.slug).map((p) => ({ ...p, addresses: Array.isArray(p.addresses) ? p.addresses.filter(Boolean) : [] })) : defaultContent.partners,
   products: (c.products ?? []).map((p) => ({ ...p, salePrice: p.salePrice ?? 0 })),
   };
 };

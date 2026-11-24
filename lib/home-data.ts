@@ -1,7 +1,5 @@
 // Plain data for the home page. It lives outside the client components so the server page can read it too.
 
-// Businesses that use Taprizz. To add, change or remove one, edit this list. Logos live in public/clients.
-// An address is only filled in when we have it from the business itself; otherwise just the city shows.
 export const CATEGORIES = [
   { id: "cafe", label: "Cafes & Restaurants", one: "cafe or restaurant" },
   { id: "salon", label: "Salons & Spas", one: "salon or spa" },
@@ -9,11 +7,6 @@ export const CATEGORIES = [
   { id: "gym", label: "Gyms", one: "gym" },
 ] as const;
 export type CategoryId = (typeof CATEGORIES)[number]["id"];
-
-export const CLIENTS: { name: string; slug: string; logo: string; category: CategoryId; addresses: string[] }[] = [
-  { name: "Coffeekaart", slug: "coffeekaart", logo: "/clients/coffeekaart.webp", category: "cafe", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
-  { name: "Green Feast", slug: "greenfeast", logo: "/clients/greenfeast.webp", category: "cafe", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
-];
 
 // Questions an owner asks before booking. They are shown first in the FAQ.
 export const OWNER_QA = [

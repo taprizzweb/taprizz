@@ -19,6 +19,10 @@ export const defaultContent: SiteContent = {
     cta: "Book a meeting",
     stats: [],
   },
+  partners: [
+    { name: "Coffeekaart", slug: "coffeekaart", image: "/clients/coffeekaart.webp", category: "cafe", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
+    { name: "Green Feast", slug: "greenfeast", image: "/clients/greenfeast.webp", category: "cafe", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
+  ],
   // The old plaque catalog and retainer plans were removed. A new catalog is added from Admin when it is ready.
   products: [],
   addons: [],

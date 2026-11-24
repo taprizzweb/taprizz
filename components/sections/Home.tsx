@@ -4,25 +4,26 @@ import { ArrowUpRight, Check, MapPin } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import { InstagramIcon, igDm } from "@/components/sections/Footerish";
-import { CATEGORIES, CLIENTS, type CategoryId } from "@/lib/home-data";
+import type { Partner } from "@/lib/types";
+import { CATEGORIES, type CategoryId } from "@/lib/home-data";
 
 /* ------------------------------------------------------------------ partners */
 const miniUrl = (slug: string) => `https://link.taprizz.in/${slug}`;
 
 // A thin row at the very top of the page: logo and name of every partner. It slides when there are many; with a few it just stands still.
-export function ClientsMarquee() {
-  const slide = CLIENTS.length >= 5;
-  const row = slide ? [...CLIENTS, ...CLIENTS, ...CLIENTS] : CLIENTS;
+export function ClientsMarquee({ partners }: { partners: Partner[] }) {
+  const slide = partners.length >= 5;
+  const row = slide ? [...partners, ...partners, ...partners] : partners;
   return (
     <div className="flex items-center gap-4 overflow-hidden px-5 md:px-8">
       <p className="hidden shrink-0 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55 sm:block">Working with Taprizz</p>
       <div className={`min-w-0 flex-1 overflow-hidden ${slide ? "[mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]" : ""}`}>
         <ul className={`flex items-center gap-8 ${slide ? "w-max animate-marquee hover:[animation-play-state:paused]" : "flex-wrap"}`}>
           {row.map((c, i) => (
-            <li key={`${c.slug}-${i}`} aria-hidden={i >= CLIENTS.length || undefined}>
-              <a href="#partners" tabIndex={i >= CLIENTS.length ? -1 : undefined} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-white/85 transition hover:text-white">
+            <li key={`${c.slug}-${i}`} aria-hidden={i >= partners.length || undefined}>
+              <a href="#partners" tabIndex={i >= partners.length ? -1 : undefined} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-white/85 transition hover:text-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.logo} alt={i < CLIENTS.length ? `${c.name} logo` : ""} width={40} height={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
+                <img src={c.image} alt={i < partners.length ? `${c.name} logo` : ""} width={40} height={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
                 {c.name}
               </a>
             </li>
@@ -35,10 +36,10 @@ export function ClientsMarquee() {
 
 const mapsUrl = (name: string, address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${address.replace(/^[^:]*:\s*/, "")}`)}`;
 
-export function Partners() {
+export function Partners({ partners }: { partners: Partner[] }) {
   const [cat, setCat] = useState<"all" | CategoryId>("all");
-  const shown = cat === "all" ? CLIENTS : CLIENTS.filter((c) => c.category === cat);
-  const count = (id: CategoryId) => CLIENTS.filter((c) => c.category === id).length;
+  const shown = cat === "all" ? partners : partners.filter((c) => c.category === cat);
+  const count = (id: CategoryId) => partners.filter((c) => c.category === id).length;
   const chip = (on: boolean) => `rounded-full border px-5 py-2.5 text-sm font-semibold transition ${on ? "border-black bg-black text-white" : "border-black/20 bg-white hover:border-black/50"}`;
   const catLabel = (id: CategoryId) => CATEGORIES.find((x) => x.id === id)!.label;
   return (
@@ -46,7 +47,7 @@ export function Partners() {
       <div className="mx-auto max-w-[1280px]">
         <SectionHead light title="Our partners in Jaipur" subtitle="Real businesses already using Taprizz. See all of them, or pick a category. Tap a card to open their mini page." />
         <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Partner categories">
-          <button type="button" aria-pressed={cat === "all"} onClick={() => setCat("all")} className={chip(cat === "all")}>All <span className="ml-1 opacity-60">{CLIENTS.length}</span></button>
+          <button type="button" aria-pressed={cat === "all"} onClick={() => setCat("all")} className={chip(cat === "all")}>All <span className="ml-1 opacity-60">{partners.length}</span></button>
           {CATEGORIES.map((c) => (<button type="button" key={c.id} aria-pressed={cat === c.id} onClick={() => setCat(c.id)} className={chip(cat === c.id)}>{c.label} <span className="ml-1 opacity-60">{count(c.id)}</span></button>))}
         </div>
         {shown.length === 0 ? (
@@ -62,7 +63,7 @@ export function Partners() {
                 <article className="flex h-full flex-col rounded-[26px] border border-black/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
                   <div className="flex items-center gap-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.logo} alt={`${c.name} logo`} width={120} height={120} loading="lazy" className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain" />
+                    <img src={c.image} alt={`${c.name} logo`} width={120} height={120} loading="lazy" className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain" />
                     <div className="min-w-0">
                       <span className="rounded-full bg-black/[0.06] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/60">{catLabel(c.category)}</span>
                       <h3 className="mt-2 text-2xl leading-tight md:text-3xl">{c.name}</h3>
@@ -202,12 +203,12 @@ const NETWORK = [
   { t: "Each new partner helps all", x: "More partners make the guide more useful, and that brings more guests back to every one of them." },
 ];
 
-export function GulabiNetwork() {
-  const slots = Math.max(5, CLIENTS.length + 1);
+export function GulabiNetwork({ partners }: { partners: Partner[] }) {
+  const slots = Math.max(5, partners.length + 1);
   const nodes = Array.from({ length: slots }, (_, i) => {
     const a = ((i * 360) / slots - 90) * (Math.PI / 180);
-    const c = CLIENTS[i];
-    return { key: c?.slug ?? `open-${i}`, name: c?.name ?? "Your business", logo: c?.logo ?? null, x: 50 + 37 * Math.cos(a), y: 50 + 37 * Math.sin(a) };
+    const c = partners[i];
+    return { key: c?.slug ?? `open-${i}`, name: c?.name ?? "Your business", logo: c?.image ?? null, x: 50 + 37 * Math.cos(a), y: 50 + 37 * Math.sin(a) };
   });
   return (
     <section id="gulabi" className="scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#1f0d14] to-black px-5 py-20 text-white md:px-8 md:py-28">

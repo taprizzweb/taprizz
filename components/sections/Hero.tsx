@@ -21,7 +21,7 @@ export function Hero({ c }: { c: SiteContent }) {
   return (
     <section ref={ref} onMouseMove={onMove} className="relative overflow-hidden bg-black pt-28">
       <ShaderBg />
-      <div className="relative border-y border-white/10 bg-black/55 py-3 backdrop-blur"><ClientsMarquee /></div>
+      <div className="relative border-y border-white/10 bg-black/55 py-3 backdrop-blur"><ClientsMarquee partners={c.partners} /></div>
       <div className="relative mx-auto grid min-h-[72vh] max-w-[1280px] items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6 inline-block rounded-full border border-lime-400/50 px-4 py-1.5 text-sm text-lime-400">{h.eyebrow}</motion.p>

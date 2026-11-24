@@ -7,7 +7,7 @@ import { JsonEditor } from "./JsonEditor";
 
 const STATUSES = ["awaiting_payment", "payment_submitted", "paid", "designing", "shipped", "delivered", "rejected", "cancelled"];
 const SECTIONS: [keyof SiteContent, string][] = [
-  ["settings", "Settings & UPI"], ["products", "Products"], ["addons", "Add-ons"], ["plans", "Retainer plans"], ["hero", "Hero"],
+  ["settings", "Settings & UPI"], ["partners", "Partners"], ["products", "Products"], ["addons", "Add-ons"], ["plans", "Retainer plans"], ["hero", "Hero"],
   ["faq", "FAQ"], ["footer", "Footer"], ["legal", "Policies"],
 ];
 

@@ -3,7 +3,7 @@ import { Plus, Trash2, Upload } from "lucide-react";
 
 type J = any;
 const LONG = /text|subtitle|description|answer|^a$|announcement|message|tagline|notes/i;
-const NAMES: Record<string, string> = { price: "MRP (struck-through price)", salePrice: "Selling price ₹ (0 = use discount % below)", discount: "Discount % (only if selling price is 0)" };
+const NAMES: Record<string, string> = { slug: "Mini link name (the part after link.taprizz.in/)", image: "Logo (upload or paste a link)", addresses: "Addresses (one per outlet)", category: "Category", price: "MRP (struck-through price)", salePrice: "Selling price ₹ (0 = use discount % below)", discount: "Discount % (only if selling price is 0)" };
 const label = (k: string) => NAMES[k] ?? k.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase());
 
 function blank(sample: J): J {
@@ -27,7 +27,7 @@ export function JsonEditor({ value, onChange, name = "" }: { value: J; onChange:
   if (Array.isArray(value)) {
     const isImages = name === "images";
     const prim = value.length > 0 && typeof value[0] !== "object";
-    const sample = value.length ? value[0] : isImages || /values|options|points|features/.test(name) ? "" : {};
+    const sample = value.length ? value[0] : isImages || /values|options|points|features|addresses/.test(name) ? "" : {};
     return (
       <div className="space-y-3">
         {value.map((item: J, i: number) => (
@@ -66,6 +66,13 @@ export function JsonEditor({ value, onChange, name = "" }: { value: J; onChange:
     return <input type="number" className="input" value={Number.isFinite(value) ? value : 0} onChange={(e) => onChange(Number(e.target.value))} />;
   }
   const str = String(value ?? "");
+  if (name === "category") {
+    return (
+      <select className="input" value={str} onChange={(e) => onChange(e.target.value)}>
+        {[["cafe", "Cafes & Restaurants"], ["salon", "Salons & Spas"], ["hotel", "Hotels"], ["gym", "Gyms"]].map(([v, t]) => (<option key={v} value={v}>{t}</option>))}
+      </select>
+    );
+  }
   const isImg = name === "image";
   if (isImg) {
     return (

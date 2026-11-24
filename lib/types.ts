@@ -12,6 +12,14 @@ export type Product = {
   features: string[];
 };
 
+export type Partner = {
+  name: string;
+  slug: string; // the mini link name: link.taprizz.in/<slug>
+  image: string; // logo
+  category: "cafe" | "salon" | "hotel" | "gym";
+  addresses: string[];
+};
+
 export type Addon = { id: string; name: string; description: string; price: number; active: boolean };
 
 export type PlanTier = { months: 1 | 3 | 6; price: number; original: number };
@@ -34,6 +42,7 @@ export type SiteContent = {
     announcement: string;
   };
   hero: { eyebrow: string; title: string; highlight: string; subtitle: string; cta: string; stats: { value: string; label: string }[] };
+  partners: Partner[];
   products: Product[];
   addons: Addon[];
   plans: Plan[];
