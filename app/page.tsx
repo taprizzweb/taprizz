@@ -8,7 +8,9 @@ import { How, LiveDemo } from "@/components/sections/HowDemo";
 import { Comparison } from "@/components/sections/Comparison";
 import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
-import { About, Audience, Contact, Faq, Footer, Roadmap } from "@/components/sections/Footerish";
+import { About, Audience, Faq, Footer, Roadmap } from "@/components/sections/Footerish";
+import { GulabiNagri, Platform, TwoOffers } from "@/components/sections/Offers";
+import { BookDemo } from "@/components/sections/BookDemo";
 import { SliceDivider } from "@/components/ui/SliceDivider";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +25,11 @@ export default async function Home() {
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} />
       <CartDrawer />
       <Hero c={c} />
-      <Marquee items={["Premium businesses only", "Highest-security AI review bot", "1-Year Plaque Warranty", "NFC + QR", "Made in Jaipur"]} />
+      <Marquee items={["AI review plaque", "Guest platform", "Gulabi Nagri guide", "NFC + QR", "1-Year warranty on Plus", "Made in Jaipur"]} />
+      <TwoOffers />
+      <SliceDivider from={PAPER} to={INK} />
+      <Platform />
+      <GulabiNagri />
       <Importance c={c} />
       <SliceDivider from={INK} to={PAPER} />
       <PlaqueShowcase c={c} />
@@ -42,7 +48,7 @@ export default async function Home() {
       <SliceDivider from={INK} to={PAPER} />
       <About c={c} />
       <Faq c={c} />
-      <Contact c={c} />
+      <BookDemo c={c} />
       <Footer c={c} />
     </main>
   );

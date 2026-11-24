@@ -14,17 +14,17 @@ export const defaultContent: SiteContent = {
     demoBusiness: "Your Business Name",
   },
   hero: {
-    eyebrow: "The AI Review Engine for Premium Businesses",
-    title: "One tap turns a happy guest into a",
-    highlight: "5-star Google review.",
+    eyebrow: "For restaurants, cafes, salons and clinics in Jaipur",
+    title: "Reviews, feedback and repeat guests from",
+    highlight: "one tap.",
     subtitle:
-      "Taprizz is the highest-security AI review bot, delivered on a beautifully crafted NFC plaque. Built only for premium businesses that care how they are seen on Google.",
-    cta: "Get Your Plaque",
+      "Taprizz puts an AI review flow on a premium NFC plaque. Behind it, an optional guest platform adds private feedback, ordering, offers, a team dashboard and a listing in Gulabi Nagri, our Jaipur guest guide. Choose one or both.",
+    cta: "Book a demo",
     stats: [
       { value: "1 Tap", label: "to start a review" },
-      { value: "30 sec", label: "average completion" },
-      { value: "1 Year", label: "plaque warranty on Plus" },
-      { value: "24/7", label: "priority support on Plus" },
+      { value: "2 Offers", label: "review plaque or full guest platform" },
+      { value: "10 km", label: "Gulabi Nagri guide radius (pilot)" },
+      { value: "Jaipur", label: "made and supported locally" },
     ],
   },
   importance: {
@@ -192,7 +192,7 @@ export const defaultContent: SiteContent = {
   footer: {
     instagram: "https://www.instagram.com/taprizz.in",
     instagramHandle: "@taprizz.in",
-    tagline: "AI-powered Google review plaques for premium businesses in Jaipur.",
+    tagline: "AI review plaques and a guest platform for businesses in Jaipur.",
     disclaimer:
       "Taprizz provides review-collection tools. Reviews must reflect the genuine experience of the customer who posts them; Taprizz does not write, buy or post fake reviews on anyone's behalf. Google and the Google logo are trademarks of Google LLC. Taprizz is an independent company and is not affiliated with or endorsed by Google.",
   },

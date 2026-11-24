@@ -84,7 +84,7 @@ export function Faq({ c }: { c: SiteContent }) {
   );
 }
 
-function InstagramIcon({ className = "" }: { className?: string }) {
+export function InstagramIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
       <rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
@@ -156,7 +156,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <nav aria-label="Quick links">
           <p className={head}>Quick links</p>
           <ul className="space-y-3">
-            {[["/#about", "About Taprizz"], ["/#plaque", "The Plaque"], ["/#demo", "Live Demo"], ["/#shop", "Shop"], ["/#plans", "Retainer Plans"], ["/#compare", "Compare"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+            {[["/#offers", "Two offers"], ["/#platform", "Guest Platform"], ["/#gulabi", "Gulabi Nagri"], ["/#shop", "Shop"], ["/#plans", "Retainer Plans"], ["/#book", "Book a demo"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
           </ul>
         </nav>
         <nav aria-label="Policies">

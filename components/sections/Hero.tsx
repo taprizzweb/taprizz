@@ -28,8 +28,8 @@ export function Hero({ c }: { c: SiteContent }) {
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</motion.p>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 flex flex-wrap gap-4">
-            <a href="#shop" className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-8 py-4 font-semibold text-black transition hover:bg-lime-300">{h.cta} <ArrowUpRight className="h-4 w-4" /></a>
-            <a href="#why" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">Watch the story</a>
+            <a href="#book" className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-8 py-4 font-semibold text-black transition hover:bg-lime-300">{h.cta} <ArrowUpRight className="h-4 w-4" /></a>
+            <a href="#offers" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">See both offers</a>
           </motion.div>
         </div>
         <div className="flex justify-center [perspective:1200px]">
