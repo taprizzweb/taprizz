@@ -1,24 +1,16 @@
 import { forPublic, getContent } from "@/lib/content";
 import { Navbar } from "@/components/Navbar";
 import { CartDrawer } from "@/components/CartDrawer";
-import { Hero, Marquee } from "@/components/sections/Hero";
-import { Importance } from "@/components/sections/Importance";
-import { PlaqueShowcase } from "@/components/sections/PlaqueShowcase";
-import { How, LiveDemo } from "@/components/sections/HowDemo";
-import { Comparison } from "@/components/sections/Comparison";
+import { Hero } from "@/components/sections/Hero";
+import { Advantages, BookMeeting, GulabiNetwork, Partners, Products } from "@/components/sections/Home";
+import { OWNER_QA } from "@/lib/home-data";
 import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
-import { About, Audience, Faq, Footer, Roadmap } from "@/components/sections/Footerish";
-import { GulabiNagri, Platform, TwoOffers } from "@/components/sections/Offers";
-import { BookDemo } from "@/components/sections/BookDemo";
-import { OWNER_QA, SeoGeo, Trust } from "@/components/sections/Growth";
-import { SliceDivider } from "@/components/ui/SliceDivider";
+import { Faq, Footer } from "@/components/sections/Footerish";
 
 export const dynamic = "force-dynamic";
 
-const INK = "#141517";
-const PAPER = "#f3f3f1";
-
+// One short page: who we work with, the two products, what you get, the Jaipur network, then book. The plaque shop and plans stay for the AI Review QR.
 export default async function Home() {
   const c = forPublic(await getContent());
   return (
@@ -26,34 +18,14 @@ export default async function Home() {
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} />
       <CartDrawer />
       <Hero c={c} />
-      <Marquee items={["AI review plaque", "Guest platform", "SEO + GEO", "Gulabi Nagri guide", "NFC + QR", "Made in Jaipur"]} />
-      <TwoOffers />
-      <SeoGeo />
-      <SliceDivider from={PAPER} to={INK} />
-      <Platform />
-      <GulabiNagri />
-      <Importance c={c} />
-      <SliceDivider from={INK} to={PAPER} />
-      <PlaqueShowcase c={c} />
-      <How c={c} />
-      <SliceDivider from={PAPER} to={INK} />
-      <LiveDemo c={c} />
-      <SliceDivider from={INK} to={PAPER} />
-      <Comparison c={c} />
+      <Partners />
+      <Products />
+      <Advantages />
+      <GulabiNetwork />
+      <BookMeeting c={c} />
       <Shop c={c} />
-      <SliceDivider from={PAPER} to={INK} />
       <Plans c={c} />
-      <SliceDivider from={INK} to={PAPER} />
-      <Audience c={c} />
-      <SliceDivider from={PAPER} to={INK} />
-      <Roadmap c={c} />
-      <SliceDivider from={INK} to={PAPER} />
-      <About c={c} />
-      <SliceDivider from={PAPER} to={INK} />
-      <Trust />
-      <SliceDivider from={INK} to={PAPER} />
-      <Faq c={{ ...c, faq: [...OWNER_QA, ...c.faq] }} />
-      <BookDemo c={c} />
+      <Faq c={{ ...c, faq: [...OWNER_QA, ...c.faq.slice(0, 2)] }} />
       <Footer c={c} />
     </main>
   );

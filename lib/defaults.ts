@@ -15,17 +15,12 @@ export const defaultContent: SiteContent = {
   },
   hero: {
     eyebrow: "For restaurants, cafes, salons and clinics in Jaipur",
-    title: "Reviews, feedback and repeat guests from",
+    title: "Reviews, followers and repeat guests from",
     highlight: "one tap.",
     subtitle:
-      "Taprizz puts an AI review flow on a premium NFC plaque, with an optional guest platform behind it. We also work on your SEO and GEO, so you are found on Google and in AI answers. Choose what you need.",
-    cta: "Book a demo",
-    stats: [
-      { value: "1 Tap", label: "to start a review" },
-      { value: "SEO + GEO", label: "found on Google and in AI answers" },
-      { value: "10 km", label: "Gulabi Nagri guide radius (pilot)" },
-      { value: "Jaipur", label: "made and supported locally" },
-    ],
+      "Taprizz helps Jaipur businesses get honest Google reviews, more Instagram followers and guests who come back. Take the Taprizz App for the whole customer experience, or the AI Review QR plaque for reviews.",
+    cta: "Book a meeting",
+    stats: [],
   },
   importance: {
     title: "Why reviews decide who wins your customers",

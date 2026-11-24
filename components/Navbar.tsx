@@ -5,7 +5,7 @@ import { useCart } from "@/lib/cart";
 
 export function Navbar({ brand, announcement }: { brand: string; announcement?: string }) {
   const { count, setOpen } = useCart();
-  const links = [["#offers", "Offers"], ["#growth", "SEO + GEO"], ["#platform", "Guest Platform"], ["#gulabi", "Gulabi Nagri"], ["#shop", "Shop"], ["#plans", "Plans"]];
+  const links = [["#partners", "Partners"], ["#products", "Products"], ["#advantages", "Advantages"], ["#gulabi", "Gulabi Nagri"], ["#shop", "Shop"], ["#plans", "Plans"]];
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {announcement && <div className="bg-lime-400 px-4 py-1.5 text-center text-[11px] font-medium text-black md:text-xs">{announcement}</div>}
@@ -20,7 +20,7 @@ export function Navbar({ brand, announcement }: { brand: string; announcement?: 
               <ShoppingBag className="h-4 w-4" />
               {count > 0 && <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lime-400 px-1 text-[11px] font-bold text-black">{count}</span>}
             </button>
-            <a href="/#book" className="flex items-center gap-2 rounded-full border border-lime-400 px-4 py-2.5 text-xs font-semibold tracking-wide text-lime-400 transition hover:bg-lime-400 hover:text-black sm:px-5">BOOK A DEMO <ArrowUpRight className="h-3.5 w-3.5" /></a>
+            <a href="/#book" className="flex items-center gap-2 rounded-full border border-lime-400 px-4 py-2.5 text-xs font-semibold tracking-wide text-lime-400 transition hover:bg-lime-400 hover:text-black sm:px-5">BOOK A MEETING <ArrowUpRight className="h-3.5 w-3.5" /></a>
           </div>
         </div>
       </div>

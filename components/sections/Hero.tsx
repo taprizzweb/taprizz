@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { Plaque } from "@/components/ui/Plaque";
 import { ShaderBg } from "@/components/ui/ShaderBg";
+import { ClientsMarquee } from "@/components/sections/Home";
 
 export function Hero({ c }: { c: SiteContent }) {
   const h = c.hero;
@@ -20,7 +21,8 @@ export function Hero({ c }: { c: SiteContent }) {
   return (
     <section ref={ref} onMouseMove={onMove} className="relative overflow-hidden bg-black pt-28">
       <ShaderBg />
-      <div className="relative mx-auto grid min-h-[88vh] max-w-[1280px] items-center gap-10 px-5 py-16 md:px-8 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="relative border-y border-white/10 bg-black/55 py-3 backdrop-blur"><ClientsMarquee /></div>
+      <div className="relative mx-auto grid min-h-[72vh] max-w-[1280px] items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6 inline-block rounded-full border border-lime-400/50 px-4 py-1.5 text-sm text-lime-400">{h.eyebrow}</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8 }} className="text-[clamp(2.8rem,7.4vw,6.6rem)] leading-[0.92] text-white">
@@ -29,7 +31,7 @@ export function Hero({ c }: { c: SiteContent }) {
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</motion.p>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 flex flex-wrap gap-4">
             <a href="#book" className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-8 py-4 font-semibold text-black transition hover:bg-lime-300">{h.cta} <ArrowUpRight className="h-4 w-4" /></a>
-            <a href="#offers" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">See both offers</a>
+            <a href="#advantages" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">See the advantages</a>
           </motion.div>
         </div>
         <div className="flex justify-center [perspective:1200px]">
@@ -38,7 +40,7 @@ export function Hero({ c }: { c: SiteContent }) {
           </motion.div>
         </div>
       </div>
-      <div className="relative border-t border-white/10 bg-black/60 backdrop-blur">
+      {h.stats.length > 0 && <div className="relative border-t border-white/10 bg-black/60 backdrop-blur">
         <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-px px-5 md:grid-cols-4 md:px-8">
           {h.stats.map((s) => (
             <div key={s.label} className="py-7 pr-4">
@@ -47,7 +49,7 @@ export function Hero({ c }: { c: SiteContent }) {
             </div>
           ))}
         </div>
-      </div>
+      </div>}
     </section>
   );
 }

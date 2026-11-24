@@ -6,7 +6,7 @@ import { CartProvider } from "@/lib/cart";
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "Taprizz | Reviews, SEO and GEO for Jaipur businesses",
+  title: "Taprizz | Reviews, followers and repeat guests for Jaipur businesses",
   description:
     "Taprizz puts an AI Google review flow on a premium NFC plaque, with an optional guest platform, plus SEO and GEO work so you are found on Google and in AI answers. Book a demo in Jaipur.",
 };

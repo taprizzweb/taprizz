@@ -156,7 +156,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <nav aria-label="Quick links">
           <p className={head}>Quick links</p>
           <ul className="space-y-3">
-            {[["/#offers", "Two offers"], ["/#platform", "Guest Platform"], ["/#gulabi", "Gulabi Nagri"], ["/#shop", "Shop"], ["/#plans", "Retainer Plans"], ["/#book", "Book a demo"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+            {[["/#partners", "Partners"], ["/#products", "Products"], ["/#advantages", "Advantages"], ["/#gulabi", "Gulabi Nagri"], ["/#shop", "Shop"], ["/#book", "Book a meeting"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
           </ul>
         </nav>
         <nav aria-label="Policies">
