@@ -3,7 +3,7 @@ import { Plus, Trash2, Upload } from "lucide-react";
 
 type J = any;
 const LONG = /text|subtitle|description|answer|^a$|announcement|message|tagline|notes/i;
-const NAMES: Record<string, string> = { slug: "Mini link name (the part after link.taprizz.in/)", image: "Logo (upload or paste a link)", addresses: "Addresses (one per outlet)", category: "Category", price: "MRP (struck-through price)", salePrice: "Selling price ₹ (0 = use discount % below)", discount: "Discount % (only if selling price is 0)" };
+const NAMES: Record<string, string> = { slug: "Mini link name (the part after link.taprizz.in/). Leave empty if there is none", image: "Logo (upload or paste a link)", addresses: "Addresses (one per outlet)", category: "Category", price: "MRP (struck-through price)", salePrice: "Selling price ₹ (0 = use discount % below)", discount: "Discount % (only if selling price is 0)" };
 const label = (k: string) => NAMES[k] ?? k.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase());
 
 function blank(sample: J): J {
@@ -69,7 +69,7 @@ export function JsonEditor({ value, onChange, name = "" }: { value: J; onChange:
   if (name === "category") {
     return (
       <select className="input" value={str} onChange={(e) => onChange(e.target.value)}>
-        {[["cafe", "Cafes & Restaurants"], ["salon", "Salons & Spas"], ["hotel", "Hotels"], ["gym", "Gyms"]].map(([v, t]) => (<option key={v} value={v}>{t}</option>))}
+        {[["cafe", "Cafes & Restaurants"], ["salon", "Salons & Spas"], ["hotel", "Hotels & Stays"], ["gym", "Gyms"], ["clinic", "Clinics"]].map(([v, t]) => (<option key={v} value={v}>{t}</option>))}
       </select>
     );
   }

@@ -22,6 +22,11 @@ export const defaultContent: SiteContent = {
   partners: [
     { name: "Coffeekaart", slug: "coffeekaart", image: "/clients/coffeekaart.webp", category: "cafe", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
     { name: "Green Feast", slug: "greenfeast", image: "/clients/greenfeast.webp", category: "cafe", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
+    { name: "The Tattoo Cafe & Lounge", slug: "", image: "/clients/tattoo.webp", category: "cafe", addresses: ["Opposite Hawa Mahal, Jaipur"] },
+    { name: "Jaipur Vista", slug: "", image: "/clients/jaipurvista.webp", category: "cafe", addresses: ["Opposite Hawa Mahal, Jaipur"] },
+    { name: "24 Society Salon & Wellness", slug: "", image: "/clients/24society.webp", category: "salon", addresses: ["Jaipur"] },
+    { name: "Chitra Katha", slug: "", image: "/clients/chitrakatha.webp", category: "hotel", addresses: ["Homestay, Jaipur"] },
+    { name: "NG Ayurveda", slug: "", image: "/clients/ngayurveda.webp", category: "clinic", addresses: ["Ayurvedic clinic, Jaipur"] },
   ],
   // The old plaque catalog and retainer plans were removed. A new catalog is added from Admin when it is ready.
   products: [],

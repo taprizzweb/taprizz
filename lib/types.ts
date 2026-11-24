@@ -14,9 +14,9 @@ export type Product = {
 
 export type Partner = {
   name: string;
-  slug: string; // the mini link name: link.taprizz.in/<slug>
+  slug: string; // the mini link name: link.taprizz.in/<slug>. Leave empty if the business has no mini link yet.
   image: string; // logo
-  category: "cafe" | "salon" | "hotel" | "gym";
+  category: "cafe" | "salon" | "hotel" | "gym" | "clinic";
   addresses: string[];
 };
 

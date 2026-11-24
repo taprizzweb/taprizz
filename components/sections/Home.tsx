@@ -20,7 +20,7 @@ export function ClientsMarquee({ partners }: { partners: Partner[] }) {
       <div className={`min-w-0 flex-1 overflow-hidden ${slide ? "[mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]" : ""}`}>
         <ul className={`flex items-center gap-8 ${slide ? "w-max animate-marquee hover:[animation-play-state:paused]" : "flex-wrap"}`}>
           {row.map((c, i) => (
-            <li key={`${c.slug}-${i}`} aria-hidden={i >= partners.length || undefined}>
+            <li key={`${c.name}-${i}`} aria-hidden={i >= partners.length || undefined}>
               <a href="#partners" tabIndex={i >= partners.length ? -1 : undefined} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-white/85 transition hover:text-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.image} alt={i < partners.length ? `${c.name} logo` : ""} width={40} height={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
@@ -45,7 +45,7 @@ export function Partners({ partners }: { partners: Partner[] }) {
   return (
     <section id="partners" className="grid-light scroll-mt-20 px-5 py-20 text-ink md:px-8 md:py-28">
       <div className="mx-auto max-w-[1280px]">
-        <SectionHead light title="Our partners in Jaipur" subtitle="Real businesses already using Taprizz. See all of them, or pick a category. Tap a card to open their mini page." />
+        <SectionHead light title="Our partners in Jaipur" subtitle="Real businesses already using Taprizz. See all of them, or pick a category. Tap a mini link to open their page." />
         <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Partner categories">
           <button type="button" aria-pressed={cat === "all"} onClick={() => setCat("all")} className={chip(cat === "all")}>All <span className="ml-1 opacity-60">{partners.length}</span></button>
           {CATEGORIES.map((c) => (<button type="button" key={c.id} aria-pressed={cat === c.id} onClick={() => setCat(c.id)} className={chip(cat === c.id)}>{c.label} <span className="ml-1 opacity-60">{count(c.id)}</span></button>))}
@@ -59,7 +59,7 @@ export function Partners({ partners }: { partners: Partner[] }) {
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {shown.map((c) => (
-              <li key={c.slug} className="list-none">
+              <li key={c.name} className="list-none">
                 <article className="flex h-full flex-col rounded-[26px] border border-black/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
                   <div className="flex items-center gap-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -74,7 +74,7 @@ export function Partners({ partners }: { partners: Partner[] }) {
                       <li key={a}><a href={mapsUrl(c.name, a)} target="_blank" rel="noopener noreferrer" className="flex gap-2 text-sm text-black/65 transition hover:text-black"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span>{a}</span></a></li>
                     ))}
                   </ul>
-                  <a href={miniUrl(c.slug)} target="_blank" rel="noopener noreferrer" className="mt-auto flex w-fit items-center gap-1.5 pt-6 text-sm font-semibold break-all underline-offset-4 hover:underline">link.taprizz.in/{c.slug}<ArrowUpRight className="h-4 w-4 shrink-0" /></a>
+                  {c.slug && <a href={miniUrl(c.slug)} target="_blank" rel="noopener noreferrer" className="mt-auto flex w-fit items-center gap-1.5 pt-6 text-sm font-semibold break-all underline-offset-4 hover:underline">link.taprizz.in/{c.slug}<ArrowUpRight className="h-4 w-4 shrink-0" /></a>}
                 </article>
               </li>
             ))}
@@ -208,7 +208,7 @@ export function GulabiNetwork({ partners }: { partners: Partner[] }) {
   const nodes = Array.from({ length: slots }, (_, i) => {
     const a = ((i * 360) / slots - 90) * (Math.PI / 180);
     const c = partners[i];
-    return { key: c?.slug ?? `open-${i}`, name: c?.name ?? "Your business", logo: c?.image ?? null, x: 50 + 37 * Math.cos(a), y: 50 + 37 * Math.sin(a) };
+    return { key: c?.name ?? `open-${i}`, name: c?.name ?? "Your business", logo: c?.image ?? null, x: 50 + 37 * Math.cos(a), y: 50 + 37 * Math.sin(a) };
   });
   return (
     <section id="gulabi" className="scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#1f0d14] to-black px-5 py-20 text-white md:px-8 md:py-28">

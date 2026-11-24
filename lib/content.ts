@@ -23,7 +23,7 @@ const normalize = (raw: SiteContent): SiteContent => {
   return {
   ...c,
   settings,
-  partners: Array.isArray(c.partners) ? c.partners.filter((p) => p?.name && p?.slug).map((p) => ({ ...p, addresses: Array.isArray(p.addresses) ? p.addresses.filter(Boolean) : [] })) : defaultContent.partners,
+  partners: Array.isArray(c.partners) ? c.partners.filter((p) => p?.name).map((p) => ({ ...p, slug: p.slug ?? "", addresses: Array.isArray(p.addresses) ? p.addresses.filter(Boolean) : [] })) : defaultContent.partners,
   products: (c.products ?? []).map((p) => ({ ...p, salePrice: p.salePrice ?? 0 })),
   };
 };
