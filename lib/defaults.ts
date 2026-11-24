@@ -18,11 +18,11 @@ export const defaultContent: SiteContent = {
     title: "Reviews, feedback and repeat guests from",
     highlight: "one tap.",
     subtitle:
-      "Taprizz puts an AI review flow on a premium NFC plaque. Behind it, an optional guest platform adds private feedback, ordering, offers, a team dashboard and a listing in Gulabi Nagri, our Jaipur guest guide. Choose one or both.",
+      "Taprizz puts an AI review flow on a premium NFC plaque, with an optional guest platform behind it. We also work on your SEO and GEO, so you are found on Google and in AI answers. Choose what you need.",
     cta: "Book a demo",
     stats: [
       { value: "1 Tap", label: "to start a review" },
-      { value: "2 Offers", label: "review plaque or full guest platform" },
+      { value: "SEO + GEO", label: "found on Google and in AI answers" },
       { value: "10 km", label: "Gulabi Nagri guide radius (pilot)" },
       { value: "Jaipur", label: "made and supported locally" },
     ],

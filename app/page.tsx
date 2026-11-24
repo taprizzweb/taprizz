@@ -11,6 +11,7 @@ import { Plans } from "@/components/sections/Plans";
 import { About, Audience, Faq, Footer, Roadmap } from "@/components/sections/Footerish";
 import { GulabiNagri, Platform, TwoOffers } from "@/components/sections/Offers";
 import { BookDemo } from "@/components/sections/BookDemo";
+import { OWNER_QA, SeoGeo, Trust } from "@/components/sections/Growth";
 import { SliceDivider } from "@/components/ui/SliceDivider";
 
 export const dynamic = "force-dynamic";
@@ -25,8 +26,9 @@ export default async function Home() {
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} />
       <CartDrawer />
       <Hero c={c} />
-      <Marquee items={["AI review plaque", "Guest platform", "Gulabi Nagri guide", "NFC + QR", "1-Year warranty on Plus", "Made in Jaipur"]} />
+      <Marquee items={["AI review plaque", "Guest platform", "SEO + GEO", "Gulabi Nagri guide", "NFC + QR", "Made in Jaipur"]} />
       <TwoOffers />
+      <SeoGeo />
       <SliceDivider from={PAPER} to={INK} />
       <Platform />
       <GulabiNagri />
@@ -47,7 +49,10 @@ export default async function Home() {
       <Roadmap c={c} />
       <SliceDivider from={INK} to={PAPER} />
       <About c={c} />
-      <Faq c={c} />
+      <SliceDivider from={PAPER} to={INK} />
+      <Trust />
+      <SliceDivider from={INK} to={PAPER} />
+      <Faq c={{ ...c, faq: [...OWNER_QA, ...c.faq] }} />
       <BookDemo c={c} />
       <Footer c={c} />
     </main>

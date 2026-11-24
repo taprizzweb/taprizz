@@ -54,7 +54,7 @@ export function TwoOffers() {
           </Reveal>
         </div>
         <Reveal delay={0.1}>
-          <p className="mt-8 max-w-3xl text-black/55">Every Taprizz plaque carries a built-in NFC chip, so guests tap their phone to open the page, and a printed QR code as well, so every phone is covered.</p>
+          <p className="mt-8 max-w-3xl text-black/55">SEO and GEO work can be added to either offer, so you are found on Google and in AI answers. See below. Every Taprizz plaque carries a built-in NFC chip, so guests tap their phone to open the page, and a printed QR code as well, so every phone is covered.</p>
         </Reveal>
       </div>
     </section>
