@@ -302,9 +302,10 @@ export function BookMeeting({ c }: { c: SiteContent }) {
           </ul>
         </div>
         <div className="rounded-[28px] border border-black/10 bg-white p-6 md:p-8">
-          {state === "done" ? (
+          {state === "done" || state === "err" ? (
             <div role="status">
-              <p className="text-2xl font-semibold">Your slot is noted: {day?.label}, {slot}.</p>
+              <p className="text-2xl font-semibold">{state === "done" ? `Your slot is noted: ${day?.label}, ${slot}.` : `Your slot: ${day?.label}, ${slot}.`}</p>
+              {state === "err" && <p className="mt-2 text-black/60">We could not save it online just now, but you can send it to us below and we will confirm it.</p>}
               <p className="mt-2 text-black/60">One last step: send us the message on WhatsApp or Instagram so we can confirm it with you. Without a message we cannot reach you.</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 {wa && <a href={waLink(wa, `Hi Taprizz, I booked a meeting for ${day?.label}, ${slot} (${want}).`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 rounded-full bg-[#25D366] px-7 py-4 font-semibold text-white transition hover:brightness-95"><WhatsAppIcon className="h-5 w-5" /> Confirm on WhatsApp</a>}
@@ -317,7 +318,6 @@ export function BookMeeting({ c }: { c: SiteContent }) {
               <fieldset><legend className="lbl">Pick a day</legend><div className="flex flex-wrap gap-2">{days.map((d) => (<button type="button" key={d.key} aria-pressed={day?.key === d.key} onClick={() => setDay(d)} className={chip(day?.key === d.key)}>{d.label}</button>))}</div></fieldset>
               <fieldset><legend className="lbl">Pick a time</legend><div className="flex flex-wrap gap-2">{SLOTS.map((s) => (<button type="button" key={s} aria-pressed={slot === s} onClick={() => setSlot(s)} className={chip(slot === s)}>{s}</button>))}</div></fieldset>
               <button type="button" onClick={book} disabled={!day || state === "sending"} className="inline-flex items-center gap-2 rounded-full bg-black px-8 py-4 font-semibold text-white transition hover:bg-black/85 disabled:opacity-60">{state === "sending" ? "Booking…" : "Book this slot"}</button>
-              {state === "err" && <p role="alert" className="text-sm text-red-600">Could not save the slot. Please message us on Instagram instead.</p>}
               <p className="text-sm text-black/50">After booking, you send us one message on WhatsApp or Instagram, and we confirm.</p>
             </div>
           )}

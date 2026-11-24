@@ -8,7 +8,8 @@ import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
 import { Faq, Footer } from "@/components/sections/Footerish";
 
-export const dynamic = "force-dynamic";
+// The page is built once and refreshed every minute, or at once when Admin saves, so visitors get it instantly.
+export const revalidate = 60;
 
 // One short page: who we work with, the two products, what you get, the Jaipur network, then book. The plaque shop and plans stay for the AI Review QR.
 export default async function Home() {

@@ -22,7 +22,7 @@ function ProductCard({ p }: { p: Product }) {
       <div className="relative grid aspect-[5/4] place-items-center p-8">
         {p.badge && <span className="absolute left-5 top-5 z-10 rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-white">{p.badge}</span>}
         {off > 0 && <span className="absolute right-5 top-5 z-10 rounded-full border-2 border-black px-4 py-1 text-xs font-bold">{off}% OFF</span>}
-        {p.images[img] ? <img src={p.images[img]} alt={p.name} className="h-full w-full object-contain" /> : <Plaque variant="graphite" className="max-w-[250px] border-black/20 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />}
+        {p.images[img] ? <img src={p.images[img]} alt={p.name} className="h-full w-full object-contain" /> : <Plaque className="max-w-[250px] border-black/20 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />}
       </div>
       {p.images.length > 1 && (
         <div className="flex gap-2 px-8">

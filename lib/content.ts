@@ -1,5 +1,5 @@
 import { defaultContent } from "./defaults";
-import { supabaseAdmin, supabaseAnon } from "./supabase";
+import { supabaseAdmin, supabaseRead } from "./supabase";
 import type { SiteContent } from "./types";
 
 // The hero text this site shipped with before the two-offer page. A saved hero that still has it is replaced; an edited one is left alone.
@@ -23,7 +23,7 @@ const normalize = (raw: SiteContent): SiteContent => {
 // Public pages render on the server, so they read with the service key when it exists
 // (no dependence on anon-key/RLS setup). The key never reaches the browser.
 export async function getContent(): Promise<SiteContent> {
-  const db = supabaseAdmin() ?? supabaseAnon();
+  const db = supabaseRead();
   if (!db) return defaultContent;
   try {
     const { data, error } = await db.from("site_content").select("data").eq("id", 1).maybeSingle();

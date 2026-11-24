@@ -1,6 +1,6 @@
 import { LegalPage } from "@/components/LegalPage";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 export const metadata = { title: "Terms & Conditions | Taprizz" };
 
 export default function Page() {

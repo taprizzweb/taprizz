@@ -24,18 +24,18 @@ export function Hero({ c }: { c: SiteContent }) {
       <div className="relative border-y border-white/10 bg-black/55 py-3 backdrop-blur"><ClientsMarquee partners={c.partners} /></div>
       <div className="relative mx-auto grid min-h-[72vh] max-w-[1280px] items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
-          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6 inline-block rounded-full border border-lime-400/50 px-4 py-1.5 text-sm text-lime-400">{h.eyebrow}</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8 }} className="text-[clamp(2.8rem,7.4vw,6.6rem)] leading-[0.92] text-white">
+          <p className="mb-6 inline-block rounded-full border border-lime-400/50 px-4 py-1.5 text-sm text-lime-400">{h.eyebrow}</p>
+          <h1 className="text-[clamp(2.8rem,7.4vw,6.6rem)] leading-[0.92] text-white">
             {h.title} <span className="metal-text">{h.highlight}</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 flex flex-wrap gap-4">
+          </h1>
+          <p className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</p>
+          <div className="mt-10 flex flex-wrap gap-4">
             <a href="#book" className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-8 py-4 font-semibold text-black transition hover:bg-lime-300">{h.cta} <ArrowUpRight className="h-4 w-4" /></a>
             <a href="#advantages" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">See the advantages</a>
-          </motion.div>
+          </div>
         </div>
         <div className="flex justify-center [perspective:1200px]">
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
+          <motion.div style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
             <Plaque className="max-w-[420px] shadow-[0_40px_120px_-20px_rgba(255,255,255,0.14)]" />
           </motion.div>
         </div>
