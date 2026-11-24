@@ -3,9 +3,9 @@ import Link from "next/link";
 import { ArrowUpRight, ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart";
 
-export function Navbar({ brand, announcement }: { brand: string; announcement?: string }) {
+export function Navbar({ brand, announcement, shop = false }: { brand: string; announcement?: string; shop?: boolean }) {
   const { count, setOpen } = useCart();
-  const links = [["#partners", "Partners"], ["#products", "Products"], ["#advantages", "Advantages"], ["#gulabi", "Gulabi Nagri"], ["#shop", "Shop"], ["#plans", "Plans"]];
+  const links = [["#partners", "Partners"], ["#products", "Products"], ["#advantages", "Advantages"], ["#gulabi", "Gulabi Nagri"], ...(shop ? [["#shop", "Shop"]] : [])];
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {announcement && <div className="bg-lime-400 px-4 py-1.5 text-center text-[11px] font-medium text-black md:text-xs">{announcement}</div>}
@@ -16,10 +16,10 @@ export function Navbar({ brand, announcement }: { brand: string; announcement?: 
             {links.map(([h, t]) => (<a key={h} href={`/${h}`} className="transition hover:text-lime-400">{t}</a>))}
           </nav>
           <div className="flex items-center gap-3">
-            <button onClick={() => setOpen(true)} aria-label="Open cart" className="relative grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white transition hover:border-lime-400 hover:text-lime-400">
+            {shop && <button onClick={() => setOpen(true)} aria-label="Open cart" className="relative grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white transition hover:border-lime-400 hover:text-lime-400">
               <ShoppingBag className="h-4 w-4" />
               {count > 0 && <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lime-400 px-1 text-[11px] font-bold text-black">{count}</span>}
-            </button>
+            </button>}
             <a href="/#book" className="flex items-center gap-2 rounded-full border border-lime-400 px-4 py-2.5 text-xs font-semibold tracking-wide text-lime-400 transition hover:bg-lime-400 hover:text-black sm:px-5">BOOK A MEETING <ArrowUpRight className="h-3.5 w-3.5" /></a>
           </div>
         </div>

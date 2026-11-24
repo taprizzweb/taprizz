@@ -8,8 +8,7 @@ import { JsonEditor } from "./JsonEditor";
 const STATUSES = ["awaiting_payment", "payment_submitted", "paid", "designing", "shipped", "delivered", "rejected", "cancelled"];
 const SECTIONS: [keyof SiteContent, string][] = [
   ["settings", "Settings & UPI"], ["products", "Products"], ["addons", "Add-ons"], ["plans", "Retainer plans"], ["hero", "Hero"],
-  ["importance", "Why reviews"], ["showcase", "Plaque scroll"], ["how", "How it works"], ["demo", "Live demo"],
-  ["comparison", "Comparison table"], ["audience", "Audience"], ["roadmap", "Roadmap"], ["about", "About"], ["faq", "FAQ"], ["footer", "Footer"], ["legal", "Policies"],
+  ["faq", "FAQ"], ["footer", "Footer"], ["legal", "Policies"],
 ];
 
 export function AdminClient({ enabled, authed }: { enabled: boolean; authed: boolean }) {

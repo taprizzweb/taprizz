@@ -1,5 +1,5 @@
 // The real Taprizz plaque artwork (public/plaques/*.png).
-export type PlaqueVariant = "graphite" | "blue";
+export type PlaqueVariant = "graphite";
 
 export function Plaque({ variant = "graphite", className = "" }: { brand?: string; variant?: PlaqueVariant; className?: string }) {
   return (

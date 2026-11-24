@@ -15,7 +15,7 @@ export default async function Home() {
   const c = forPublic(await getContent());
   return (
     <main>
-      <Navbar brand={c.settings.brand} announcement={c.settings.announcement} />
+      <Navbar brand={c.settings.brand} announcement={c.settings.announcement} shop={c.products.some((p) => p.active)} />
       <CartDrawer />
       <Hero c={c} />
       <Partners />
@@ -25,7 +25,7 @@ export default async function Home() {
       <BookMeeting c={c} />
       <Shop c={c} />
       <Plans c={c} />
-      <Faq c={{ ...c, faq: [...OWNER_QA, ...c.faq.slice(0, 2)] }} />
+      <Faq c={{ ...c, faq: [...OWNER_QA, ...c.faq] }} />
       <Footer c={c} />
     </main>
   );

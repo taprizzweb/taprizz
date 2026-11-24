@@ -48,6 +48,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 }
 
 export function Plans({ c }: { c: SiteContent }) {
+  if (c.plans.length === 0) return null; // no plans yet
   return (
     <section id="plans" className="scroll-mt-20 bg-black px-5 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-[1100px]">

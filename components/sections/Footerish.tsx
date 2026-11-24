@@ -1,67 +1,8 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight, ChevronDown, Mail, MapPin } from "lucide-react";
+import { ChevronDown, Mail, MapPin } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
-import { Reveal, SectionHead } from "@/components/ui/Reveal";
-
-export function Audience({ c }: { c: SiteContent }) {
-  return (
-    <section className="grid-light px-5 py-24 text-ink md:px-8 md:py-32">
-      <div className="mx-auto max-w-[1280px]">
-        <SectionHead light title="Who it's for" subtitle={c.audience.title} />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {c.audience.items.map((a, i) => (
-            <Reveal key={a.name} delay={i * 0.05}>
-              <div className="group flex h-full min-h-[190px] flex-col justify-between rounded-[26px] border border-black/10 bg-white p-7 transition hover:bg-black hover:text-white">
-                <ArrowUpRight className="h-6 w-6 self-end opacity-40 transition group-hover:opacity-100" />
-                <div><h3 className="text-2xl">{a.name}</h3><p className="mt-2 text-sm text-black/55 group-hover:text-white/70">{a.text}</p></div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function Roadmap({ c }: { c: SiteContent }) {
-  const r = c.roadmap;
-  return (
-    <section className="bg-black px-5 py-24 md:px-8 md:py-32">
-      <div className="mx-auto max-w-[1280px]">
-        <SectionHead title={r.title} subtitle={r.subtitle} />
-        <div className="grid gap-5 md:grid-cols-2">
-          {r.items.map((it, i) => (
-            <Reveal key={it.name} delay={i * 0.06}>
-              <div className={`flex h-full min-h-[170px] items-center justify-between gap-5 rounded-[26px] p-8 ${it.status === "Live" ? "bg-lime-400 text-black" : "border border-white/12 bg-[#0c0c0c]"}`}>
-                <div>
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${it.status === "Live" ? "bg-black text-lime-400" : "border border-lime-400/50 text-lime-400"}`}>{it.status}</span>
-                  <h3 className="mt-4 text-3xl">{it.name}</h3>
-                  <p className={`mt-1 ${it.status === "Live" ? "text-black/65" : "text-white/55"}`}>{it.text}</p>
-                </div>
-                <ArrowUpRight className="h-7 w-7 shrink-0 opacity-60" />
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function About({ c }: { c: SiteContent }) {
-  return (
-    <section id="about" className="grid-light scroll-mt-20 px-5 py-24 text-ink md:px-8 md:py-32">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal><h2 className="text-6xl md:text-8xl">{c.about.title}</h2></Reveal>
-        <Reveal delay={0.1}><p className="mt-8 max-w-4xl text-2xl font-medium leading-snug text-black/70 md:text-4xl">{c.about.text}</p></Reveal>
-        <ul className="mt-12 grid gap-4 sm:grid-cols-3">
-          {c.about.points.map((p) => (<li key={p} className="rounded-[22px] bg-black p-6 text-lg font-semibold text-white">{p}</li>))}
-        </ul>
-      </div>
-    </section>
-  );
-}
+import { SectionHead } from "@/components/ui/Reveal";
 
 export function Faq({ c }: { c: SiteContent }) {
   const [open, setOpen] = useState<number | null>(0);
@@ -95,48 +36,6 @@ export function InstagramIcon({ className = "" }: { className?: string }) {
 // ig.me opens a direct message thread with the profile.
 export const igDm = (f: SiteContent["footer"]) => `https://ig.me/m/${f.instagramHandle.replace(/^@/, "")}`;
 
-export function Contact({ c }: { c: SiteContent }) {
-  const s = c.settings;
-  const f = c.footer;
-  const dm = igDm(f);
-  const [state, setState] = useState<"idle" | "sending" | "done" | "err">("idle");
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const f = Object.fromEntries(new FormData(e.currentTarget));
-    setState("sending");
-    try {
-      const r = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(f) });
-      setState(r.ok ? "done" : "err");
-    } catch { setState("err"); }
-  }
-  return (
-    <section id="contact" className="light grid-light scroll-mt-20 border-t border-black/10 px-5 py-24 text-ink md:px-8 md:py-32">
-      <div className="mx-auto grid max-w-[1280px] gap-14 md:grid-cols-2">
-        <div>
-          <h2 className="text-6xl md:text-8xl">Let&apos;s talk.</h2>
-          <p className="mt-6 max-w-sm text-lg text-black/55">Questions about plans, orders or your plaque? Message us on Instagram, or leave your details and we&apos;ll reach out.</p>
-          <a href={dm} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 font-semibold text-white transition hover:bg-black/85"><InstagramIcon className="h-5 w-5" /> DM us {f.instagramHandle} <ArrowUpRight className="h-4 w-4" /></a>
-          <ul className="mt-8 space-y-4 text-lg">
-            <li className="flex items-center gap-3"><Mail className="h-5 w-5" />{s.email}</li>
-            <li className="flex items-center gap-3"><MapPin className="h-5 w-5" />{s.city}</li>
-          </ul>
-        </div>
-        <form onSubmit={submit} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div><label className="lbl" htmlFor="c-name">Name</label><input id="c-name" name="name" required placeholder="Your name" className="input" /></div>
-            <div><label className="lbl" htmlFor="c-biz">Business</label><input id="c-biz" name="business" placeholder="Business name" className="input" /></div>
-          </div>
-          <div><label className="lbl" htmlFor="c-phone">Your phone number</label><input id="c-phone" name="phone" required inputMode="tel" placeholder="+91" className="input" /></div>
-          <div><label className="lbl" htmlFor="c-msg">Message</label><textarea id="c-msg" name="message" rows={4} placeholder="Tell us what you have in mind" className="input" /></div>
-          <button disabled={state === "sending"} className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-8 py-4 font-semibold text-black transition hover:bg-lime-300">{state === "sending" ? "Sending…" : "Send message"} <ArrowUpRight className="h-4 w-4" /></button>
-          {state === "done" && <p className="text-sm font-medium text-green-700">Thanks. We will contact you shortly.</p>}
-          {state === "err" && <p className="text-sm text-red-600">Could not send. Please DM us on Instagram instead.</p>}
-        </form>
-      </div>
-    </section>
-  );
-}
-
 export function Footer({ c }: { c: SiteContent }) {
   const s = c.settings;
   const f = c.footer;
@@ -156,7 +55,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <nav aria-label="Quick links">
           <p className={head}>Quick links</p>
           <ul className="space-y-3">
-            {[["/#partners", "Partners"], ["/#products", "Products"], ["/#advantages", "Advantages"], ["/#gulabi", "Gulabi Nagri"], ["/#shop", "Shop"], ["/#book", "Book a meeting"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+            {[["/#partners", "Partners"], ["/#products", "Products"], ["/#advantages", "Advantages"], ["/#gulabi", "Gulabi Nagri"], ["/#book", "Book a meeting"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
           </ul>
         </nav>
         <nav aria-label="Policies">
