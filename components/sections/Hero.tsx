@@ -31,7 +31,7 @@ export function Hero({ c }: { c: SiteContent }) {
           <p className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</p>
           <div className="mt-10 flex flex-wrap gap-4">
             <a href="#book" className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-8 py-4 font-semibold text-black transition hover:bg-lime-300">{h.cta} <ArrowUpRight className="h-4 w-4" /></a>
-            <a href="https://app.taprizz.in/create" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">Build your mini link <ArrowUpRight className="h-4 w-4" /></a>
+            <a href="https://app.taprizz.in/create" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-white transition hover:border-lime-400 hover:text-lime-400">Create your free mini link <ArrowUpRight className="h-4 w-4" /></a>
           </div>
         </div>
         <div className="flex justify-center [perspective:1200px]">

@@ -89,10 +89,10 @@ export function Partners({ partners }: { partners: Partner[] }) {
 /* ------------------------------------------------------------------ three products */
 const MINI_URL = "https://app.taprizz.in/create";
 const MINI_POINTS = [
-  "A clean, ad-free page for your Instagram bio, in your own brand colours",
-  "Up to 5 photos, every outlet in one list, offers, menu, Zomato, Swiggy and Maps",
-  "Pick a template or any colour. We read colours from your logo for you",
-  "Build and preview it free. Pay Rs 150 once to put it live, no monthly fee",
+  "Free to start: a clean, ad-free page for your Instagram bio, live in 5 minutes",
+  "Your brand colours and logo, all your outlets, and links to Instagram, WhatsApp, Menu, Zomato and Swiggy",
+  "Just type where each link goes. Nothing to select, nothing to learn",
+  "Go Premium for Rs 150, once: videos, more photos, offers and a keywords line",
 ];
 const REVIEW_POINTS = [
   "Built in Jaipur, loved by tourists: no app to install, no login",
@@ -121,7 +121,7 @@ export function Products() {
               <span className="w-fit rounded-full border border-white/30 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]">Mini Link</span>
               <h3 className="mt-5 text-3xl leading-[1.05] md:text-4xl">Your own premium mini link.</h3>
               <ul className="mt-6 space-y-3">{MINI_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/70"><Check className="mt-1 h-4 w-4 shrink-0" />{p}</li>))}</ul>
-              <a href={MINI_URL} className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300" style={{ marginTop: "2rem" }}>Create your mini link <ArrowUpRight className="h-4 w-4" /></a>
+              <a href={MINI_URL} className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300" style={{ marginTop: "2rem" }}>Create your free mini link <ArrowUpRight className="h-4 w-4" /></a>
             </article>
           </Reveal>
           <Reveal delay={0.06}>
