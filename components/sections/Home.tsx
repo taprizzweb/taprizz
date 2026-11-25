@@ -86,54 +86,65 @@ export function Partners({ partners }: { partners: Partner[] }) {
   );
 }
 
-/* ------------------------------------------------------------------ two products */
+/* ------------------------------------------------------------------ three products */
+const MINI_URL = "https://app.taprizz.in/create";
+const MINI_POINTS = [
+  "A clean, ad-free page for your Instagram bio, in your own brand colours",
+  "Up to 5 photos, every outlet in one list, offers, menu, Zomato, Swiggy and Maps",
+  "Pick a template or any colour. We read colours from your logo for you",
+  "Build and preview it free. Pay Rs 150 once to put it live, no monthly fee",
+];
+const REVIEW_POINTS = [
+  "Built in Jaipur, loved by tourists: no app to install, no login",
+  "Guest picks stars and what they liked; AI drafts the review; the guest edits and posts it on Google",
+  "A review page for your business, with your keywords and your brand",
+  "Unhappy guests get a private feedback box, so you hear it first",
+  "NFC tap and QR code on a premium plaque",
+];
 const APP_POINTS = [
-  "One tap opens your own page: review, offers, menu and a way to raise a complaint",
-  "Honest Google reviews, drafted from what the guest liked and edited by them",
-  "Private feedback reaches you first, so you can fix problems early",
+  "One tap opens your own page: menu, review, offers and a way to raise a complaint",
   "Grow your Instagram followers: guests send photos and videos, you post and tag them",
-  "Offers, events and a mini link for your Instagram bio",
+  "Offers, events and your mini link, all in one place",
   "Table ordering, call-the-waiter and a kitchen screen, if you want them",
   "Team alerts on phones, and a dashboard for reviews, feedback and taps",
-  "A listing in Gulabi Nagri, our Jaipur guest guide (pilot)",
-];
-const QR_POINTS = [
-  "NFC tap and QR code on a premium plaque",
-  "Guest picks stars and what they liked; AI drafts the review; the guest posts it on Google",
-  "A review page made for your business, with your keywords",
-  "AI drafts replies to your Google reviews, in the guest's language",
-  "Ready to order today in the shop below",
+  "A listing in Gulabi Nagri, our Jaipur guest guide (coming soon)",
 ];
 
 export function Products() {
   return (
     <section id="products" className="scroll-mt-20 bg-black px-5 py-20 text-white md:px-8 md:py-28">
       <div className="mx-auto max-w-[1280px]">
-        <SectionHead title="Two products. Pick one, or take both." />
-        <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+        <SectionHead title="Three ways in. Start free, grow when you are ready." />
+        <div className="grid gap-6 lg:grid-cols-3">
           <Reveal>
-            <article className="flex h-full flex-col rounded-[30px] border border-lime-400/40 bg-[#0c0c0c] p-7 md:p-9">
-              <span className="w-fit rounded-full bg-lime-400 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-black">Taprizz App</span>
-              <h3 className="mt-5 text-4xl leading-[1.02] md:text-5xl">Your whole customer experience, on one tap.</h3>
-              <ul className="mt-6 space-y-3">{APP_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/75"><Check className="mt-1 h-4 w-4 shrink-0 text-lime-400" />{p}</li>))}</ul>
-              <a href="#book" className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300">Book a meeting <ArrowUpRight className="h-4 w-4" /></a>
+            <article className="flex h-full flex-col rounded-[30px] border border-white/15 p-7 md:p-8">
+              <span className="w-fit rounded-full border border-white/30 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]">Mini Link</span>
+              <h3 className="mt-5 text-3xl leading-[1.05] md:text-4xl">Your own premium mini link.</h3>
+              <ul className="mt-6 space-y-3">{MINI_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/70"><Check className="mt-1 h-4 w-4 shrink-0" />{p}</li>))}</ul>
+              <a href={MINI_URL} className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300" style={{ marginTop: "2rem" }}>Create your mini link <ArrowUpRight className="h-4 w-4" /></a>
             </article>
           </Reveal>
-          <Reveal delay={0.08}>
-            <article className="flex h-full flex-col rounded-[30px] border border-white/15 p-7 md:p-9">
-              <span className="w-fit rounded-full border border-white/30 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]">AI Review QR</span>
-              <h3 className="mt-5 text-4xl leading-[1.02] md:text-5xl">A plaque that gets honest reviews written.</h3>
-              <ul className="mt-6 space-y-3">{QR_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/70"><Check className="mt-1 h-4 w-4 shrink-0" />{p}</li>))}</ul>
-              <div className="mt-auto flex flex-wrap gap-3 pt-8">
-                <a href="#shop" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 font-semibold transition hover:border-lime-400 hover:text-lime-400">Shop plaques <ArrowUpRight className="h-4 w-4" /></a>
-              </div>
+          <Reveal delay={0.06}>
+            <article className="flex h-full flex-col rounded-[30px] border border-white/15 p-7 md:p-8">
+              <span className="w-fit rounded-full border border-white/30 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]">AI Review page</span>
+              <h3 className="mt-5 text-3xl leading-[1.05] md:text-4xl">Honest reviews, written in three taps.</h3>
+              <ul className="mt-6 space-y-3">{REVIEW_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/70"><Check className="mt-1 h-4 w-4 shrink-0" />{p}</li>))}</ul>
+              <a href="#book" className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 font-semibold transition hover:border-lime-400 hover:text-lime-400" style={{ marginTop: "2rem" }}>Book a demo <ArrowUpRight className="h-4 w-4" /></a>
+            </article>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <article className="flex h-full flex-col rounded-[30px] border border-lime-400/40 bg-[#0c0c0c] p-7 md:p-8">
+              <span className="w-fit rounded-full bg-lime-400 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-black">Taprizz App</span>
+              <h3 className="mt-5 text-3xl leading-[1.05] md:text-4xl">Your whole customer experience, on one tap.</h3>
+              <ul className="mt-6 space-y-3">{APP_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/75"><Check className="mt-1 h-4 w-4 shrink-0 text-lime-400" />{p}</li>))}</ul>
+              <a href="#book" className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300" style={{ marginTop: "2rem" }}>Book a meeting <ArrowUpRight className="h-4 w-4" /></a>
             </article>
           </Reveal>
         </div>
         <Reveal delay={0.05}>
           <div className="mt-6 rounded-[24px] bg-lime-400 p-6 text-black md:flex md:items-center md:justify-between md:gap-8 md:p-8">
-            <p className="text-2xl font-semibold leading-snug md:text-3xl">Keep your Pet Pooja POS, or any POS. No new software to buy.</p>
-            <p className="mt-2 max-w-md text-black/70 md:mt-0">Reviews, feedback, offers, your mini link and Gulabi Nagri work alongside your billing system. Taprizz ordering is optional.</p>
+            <p className="text-2xl font-semibold leading-snug md:text-3xl">Cafes across Jaipur are moving to tap-and-scan guest pages. Now it fits every cafe's budget.</p>
+            <p className="mt-2 max-w-md text-black/70 md:mt-0">Keep your Pet Pooja POS, or any POS. Taprizz sits in front of it. No new software to buy.</p>
           </div>
         </Reveal>
       </div>
