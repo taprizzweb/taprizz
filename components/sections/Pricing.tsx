@@ -5,7 +5,7 @@ import type { SiteContent } from "@/lib/types";
 import { inr } from "@/lib/format";
 import { Reveal } from "@/components/ui/Reveal";
 import { waLink } from "@/components/sections/Footerish";
-import { AI_QR_TERMS, PACKAGES, aiSaved, freeMonths, fullPrice, savedFor, termsFor, totalFor, type Pkg, type Term } from "@/lib/plans";
+import { AI_QR_TERMS, KIT, PACKAGES, SETUP_CAP, SETUP_PER_PLATE, aiSaved, aiTotal, freeMonths, fullPrice, savedFor, termsFor, totalFor, type Pkg, type Term } from "@/lib/plans";
 
 type Step = "term" | "form" | "done";
 
@@ -114,6 +114,8 @@ function Picker({ pkg, whatsapp, onClose }: { pkg: Pkg; whatsapp: string; onClos
 
 export function Pricing({ c }: { c: SiteContent }) {
   const [open, setOpen] = useState<Pkg | null>(null);
+  const [tab, setTab] = useState<"app" | "ai">("app");
+  const seg = (on: boolean) => `flex-1 rounded-full px-5 py-3 text-sm font-semibold transition md:text-base ${on ? "bg-lime-400 text-black" : "text-white/70 hover:text-white"}`;
   return (
     <section id="pricing" className="scroll-mt-20 bg-black px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-[1180px]">
@@ -131,6 +133,13 @@ export function Pricing({ c }: { c: SiteContent }) {
           </a>
         </Reveal>
 
+        <div role="tablist" aria-label="Choose a product" className="mb-8 flex max-w-xl gap-1 rounded-full border border-white/15 bg-white/5 p-1">
+          <button role="tab" aria-selected={tab === "app"} onClick={() => setTab("app")} className={seg(tab === "app")}>Taprizz App</button>
+          <button role="tab" aria-selected={tab === "ai"} onClick={() => setTab("ai")} className={seg(tab === "ai")}>AI Review plates</button>
+        </div>
+
+        {tab === "app" ? (
+          <>
         <Reveal className="mb-6">
           <p className="rounded-2xl border border-lime-400/50 bg-lime-400/10 px-5 py-3 text-center font-semibold text-white">Special offer running on Pro: 15% off when you take 12 months. Other plans get 10%.</p>
         </Reveal>
@@ -156,17 +165,64 @@ export function Pricing({ c }: { c: SiteContent }) {
           ))}
         </div>
         <Reveal className="mt-8">
-          <div className="rounded-[24px] border border-white/12 bg-[#0c0c0c] p-6 md:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-lime-400">AI QR plates only</p>
-            <h3 className="mt-2 text-3xl">Only want the AI QR plates for your tables?</h3>
-            <p className="mt-2 max-w-3xl text-white/60">Guests tap or scan the plate, pick stars, and get a review written from their own choices. Made for cafes and restaurants in Jaipur.</p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {AI_QR_TERMS.map((t) => (
-                <div key={t.months} className="rounded-2xl border border-white/10 p-4"><p className="text-sm text-white/55">{t.label}</p><p className="text-3xl font-bold">{inr(t.perMonth)}<span className="text-sm font-medium text-white/50"> / month</span></p>{aiSaved(t) > 0 && <p className="text-xs text-lime-400">You save {inr(aiSaved(t))}</p>}</div>
-              ))}
+          <div className="rounded-[24px] border-2 border-lime-400/60 bg-lime-400/5 p-6 md:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-lime-400">Claim your free tabletops</p>
+            <h3 className="mt-2 text-3xl">Start with tabletops on the house.</h3>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 p-4"><p className="text-4xl font-bold">{KIT.freeNfcTabletops}</p><p className="mt-1 text-white/75">NFC technology based tabletops, free</p></div>
+              <div className="rounded-2xl border border-white/10 p-4"><p className="text-4xl font-bold">{KIT.freeQrTabletops}</p><p className="mt-1 text-white/75">QR technology based tabletops, free</p></div>
             </div>
+            <p className="mt-3 text-sm text-white/60">With any app plan. More tabletops are {inr(KIT.extraPer10)} for every 10. Want your own design? Customize it and send us your requirement. Our team confirms the final number with you.</p>
+            <a href="/start/app" className="mt-4 inline-flex items-center gap-2 rounded-full bg-lime-400 px-6 py-3 font-semibold text-black transition hover:bg-lime-300">Claim your free tabletops <ArrowUpRight className="h-4 w-4" /></a>
           </div>
         </Reveal>
+          </>
+        ) : (
+        <div>
+          <Reveal className="mb-6">
+            <h3 className="text-4xl text-white md:text-5xl">AI Review plates</h3>
+            <p className="mt-3 max-w-3xl text-lg text-white/60">Only want the review plates for your tables? Guests tap or scan the plate, pick stars and options, and get a review written from their own choices (editable, never invented). Made for cafes and restaurants in Jaipur.</p>
+          </Reveal>
+
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/55">1. Choose your plate</p>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="relative rounded-[24px] border-2 border-lime-400 bg-[#0c0c0c] p-6 pt-8">
+              <span className="absolute -top-3 left-5 rounded-full bg-lime-400 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-black">Latest technology · Most recommended</span>
+              <h4 className="text-3xl">NFC + QR plate</h4>
+              <p className="mt-1 text-5xl font-bold">{inr(KIT.platePrice.nfcqr)}<span className="ml-1 text-base font-medium text-white/50">each</span></p>
+              <p className="mt-3 text-white/65">Guests tap the phone on the plate, or scan the QR. A slim plate that sits flat on the table.</p>
+            </div>
+            <div className="rounded-[24px] border border-white/12 bg-[#0c0c0c] p-6 pt-8">
+              <h4 className="text-3xl">QR plate</h4>
+              <p className="mt-1 text-5xl font-bold">{inr(KIT.platePrice.qr)}<span className="ml-1 text-base font-medium text-white/50">each</span></p>
+              <p className="mt-3 text-white/65">Guests scan the QR to open their review page. A slim plate that sits flat on the table.</p>
+            </div>
+          </div>
+
+          <p className="mb-3 mt-10 text-sm font-semibold uppercase tracking-wide text-white/55">2. Choose your AI QR plan</p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {AI_QR_TERMS.map((t) => (
+              <div key={t.months} className="rounded-[22px] border border-white/12 bg-[#0c0c0c] p-5">
+                <p className="text-white/55">{t.label}</p>
+                <p className="mt-1 text-4xl font-bold">{inr(t.perMonth)}<span className="text-sm font-medium text-white/50"> / month</span></p>
+                <p className="mt-1 text-sm text-white/60">{inr(aiTotal(t))} in all</p>
+                {aiSaved(t) > 0 ? <p className="mt-1 text-sm font-medium text-lime-400">You save {inr(aiSaved(t))}</p> : <p className="mt-1 text-sm text-white/40">No discount</p>}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-[24px] border border-white/12 bg-[#0c0c0c] p-6">
+            <h4 className="text-2xl">One-time setup</h4>
+            <ul className="mt-3 space-y-1.5 text-white/75">
+              <li>1 plate: {inr(SETUP_PER_PLATE)} setup + the plate</li>
+              <li>2 plates: {inr(SETUP_CAP)} setup + the plates</li>
+              <li>3 or more plates: the setup stays {inr(SETUP_CAP)}</li>
+            </ul>
+            <p className="mt-3 text-sm text-white/55">Example: 1 NFC + QR plate is {inr(SETUP_PER_PLATE)} + {inr(KIT.platePrice.nfcqr)} = {inr(SETUP_PER_PLATE + KIT.platePrice.nfcqr)} one time, plus the monthly plan. Want your own design? Customize it and send us your requirement. Our team confirms the final amount.</p>
+            <a href="/start/ai-qr" className="mt-5 inline-flex items-center gap-2 rounded-full bg-lime-400 px-6 py-3 font-semibold text-black transition hover:bg-lime-300">Get my AI QR quote <ArrowUpRight className="h-4 w-4" /></a>
+          </div>
+        </div>
+        )}
         <p className="mt-8 text-sm text-white/45">Prices are per month before the discount. Setup and stand costs may be extra; our team confirms them with you. Nothing is paid on this website.</p>
       </div>
       {open && <Picker pkg={open} whatsapp={c.settings.whatsapp} onClose={() => setOpen(null)} />}
