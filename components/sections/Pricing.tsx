@@ -5,66 +5,20 @@ import type { SiteContent } from "@/lib/types";
 import { inr } from "@/lib/format";
 import { Reveal } from "@/components/ui/Reveal";
 import { waLink } from "@/components/sections/Footerish";
-
-// Prices are the owner's: 1,700 / 2,700 / 3,500 a month. 6 months get 5% off, 12 months get 10% off. Nothing is paid on this website.
-type Pkg = { id: string; name: string; price: number; tagline: string; lead: string; features: string[]; hi?: boolean };
-const PACKAGES: Pkg[] = [
-  {
-    id: "starter", name: "Starter", price: 1700, tagline: "Everything to start collecting real Google reviews.", lead: "You get",
-    features: [
-      "AI Review page: guests tap stars and options, and a review is written from their own choices (editable, never invented)",
-      "Menu link and offers strip on your guest page",
-      "Search keyword strip for your business",
-      "WhatsApp contact capture (guests share only if they choose)",
-      "Gallery photos (up to 2) and extra link buttons (up to 2)",
-      "Basic monthly report",
-      "Review replies by copy",
-    ],
-  },
-  {
-    id: "growth", name: "Growth", price: 2700, tagline: "Hear every complaint first, and run offers and events.", lead: "Everything in Starter, plus", hi: true,
-    features: [
-      "Complaint and suggestion inbox, with voice notes",
-      "Offers with claim codes, and events",
-      "Creators corner: guests tag, follow and share photos or clips",
-      "More gallery photos (up to 6) and link buttons (up to 5)",
-      "Full monthly report",
-      "Review replies with approve and post",
-      "Some WhatsApp campaign messages included",
-    ],
-  },
-  {
-    id: "pro", name: "Pro", price: 3500, tagline: "For busy cafes and restaurants that run the whole floor on Taprizz.", lead: "Everything in Growth, plus",
-    features: [
-      "Table ordering links: each table plate opens its own ordering link",
-      "Call server bell and membership",
-      "Content help: editing, posting and a calendar",
-      "Review replies done automatically for 4 and 5 stars",
-      "Most gallery photos (up to 15) and link buttons (up to 12)",
-      "Monthly report with a call",
-      "WhatsApp campaigns included up to a cap",
-      "All upcoming updates and new features, as we ship them",
-    ],
-  },
-];
-const TERMS = [
-  { months: 1, off: 0, label: "1 month" },
-  { months: 6, off: 5, label: "6 months" },
-  { months: 12, off: 10, label: "12 months" },
-] as const;
-const total = (price: number, t: (typeof TERMS)[number]) => Math.round(price * t.months * (1 - t.off / 100));
+import { PACKAGES, freeMonths, fullPrice, savedFor, termsFor, totalFor, type Pkg, type Term } from "@/lib/plans";
 
 type Step = "term" | "form" | "done";
 
 function Picker({ pkg, whatsapp, onClose }: { pkg: Pkg; whatsapp: string; onClose: () => void }) {
   const [step, setStep] = useState<Step>("term");
-  const [term, setTerm] = useState<(typeof TERMS)[number]>(TERMS[1]);
+  const TERMS = termsFor(pkg);
+  const [term, setTerm] = useState<Term>(TERMS[1]);
   const [intent, setIntent] = useState<"demo" | "details">("demo");
   const [f, setF] = useState({ name: "", business: "", phone: "", note: "", agree: false, website: "" });
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const set = (k: keyof typeof f, v: string | boolean) => setF((p) => ({ ...p, [k]: v }));
-  const sum = total(pkg.price, term);
+  const sum = totalFor(pkg, term);
   const want = intent === "demo" ? "book a demo" : "get the full details";
   const summary = `${pkg.name} plan, ${term.label}, ${inr(sum)}${term.off ? ` (${term.off}% off)` : ""}`;
 
@@ -104,11 +58,16 @@ function Picker({ pkg, whatsapp, onClose }: { pkg: Pkg; whatsapp: string; onClos
             <p className="mt-1 text-white/60">How long do you want to start for?</p>
             <div className="mt-5 space-y-3">
               {TERMS.map((t) => {
-                const tot = total(pkg.price, t), on = t.months === term.months;
+                const tot = totalFor(pkg, t), on = t.months === term.months, saved = savedFor(pkg, t);
                 return (
-                  <button key={t.months} type="button" onClick={() => setTerm(t)} aria-pressed={on} className={`flex w-full items-center justify-between gap-3 rounded-2xl border-2 p-4 text-left transition ${on ? "border-lime-400 bg-lime-400/10" : "border-white/10 hover:border-white/30"}`}>
-                    <span><span className="block text-lg font-semibold">{t.label}</span><span className={`text-xs ${t.off ? "font-medium text-lime-400" : "text-white/50"}`}>{t.off ? `${t.off}% off, ${inr(tot / t.months)} a month` : "No discount"}</span></span>
-                    <span className="text-right"><span className="block text-2xl font-bold">{inr(tot)}</span>{t.off > 0 && <span className="text-xs line-through opacity-45">{inr(pkg.price * t.months)}</span>}</span>
+                  <button key={t.months} type="button" onClick={() => setTerm(t)} aria-pressed={on} className={`relative flex w-full items-center justify-between gap-3 rounded-2xl border-2 p-4 text-left transition ${on ? "border-lime-400 bg-lime-400/10" : "border-white/10 hover:border-white/30"}`}>
+                    {t.special && <span className="absolute -top-3 left-4 rounded-full bg-lime-400 px-3 py-0.5 text-[11px] font-bold uppercase tracking-wide text-black">Special offer</span>}
+                    <span>
+                      <span className="block text-lg font-semibold">{t.label}</span>
+                      <span className={`block text-xs ${t.off ? "font-medium text-lime-400" : "text-white/50"}`}>{t.off ? `${t.off}% off, ${inr(tot / t.months)} a month` : "No discount"}</span>
+                      {saved > 0 && <span className="mt-0.5 block text-xs text-white/70">You save {inr(saved)}, about {freeMonths(pkg, t)} months free</span>}
+                    </span>
+                    <span className="text-right"><span className="block text-2xl font-bold">{inr(tot)}</span>{t.off > 0 && <span className="text-xs line-through opacity-45">{inr(fullPrice(pkg, t))}</span>}</span>
                   </button>
                 );
               })}
@@ -161,7 +120,7 @@ export function Pricing({ c }: { c: SiteContent }) {
         <Reveal className="mb-12 max-w-4xl md:mb-14">
           <p className="mb-5 inline-block rounded-full border border-lime-400/40 px-4 py-1.5 text-sm text-lime-400">Plans for Jaipur</p>
           <h2 className="text-5xl leading-[0.95] text-white md:text-7xl">Powerful technology at a price that suits every cafe and restaurant in Jaipur.</h2>
-          <p className="mt-5 max-w-2xl text-lg text-white/60">Three plans. Start for 1 month, or take 6 months with 5% off, or 12 months with 10% off. And we are launching more.</p>
+          <p className="mt-5 max-w-2xl text-lg text-white/60">Three plans. Start for 1 month, or take 6 months with 5% off, or 12 months with 10% off (15% off on Pro). And we are launching more.</p>
         </Reveal>
 
         <Reveal className="mb-12">
@@ -175,17 +134,19 @@ export function Pricing({ c }: { c: SiteContent }) {
         <div className="grid gap-6 lg:grid-cols-3">
           {PACKAGES.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.08} className="h-full">
-              <div className={`relative flex h-full flex-col rounded-[28px] p-7 ${p.hi ? "bg-lime-400 text-black" : "border border-white/12 bg-[#0c0c0c] text-white"}`}>
-                {p.hi && <span className="absolute right-6 top-6 rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-lime-400">Popular</span>}
+              <div className={`relative flex h-full flex-col rounded-[28px] p-7 ${p.special ? "border-2 border-lime-400 bg-[#0c0c0c] text-white" : "border border-white/12 bg-[#0c0c0c] text-white"}`}>
+                {p.special && <span className="absolute right-6 top-6 rounded-full bg-lime-400 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-black">Special offer</span>}
+                {p.tag && <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-lime-400">{p.tag}</p>}
                 <h3 className="text-4xl">{p.name}</h3>
-                <p className={`mt-1 min-h-[3rem] ${p.hi ? "text-black/65" : "text-white/55"}`}>{p.tagline}</p>
-                <p className="mt-5 text-5xl font-bold">{inr(p.price)}<span className={`ml-1 text-base font-medium ${p.hi ? "text-black/60" : "text-white/50"}`}>/ month</span></p>
-                <p className={`mt-1 text-sm ${p.hi ? "text-black/70" : "text-lime-400"}`}>6 months: 5% off · 12 months: 10% off</p>
-                <p className={`mt-6 text-sm font-semibold uppercase tracking-wide ${p.hi ? "text-black/70" : "text-white/55"}`}>{p.lead}</p>
+                <p className="mt-1 min-h-[3rem] text-white/55">{p.tagline}</p>
+                <p className="mt-5 text-5xl font-bold">{inr(p.price)}<span className="ml-1 text-base font-medium text-white/50">/ month</span></p>
+                <p className="mt-1 text-sm text-lime-400">{p.special ? "6 months: 5% off · 12 months: 15% off" : "6 months: 5% off · 12 months: 10% off"}</p>
+                {p.special && <p className="mt-1 text-sm font-semibold text-white">Special offer: 15% off on 12 months. You save {inr(savedFor(p, termsFor(p)[2]))}.</p>}
+                <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-white/55">{p.lead}</p>
                 <ul className="mt-3 space-y-2.5 text-[15px]">
-                  {p.features.map((f) => (<li key={f} className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0" />{f}</li>))}
+                  {p.features.map((f) => (<li key={f.text} className={`flex items-start gap-2.5 ${f.included === false ? "opacity-40" : ""}`}>{f.included === false ? <X className="mt-0.5 h-4 w-4 shrink-0" /> : <Check className="mt-0.5 h-4 w-4 shrink-0" />}{f.text}</li>))}
                 </ul>
-                <button onClick={() => setOpen(p)} className={`mt-8 w-full rounded-full py-4 font-semibold transition ${p.hi ? "bg-black text-lime-400 hover:bg-black/85" : "bg-lime-400 text-black hover:bg-lime-300"}`}>Choose {p.name}</button>
+                <button onClick={() => setOpen(p)} className="mt-8 w-full rounded-full bg-lime-400 py-4 font-semibold text-black transition hover:bg-lime-300">Choose {p.name}</button>
               </div>
             </Reveal>
           ))}
