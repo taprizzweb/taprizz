@@ -169,10 +169,10 @@ export function Pricing({ c }: { c: SiteContent }) {
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-lime-400">Claim your free tabletops</p>
             <h3 className="mt-2 text-3xl">Start with tabletops on the house.</h3>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 p-4"><p className="text-4xl font-bold">{KIT.freeNfcTabletops}</p><p className="mt-1 text-white/75">NFC technology based tabletops, free</p></div>
+              <div className="relative rounded-2xl border-2 border-lime-400 p-4 pt-6"><span className="absolute -top-3 left-4 rounded-full bg-lime-400 px-3 py-0.5 text-[11px] font-bold uppercase tracking-wide text-black">Latest technology · Most recommended</span><p className="text-4xl font-bold">{KIT.freeNfcTabletops}</p><p className="mt-1 text-white/75">NFC technology based tabletops, free</p></div>
               <div className="rounded-2xl border border-white/10 p-4"><p className="text-4xl font-bold">{KIT.freeQrTabletops}</p><p className="mt-1 text-white/75">QR technology based tabletops, free</p></div>
             </div>
-            <p className="mt-3 text-sm text-white/60">With any app plan. More tabletops are {inr(KIT.extraPer10)} for every 10. Want your own design? Customize it and send us your requirement. Our team confirms the final number with you.</p>
+            <p className="mt-3 text-sm text-white/60">With any app plan. More tabletops after that: QR technology based {inr(KIT.tabletopPrice.qr)} each, NFC technology based {inr(KIT.tabletopPrice.nfc)} each. Want your own design? Customize it and send us your requirement. Our team confirms the final number with you.</p>
             <a href="/start/app" className="mt-4 inline-flex items-center gap-2 rounded-full bg-lime-400 px-6 py-3 font-semibold text-black transition hover:bg-lime-300">Claim your free tabletops <ArrowUpRight className="h-4 w-4" /></a>
           </div>
         </Reveal>

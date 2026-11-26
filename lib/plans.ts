@@ -63,7 +63,7 @@ export const freeMonths = (pkg: Pkg, t: Term) => Math.round((savedFor(pkg, t) / 
 export const KIT = {
   freeNfcTabletops: 2,   // with an app plan: 2 NFC-based tabletops free, or
   freeQrTabletops: 4,    // 4 QR-based tabletops free
-  extraPer10: 500,       // more tabletops: Rs 500 for every 10
+  tabletopPrice: { qr: 250, nfc: 450 }, // each tabletop after the free ones: QR-based Rs 250, NFC-based Rs 450
   platePrice: { qr: 600, nfcqr: 700 }, // AI Review only: the plate by itself
 } as const;
 export const PLACEMENTS = [

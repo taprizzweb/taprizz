@@ -48,12 +48,16 @@ export function StartClient({ whatsapp, brand, track }: { whatsapp: string; bran
   const plateCost = spots * KIT.platePrice[plateType];
   const setup = setupFee(spots);
   const oneTime = plateCost + setup;
+  const freeTop = tap === "nfcqr" ? KIT.freeNfcTabletops : KIT.freeQrTabletops;
+  const extraTop = Math.max(0, spots - freeTop);
+  const extraCost = extraTop * KIT.tabletopPrice[tap === "nfcqr" ? "nfc" : "qr"];
 
   const lines = useMemo(() => {
     const L: string[] = [];
     if (track === "app") {
       L.push(`Taprizz App: ${pkg.name} plan, ${term.label}, ${inr(totalFor(pkg, term))}${term.off ? ` (${term.off}% off, saves ${inr(savedFor(pkg, term))})` : ""}`);
       L.push(`Wants: ${place.map((id) => PLACEMENTS.find((x) => x.id === id)?.label).join(", ") || "not chosen"} (${tap === "nfcqr" ? "NFC + QR" : "QR only"})`);
+      if (place.includes("tabletop")) L.push(`Tabletops for ${spots}: ${freeTop} free${extraTop > 0 ? `, ${extraTop} more = ${inr(extraCost)}` : ""} (to be confirmed)`);
     } else {
       L.push(`AI QR: ${plateType === "qr" ? "QR plate" : "NFC + QR plate"} at ${inr(KIT.platePrice[plateType])} each`);
       L.push(`AI QR plan: ${aiTerm.label}, ${inr(aiTerm.perMonth)} a month, ${inr(aiTotal(aiTerm))}${aiSaved(aiTerm) > 0 ? ` (saves ${inr(aiSaved(aiTerm))})` : ""}`);
@@ -62,7 +66,7 @@ export function StartClient({ whatsapp, brand, track }: { whatsapp: string; bran
     if (track === "plates") L.push(`One-time: setup ${inr(setup)} + ${spots} plate${spots === 1 ? "" : "s"} ${inr(plateCost)} = ${inr(oneTime)}, plus the plan above (to be confirmed)`);
     if (custom) L.push(`Wants a custom design${customNote.trim() ? `: ${customNote.trim().slice(0, 300)}` : ""}`);
     return L;
-  }, [track, pkg, term, place, tap, plateType, aiTerm, nTables, nCounters, counterYes, custom, customNote, oneTime, setup, plateCost, spots]);
+  }, [track, pkg, term, place, tap, plateType, aiTerm, nTables, nCounters, counterYes, custom, customNote, oneTime, setup, plateCost, spots, freeTop, extraTop, extraCost]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -155,7 +159,12 @@ export function StartClient({ whatsapp, brand, track }: { whatsapp: string; bran
                   <Pill on={tap === "nfcqr"} onClick={() => setTap("nfcqr")} tag="Latest technology · Most recommended" sub="Guests tap the phone or scan.">NFC + QR</Pill>
                   <Pill on={tap === "qr"} onClick={() => setTap("qr")} sub="Guests scan.">QR only</Pill>
                 </div>
-                <p className="mt-4 text-sm text-white/65">With an app plan you start with {KIT.freeNfcTabletops} NFC-based tabletops free, or {KIT.freeQrTabletops} QR-based tabletops free. More tabletops: {inr(KIT.extraPer10)} for every 10. Our team confirms the final number with you.</p>
+                <div className="mt-4 rounded-xl bg-lime-400/10 p-4 text-sm text-white/85">
+                  <p>With an app plan you start with <strong>{KIT.freeNfcTabletops} NFC technology based tabletops free</strong>, or <strong>{KIT.freeQrTabletops} QR technology based tabletops free</strong>.</p>
+                  <p className="mt-1">After the free ones: QR based {inr(KIT.tabletopPrice.qr)} each, NFC based {inr(KIT.tabletopPrice.nfc)} each. NFC is the latest technology.</p>
+                  {place.includes("tabletop") && spots > 0 && <p className="mt-2">For {spots} tabletop{spots === 1 ? "" : "s"}: {extraTop > 0 ? <>{freeTop} free + {extraTop} more = <strong>{inr(extraCost)}</strong></> : <>all {spots} free</>}.</p>}
+                  <p className="mt-2 text-xs text-white/50">Our team confirms the final amount with you.</p>
+                </div>
               </section>
             </>
           )}
