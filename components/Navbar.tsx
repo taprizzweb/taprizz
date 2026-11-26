@@ -5,7 +5,7 @@ import { useCart } from "@/lib/cart";
 
 export function Navbar({ brand, announcement, shop = false }: { brand: string; announcement?: string; shop?: boolean }) {
   const { count, setOpen } = useCart();
-  const links = [["#partners", "Partners"], ["#products", "Products"], ["#advantages", "Advantages"], ["#gulabi", "Gulabi Nagri"], ...(shop ? [["#shop", "Shop"]] : [])];
+  const links = [["#partners", "Partners"], ["#products", "Products"], ["#pricing", "Pricing"], ["#advantages", "Advantages"], ["#gulabi", "Gulabi Nagri"], ...(shop ? [["#shop", "Shop"]] : [])];
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {announcement && <div className="bg-lime-400 px-4 py-1.5 text-center text-[11px] font-medium text-black md:text-xs">{announcement}</div>}
