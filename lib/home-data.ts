@@ -24,3 +24,9 @@ export const DEMO_FOR: { name: string; kind: string }[] = [
   { name: "Nothing Before Coffee, C Scheme", kind: "Cafe" },
   { name: "Carbon Cafe", kind: "Coffee bar, Jaipur" },
 ];
+
+// Plate designs shown one after another in the hero. Add a file to /public/plates and a line here. `note` is shown under the plate (use "Demo design" for a business that is not a partner).
+export const HERO_PLATES: { src: string; name: string; w: number; h: number; note?: string }[] = [
+  { src: "/plates/chitra-katha.png", name: "Chitra Katha", w: 678, h: 732 },
+  { src: "/plates/nbc.png", name: "Nothing Before Coffee", w: 475, h: 716, note: "Demo design" },
+];

@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
-import { Plaque } from "@/components/ui/Plaque";
+import { PlateShowcase } from "@/components/ui/PlateShowcase";
 import { ShaderBg } from "@/components/ui/ShaderBg";
 import { ClientsMarquee } from "@/components/sections/Home";
 import { waLink } from "@/components/sections/Footerish";
@@ -55,7 +55,7 @@ export function Hero({ c }: { c: SiteContent }) {
         </div>
         <div className="flex justify-center [perspective:1200px]">
           <motion.div style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
-            <Plaque className="max-w-[420px] shadow-[0_40px_120px_-20px_rgba(255,255,255,0.14)]" />
+            <PlateShowcase className="max-w-[420px] shadow-[0_40px_120px_-20px_rgba(255,255,255,0.14)]" />
           </motion.div>
         </div>
       </div>
