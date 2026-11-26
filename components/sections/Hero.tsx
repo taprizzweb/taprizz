@@ -35,6 +35,7 @@ export function Hero({ c }: { c: SiteContent }) {
             {h.title} <span className="metal-text">{h.highlight}</span>
           </h1>
           <p className="mt-7 max-w-xl text-lg text-white/65">{h.subtitle}</p>
+          <p className="mt-5 max-w-xl text-xl font-semibold leading-snug text-lime-400 md:text-2xl">Now every owner in Jaipur can make a worthwhile investment in their growth with Taprizz.</p>
           <div id="offers-hero" className="mt-7 grid max-w-2xl scroll-mt-32 gap-3 sm:grid-cols-2">
             <div className="rounded-[22px] border-2 border-lime-400 bg-lime-400/10 p-5">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-lime-400">Free for first-time customers who take a plan</p>
