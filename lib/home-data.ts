@@ -23,10 +23,15 @@ export const DEMO_FOR: { name: string; kind: string }[] = [
   { name: "Nothing Before Coffee, Jal Mahal", kind: "Cafe" },
   { name: "Nothing Before Coffee, C Scheme", kind: "Cafe" },
   { name: "Carbon Cafe", kind: "Coffee bar, Jaipur" },
+  { name: "Crazy Coffee", kind: "Cafe" },
+  { name: "Traut Coffee House", kind: "Cafe" },
 ];
 
 // Plate designs shown one after another in the hero. Add a file to /public/plates and a line here. `note` is shown under the plate (use "Demo design" for a business that is not a partner).
 export const HERO_PLATES: { src: string; name: string; w: number; h: number; note?: string }[] = [
-  { src: "/plates/chitra-katha.png", name: "Chitra Katha", w: 678, h: 732 },
-  { src: "/plates/nbc.png", name: "Nothing Before Coffee", w: 475, h: 716, note: "Demo design" },
+  { src: "/plates/green-feast.png", name: "Green Feast", w: 864, h: 1296 },
+  { src: "/plates/carbon.png", name: "Carbon", w: 864, h: 1296, note: "Demo design" },
+  { src: "/plates/nbc.png", name: "Nothing Before Coffee", w: 864, h: 1296, note: "Demo design" },
+  { src: "/plates/crazy-coffee.png", name: "Crazy Coffee", w: 864, h: 1296, note: "Demo design" },
+  { src: "/plates/traut-house.png", name: "Traut Coffee House", w: 864, h: 1296, note: "Demo design" },
 ];

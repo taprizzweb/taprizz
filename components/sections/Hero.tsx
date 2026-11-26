@@ -55,7 +55,7 @@ export function Hero({ c }: { c: SiteContent }) {
         </div>
         <div className="flex justify-center [perspective:1200px]">
           <motion.div style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
-            <PlateShowcase className="max-w-[420px] shadow-[0_40px_120px_-20px_rgba(255,255,255,0.14)]" />
+            <PlateShowcase className="shadow-[0_40px_120px_-20px_rgba(255,255,255,0.14)]" />
           </motion.div>
         </div>
       </div>

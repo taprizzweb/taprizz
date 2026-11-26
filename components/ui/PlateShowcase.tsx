@@ -17,8 +17,8 @@ export function PlateShowcase({ className = "" }: { className?: string }) {
   if (n === 0) return null;
   const p = HERO_PLATES[i];
   return (
-    <div className={`w-full ${className}`} onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[28px] bg-black/40">
+    <div className={`mx-auto w-[min(78vw,360px)] ${className}`} onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
+      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[26px]">
         <AnimatePresence mode="wait">
           <motion.div key={p.src} className="absolute inset-0 grid place-items-center" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
