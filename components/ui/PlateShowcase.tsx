@@ -1,30 +1,45 @@
 "use client";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { HERO_PLATES } from "@/lib/home-data";
 
-/** The plate designs, one after another. The pictures are shown exactly as they were supplied. */
+const EVERY_MS = 2600;
+
+/** The plate designs, one after another, every few seconds. The pictures are shown exactly as they were supplied.
+ *  All plates are in the page from the start, so a change never waits for a download. It keeps changing on phones too. */
 export function PlateShowcase({ className = "" }: { className?: string }) {
   const [i, setI] = useState(0);
   const [hold, setHold] = useState(false);
-  const reduce = useReducedMotion();
+  const calm = useReducedMotion(); // a simple fade instead of sliding
   const n = HERO_PLATES.length;
   useEffect(() => {
-    if (n < 2 || hold || reduce) return;
-    const t = setInterval(() => setI((x) => (x + 1) % n), 4500);
+    if (n < 2 || hold) return;
+    const t = setInterval(() => setI((x) => (x + 1) % n), EVERY_MS);
     return () => clearInterval(t);
-  }, [n, hold, reduce]);
+  }, [n, hold]);
   if (n === 0) return null;
   const p = HERO_PLATES[i];
   return (
-    <div className={`mx-auto w-[min(78vw,360px)] ${className}`} onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
-      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[26px]">
-        <AnimatePresence mode="wait">
-          <motion.div key={p.src} className="absolute inset-0 grid place-items-center" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.src} alt={`${p.name} plate`} width={p.w} height={p.h} className="h-full w-full object-contain" />
-          </motion.div>
-        </AnimatePresence>
+    <div className={`mx-auto w-[min(78vw,360px)] ${className}`} onPointerEnter={(e) => { if (e.pointerType === "mouse") setHold(true); }} onPointerLeave={(e) => { if (e.pointerType === "mouse") setHold(false); }}>
+      <div className="relative aspect-[2/3] w-full [perspective:900px]">
+        {HERO_PLATES.map((x, k) => {
+          const on = k === i;
+          const side = k < i ? -1 : 1;
+          return (
+            <motion.div
+              key={x.src}
+              className="absolute inset-0 overflow-hidden rounded-[26px]"
+              style={{ pointerEvents: on ? "auto" : "none" }}
+              initial={false}
+              animate={on ? { opacity: 1, x: 0, scale: 1, rotateY: 0 } : calm ? { opacity: 0 } : { opacity: 0, x: side * 70, scale: 0.9, rotateY: side * -18 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden={!on}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={x.src} alt={`${x.name} plate`} width={x.w} height={x.h} loading="eager" decoding="async" className="h-full w-full object-contain" />
+            </motion.div>
+          );
+        })}
       </div>
       <p className="mt-3 text-center text-sm text-white/60">{p.name}{p.note ? <span className="ml-2 rounded-full border border-white/25 px-2 py-0.5 text-[11px] text-white/70">{p.note}</span> : null}</p>
       {n > 1 && (
