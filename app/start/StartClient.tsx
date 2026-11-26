@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import { ArrowUpRight, Check, Loader2 } from "lucide-react";
 import { inr } from "@/lib/format";
-import { KIT, PACKAGES, PLACEMENTS, freeMonths, savedFor, termsFor, totalFor, type Pkg } from "@/lib/plans";
+import { AI_QR_TERMS, KIT, PACKAGES, PLACEMENTS, aiSaved, aiTotal, freeMonths, savedFor, setupFee, termsFor, totalFor, type Pkg } from "@/lib/plans";
 import { waLink } from "@/components/sections/Footerish";
 
 type Track = "app" | "plates";
@@ -10,17 +10,17 @@ const box = "rounded-[24px] border border-white/12 bg-[#0c0c0c] p-5 md:p-7";
 const input = "w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-lime-400";
 const num = (v: string) => Math.max(0, Math.min(999, Math.floor(Number(v) || 0)));
 
-function Pill({ on, onClick, children, sub }: { on: boolean; onClick: () => void; children: React.ReactNode; sub?: string }) {
+function Pill({ on, onClick, children, sub, tag }: { on: boolean; onClick: () => void; children: React.ReactNode; sub?: string; tag?: string }) {
   return (
-    <button type="button" aria-pressed={on} onClick={onClick} className={`rounded-2xl border-2 p-4 text-left transition ${on ? "border-lime-400 bg-lime-400/10" : "border-white/10 hover:border-white/30"}`}>
+    <button type="button" aria-pressed={on} onClick={onClick} className={`relative rounded-2xl border-2 p-4 text-left transition ${on ? "border-lime-400 bg-lime-400/10" : "border-white/10 hover:border-white/30"}`}>
+      {tag && <span className="absolute -top-3 left-3 rounded-full bg-lime-400 px-3 py-0.5 text-[11px] font-bold uppercase tracking-wide text-black">{tag}</span>}
       <span className="flex items-center gap-2 font-semibold">{on && <Check className="h-4 w-4 text-lime-400" />}{children}</span>
       {sub && <span className="mt-1 block text-xs text-white/55">{sub}</span>}
     </button>
   );
 }
 
-export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: string }) {
-  const [track, setTrack] = useState<Track>("app");
+export function StartClient({ whatsapp, brand, track }: { whatsapp: string; brand: string; track: Track }) {
   const [pkgId, setPkgId] = useState<Pkg["id"]>("growth");
   const pkg = PACKAGES.find((p) => p.id === pkgId)!;
   const TERMS = termsFor(pkg);
@@ -28,7 +28,9 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
   const term = TERMS.find((t) => t.months === months) ?? TERMS[1];
   const [place, setPlace] = useState<string[]>(["tabletop"]);
   const [tap, setTap] = useState<"nfcqr" | "qr">("nfcqr");
-  const [plateType, setPlateType] = useState<"qr" | "nfcqr">("qr");
+  const [plateType, setPlateType] = useState<"qr" | "nfcqr">("nfcqr");
+  const [aiMonths, setAiMonths] = useState<number>(6);
+  const aiTerm = AI_QR_TERMS.find((t) => t.months === aiMonths) ?? AI_QR_TERMS[1];
   const [tables, setTables] = useState("");
   const [counterYes, setCounterYes] = useState(false);
   const [counters, setCounters] = useState("1");
@@ -43,7 +45,9 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
 
   const nTables = num(tables), nCounters = counterYes ? num(counters) : 0;
   const spots = nTables + nCounters;
-  const plateTotal = spots * KIT.platePrice[plateType];
+  const plateCost = spots * KIT.platePrice[plateType];
+  const setup = setupFee(spots);
+  const oneTime = plateCost + setup;
 
   const lines = useMemo(() => {
     const L: string[] = [];
@@ -51,13 +55,14 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
       L.push(`Taprizz App: ${pkg.name} plan, ${term.label}, ${inr(totalFor(pkg, term))}${term.off ? ` (${term.off}% off, saves ${inr(savedFor(pkg, term))})` : ""}`);
       L.push(`Wants: ${place.map((id) => PLACEMENTS.find((x) => x.id === id)?.label).join(", ") || "not chosen"} (${tap === "nfcqr" ? "NFC + QR" : "QR only"})`);
     } else {
-      L.push(`AI Review plates only: ${plateType === "qr" ? "QR plate" : "NFC + QR plate"} at ${inr(KIT.platePrice[plateType])} each`);
+      L.push(`AI QR: ${plateType === "qr" ? "QR plate" : "NFC + QR plate"} at ${inr(KIT.platePrice[plateType])} each`);
+      L.push(`AI QR plan: ${aiTerm.label}, ${inr(aiTerm.perMonth)} a month, ${inr(aiTotal(aiTerm))}${aiSaved(aiTerm) > 0 ? ` (saves ${inr(aiSaved(aiTerm))})` : ""}`);
     }
     L.push(`Tables: ${nTables}${counterYes ? `, counters: ${nCounters}` : ", no counter plate"}`);
-    if (track === "plates") L.push(`About ${inr(plateTotal)} for ${spots} plate${spots === 1 ? "" : "s"} (to be confirmed)`);
+    if (track === "plates") L.push(`One-time: setup ${inr(setup)} + ${spots} plate${spots === 1 ? "" : "s"} ${inr(plateCost)} = ${inr(oneTime)}, plus the plan above (to be confirmed)`);
     if (custom) L.push(`Wants a custom design${customNote.trim() ? `: ${customNote.trim().slice(0, 300)}` : ""}`);
     return L;
-  }, [track, pkg, term, place, tap, plateType, nTables, nCounters, counterYes, custom, customNote, plateTotal, spots]);
+  }, [track, pkg, term, place, tap, plateType, aiTerm, nTables, nCounters, counterYes, custom, customNote, oneTime, setup, plateCost, spots]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -100,8 +105,8 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
     <main className="min-h-dvh bg-black text-white">
       <div className="mx-auto max-w-[900px] px-5 py-12 md:py-16">
         <p className="inline-block rounded-full border border-lime-400/40 px-4 py-1.5 text-sm text-lime-400">{brand}</p>
-        <h1 className="mt-5 text-5xl leading-[0.95] md:text-7xl">Let&apos;s get you started.</h1>
-        <p className="mt-4 max-w-2xl text-lg text-white/60">Choose what you want, how long, and how many tables. No payment here: our team confirms everything with you on WhatsApp first.</p>
+        <h1 className="mt-5 text-5xl leading-[0.95] md:text-7xl">{track === "app" ? "Let's get you started." : "AI QR plates for your tables."}</h1>
+        <p className="mt-4 max-w-2xl text-lg text-white/60">{track === "app" ? "Choose what you want, how long, and how many tables." : "Guests tap or scan your plate, pick stars, and get a review written from their own choices, made for cafes and restaurants in Jaipur."} No payment here: our team confirms everything with you on WhatsApp first.</p>
 
         <section className="mt-8 rounded-[24px] border border-rose-300/30 bg-gradient-to-r from-[#2a1019] to-[#120709] p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-rose-200">There will be a great launch</p>
@@ -110,11 +115,6 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
         </section>
 
         <form onSubmit={submit} noValidate className="mt-8 space-y-6">
-          <div className="grid gap-3 sm:grid-cols-2" role="group" aria-label="What do you want">
-            <Pill on={track === "app"} onClick={() => setTrack("app")} sub="The full Taprizz app with a plan: review page, inbox, menu, ordering and more.">Taprizz App plans</Pill>
-            <Pill on={track === "plates"} onClick={() => setTrack("plates")} sub="Only the AI Review plates for your tables. No monthly plan.">AI Review plates only</Pill>
-          </div>
-
           {track === "app" && (
             <>
               <section className={box}>
@@ -152,7 +152,7 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
                   {PLACEMENTS.map((x) => (<Pill key={x.id} on={place.includes(x.id)} onClick={() => toggle(x.id)} sub={x.help}>{x.label}</Pill>))}
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2" role="group" aria-label="Tap type">
-                  <Pill on={tap === "nfcqr"} onClick={() => setTap("nfcqr")} sub="Guests tap the phone or scan.">NFC + QR</Pill>
+                  <Pill on={tap === "nfcqr"} onClick={() => setTap("nfcqr")} tag="Latest technology · Most recommended" sub="Guests tap the phone or scan.">NFC + QR</Pill>
                   <Pill on={tap === "qr"} onClick={() => setTap("qr")} sub="Guests scan.">QR only</Pill>
                 </div>
                 <p className="mt-4 text-sm text-white/65">With an app plan you start with {KIT.freeNfcTabletops} NFC-based tabletops free, or {KIT.freeQrTabletops} QR-based tabletops free. More tabletops: {inr(KIT.extraPer10)} for every 10. Our team confirms the final number with you.</p>
@@ -161,18 +161,30 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
           )}
 
           {track === "plates" && (
-            <section className={box}>
-              <h2 className="text-2xl">1. Pick your plate</h2>
-              <p className="mt-1 text-sm text-white/55">A plate is slim and sits flat on the table.</p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <Pill on={plateType === "qr"} onClick={() => setPlateType("qr")} sub="Guests scan to get their review page.">QR plate: {inr(KIT.platePrice.qr)} each</Pill>
-                <Pill on={plateType === "nfcqr"} onClick={() => setPlateType("nfcqr")} sub="Guests tap the phone or scan.">NFC + QR plate: {inr(KIT.platePrice.nfcqr)} each</Pill>
-              </div>
-            </section>
+            <>
+              <section className={box}>
+                <h2 className="text-2xl">1. Pick your plate</h2>
+                <p className="mt-1 text-sm text-white/55">A plate is slim and sits flat on the table.</p>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <Pill on={plateType === "nfcqr"} onClick={() => setPlateType("nfcqr")} tag="Latest technology · Most recommended" sub="Guests tap the phone or scan.">NFC + QR plate: {inr(KIT.platePrice.nfcqr)} each</Pill>
+                  <Pill on={plateType === "qr"} onClick={() => setPlateType("qr")} sub="Guests scan to get their review page.">QR plate: {inr(KIT.platePrice.qr)} each</Pill>
+                </div>
+              </section>
+              <section className={box}>
+                <h2 className="text-2xl">2. How long do you want the AI QR plan?</h2>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  {AI_QR_TERMS.map((t) => (
+                    <Pill key={t.months} on={aiMonths === t.months} onClick={() => setAiMonths(t.months)} sub={aiSaved(t) > 0 ? `${inr(aiTotal(t))} in all. You save ${inr(aiSaved(t))}.` : `${inr(aiTotal(t))} in all`}>
+                      {t.label}: {inr(t.perMonth)} a month
+                    </Pill>
+                  ))}
+                </div>
+              </section>
+            </>
           )}
 
           <section className={box}>
-            <h2 className="text-2xl">{track === "app" ? "4" : "2"}. Your place</h2>
+            <h2 className="text-2xl">{track === "app" ? "4" : "3"}. Your place</h2>
             <label className="mt-4 block text-sm font-medium">How many tables do you have? *
               <input className={`${input} mt-1`} inputMode="numeric" aria-label="Number of tables" value={tables} onChange={(e) => setTables(e.target.value.replace(/\D/g, "").slice(0, 3))} />
             </label>
@@ -185,11 +197,18 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
                 <input className={`${input} mt-1`} inputMode="numeric" aria-label="Number of counters" value={counters} onChange={(e) => setCounters(e.target.value.replace(/\D/g, "").slice(0, 2))} />
               </label>
             )}
-            {track === "plates" && spots > 0 && <p className="mt-4 rounded-xl bg-lime-400/10 p-3 text-sm text-white/80">About <strong>{inr(plateTotal)}</strong> for {spots} plate{spots === 1 ? "" : "s"}. Our team confirms the final amount.</p>}
+            {track === "plates" && spots > 0 && (
+              <div className="mt-4 rounded-xl bg-lime-400/10 p-4 text-sm text-white/85">
+                <p>Setup: <strong>{inr(setup)}</strong> {spots === 1 ? "(for 1 plate)" : spots === 2 ? "(for 2 plates)" : "(the setup stays the same for 3 or more plates)"}</p>
+                <p className="mt-1">{spots} plate{spots === 1 ? "" : "s"} x {inr(KIT.platePrice[plateType])}: <strong>{inr(plateCost)}</strong></p>
+                <p className="mt-1">One-time total: <strong>{inr(oneTime)}</strong>, plus {inr(aiTerm.perMonth)} a month for the plan.</p>
+                <p className="mt-2 text-xs text-white/50">Our team confirms the final amount with you.</p>
+              </div>
+            )}
           </section>
 
           <section className={box}>
-            <h2 className="text-2xl">{track === "app" ? "5" : "3"}. Your design</h2>
+            <h2 className="text-2xl">{track === "app" ? "5" : "4"}. Your design</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2" role="group" aria-label="Design">
               <Pill on={!custom} onClick={() => setCustom(false)} sub="We will use the standard design we show you.">Standard design</Pill>
               <Pill on={custom} onClick={() => setCustom(true)} sub="Tell us what you want and we will talk to you directly.">Customize your design</Pill>
@@ -198,7 +217,7 @@ export function StartClient({ whatsapp, brand }: { whatsapp: string; brand: stri
           </section>
 
           <section className={box}>
-            <h2 className="text-2xl">{track === "app" ? "6" : "4"}. Who are you?</h2>
+            <h2 className="text-2xl">{track === "app" ? "6" : "5"}. Who are you?</h2>
             <div className="mt-4 space-y-3">
               <input className={input} placeholder="Your name *" aria-label="Your name" autoComplete="name" maxLength={100} value={f.name} onChange={(e) => set("name", e.target.value)} />
               <input className={input} placeholder="Business name" aria-label="Business name" autoComplete="organization" maxLength={150} value={f.business} onChange={(e) => set("business", e.target.value)} />

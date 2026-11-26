@@ -5,7 +5,7 @@ import type { SiteContent } from "@/lib/types";
 import { inr } from "@/lib/format";
 import { Reveal } from "@/components/ui/Reveal";
 import { waLink } from "@/components/sections/Footerish";
-import { PACKAGES, freeMonths, fullPrice, savedFor, termsFor, totalFor, type Pkg, type Term } from "@/lib/plans";
+import { AI_QR_TERMS, PACKAGES, aiSaved, freeMonths, fullPrice, savedFor, termsFor, totalFor, type Pkg, type Term } from "@/lib/plans";
 
 type Step = "term" | "form" | "done";
 
@@ -131,6 +131,10 @@ export function Pricing({ c }: { c: SiteContent }) {
           </a>
         </Reveal>
 
+        <Reveal className="mb-6">
+          <p className="rounded-2xl border border-lime-400/50 bg-lime-400/10 px-5 py-3 text-center font-semibold text-white">Special offer running on Pro: 15% off when you take 12 months. Other plans get 10%.</p>
+        </Reveal>
+
         <div className="grid gap-6 lg:grid-cols-3">
           {PACKAGES.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.08} className="h-full">
@@ -151,6 +155,18 @@ export function Pricing({ c }: { c: SiteContent }) {
             </Reveal>
           ))}
         </div>
+        <Reveal className="mt-8">
+          <div className="rounded-[24px] border border-white/12 bg-[#0c0c0c] p-6 md:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-lime-400">AI QR plates only</p>
+            <h3 className="mt-2 text-3xl">Only want the AI QR plates for your tables?</h3>
+            <p className="mt-2 max-w-3xl text-white/60">Guests tap or scan the plate, pick stars, and get a review written from their own choices. Made for cafes and restaurants in Jaipur.</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              {AI_QR_TERMS.map((t) => (
+                <div key={t.months} className="rounded-2xl border border-white/10 p-4"><p className="text-sm text-white/55">{t.label}</p><p className="text-3xl font-bold">{inr(t.perMonth)}<span className="text-sm font-medium text-white/50"> / month</span></p>{aiSaved(t) > 0 && <p className="text-xs text-lime-400">You save {inr(aiSaved(t))}</p>}</div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
         <p className="mt-8 text-sm text-white/45">Prices are per month before the discount. Setup and stand costs may be extra; our team confirms them with you. Nothing is paid on this website.</p>
       </div>
       {open && <Picker pkg={open} whatsapp={c.settings.whatsapp} onClose={() => setOpen(null)} />}

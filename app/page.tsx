@@ -7,6 +7,7 @@ import { OWNER_QA } from "@/lib/home-data";
 import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
 import { Pricing } from "@/components/sections/Pricing";
+import { DemosFor } from "@/components/sections/DemosFor";
 import { Faq, Footer } from "@/components/sections/Footerish";
 
 // The page is built once and refreshed every minute, or at once when Admin saves, so visitors get it instantly.
@@ -21,6 +22,7 @@ export default async function Home() {
       <CartDrawer />
       <Hero c={c} />
       <Partners partners={c.partners} />
+      <DemosFor />
       <Products />
       <Pricing c={c} />
       <Advantages />

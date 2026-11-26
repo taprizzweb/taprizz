@@ -71,3 +71,17 @@ export const PLACEMENTS = [
   { id: "standee", label: "QR standees", help: "A tall stand for counters, doors and walls." },
   { id: "plate", label: "QR plates", help: "A slim plate that sits flat on the table." },
 ] as const;
+
+// AI QR (the review plates on their own). Monthly price depends on how long the customer pays for: 550 a month for 1 month, 500 a month for 6 months, 400 a month for a year.
+export const AI_QR_TERMS = [
+  { months: 1, perMonth: 550, label: "1 month" },
+  { months: 6, perMonth: 500, label: "6 months" },
+  { months: 12, perMonth: 400, label: "12 months" },
+] as const;
+export type AiTerm = (typeof AI_QR_TERMS)[number];
+export const aiTotal = (t: AiTerm) => t.perMonth * t.months;
+export const aiSaved = (t: AiTerm) => AI_QR_TERMS[0].perMonth * t.months - aiTotal(t);
+/** One-time setup: Rs 2,000 for one plate, Rs 4,000 for two, and Rs 4,000 stays the same for three or more. */
+export const SETUP_PER_PLATE = 2000;
+export const SETUP_CAP = 4000;
+export const setupFee = (plates: number) => (plates <= 0 ? 0 : Math.min(SETUP_PER_PLATE * plates, SETUP_CAP));

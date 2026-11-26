@@ -17,3 +17,9 @@ export const OWNER_QA = [
   { q: "Is this only for one outlet?", a: "No. Several outlets can sit under one view, each with its own plaque and page." },
   { q: "What do SEO and GEO mean for my business?", a: "SEO is being found on Google Search and Maps. GEO is being understood and mentioned when people ask an AI assistant, such as ChatGPT or Gemini, for a place near them. Both start from clear, consistent information and honest, recent reviews. Nobody can guarantee a rank or a mention." },
 ];
+
+// Businesses we have made a demo for. They are NOT partners and have not endorsed Taprizz. Add a name only when a demo for them really exists.
+export const DEMO_FOR: { name: string; kind: string }[] = [
+  { name: "Carbon Cafe Jaipur", kind: "Coffee bar, 3 outlets" },
+  { name: "Nothing Before Coffee", kind: "Cafe" },
+];
