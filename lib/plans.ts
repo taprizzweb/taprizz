@@ -81,6 +81,9 @@ export const AI_QR_TERMS = [
 export type AiTerm = (typeof AI_QR_TERMS)[number];
 export const aiTotal = (t: AiTerm) => t.perMonth * t.months;
 export const aiSaved = (t: AiTerm) => AI_QR_TERMS[0].perMonth * t.months - aiTotal(t);
+/** Custom design: Rs 500 for every 10 plates (or part of 10). Not shown on the website; it goes to the team with the order so they can quote it. */
+export const DESIGN_PER_10 = 500;
+export const designFee = (plates: number) => (plates <= 0 ? 0 : Math.ceil(plates / 10) * DESIGN_PER_10);
 /** One-time setup: Rs 2,000 for one plate, Rs 4,000 for two, and Rs 4,000 stays the same for three or more. */
 export const SETUP_PER_PLATE = 2000;
 export const SETUP_CAP = 4000;

@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import { ArrowUpRight, Check, Loader2 } from "lucide-react";
 import { inr } from "@/lib/format";
-import { AI_QR_TERMS, KIT, PACKAGES, PLACEMENTS, aiSaved, aiTotal, freeMonths, savedFor, setupFee, termsFor, totalFor, type Pkg } from "@/lib/plans";
+import { AI_QR_TERMS, KIT, designFee, PACKAGES, PLACEMENTS, aiSaved, aiTotal, freeMonths, savedFor, setupFee, termsFor, totalFor, type Pkg } from "@/lib/plans";
 import { waLink } from "@/components/sections/Footerish";
 
 type Track = "app" | "plates";
@@ -83,8 +83,8 @@ export function StartClient({ whatsapp, brand, track }: { whatsapp: string; bran
       method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({
         name: f.name.trim(), business: f.business.trim(), phone: ph, website: f.website,
-        message: `ORDER FORM | Location: ${f.location.trim()} | ${lines.join(" | ")}`.slice(0, 1700),
-        fields: { location: f.location.trim(), track, plan: track === "app" ? pkg.name : "", months: track === "app" ? term.months : "", tables: nTables, counters: nCounters, items: track === "app" ? place.join("+") : plateType, custom: custom ? customNote.trim() : "" },
+        message: `ORDER FORM | Location: ${f.location.trim()} | ${lines.join(" | ")}${custom ? ` | Design estimate for the team: ${inr(designFee(spots))} (Rs 500 per 10 plates)` : ""}`.slice(0, 1700),
+        fields: { location: f.location.trim(), track, plan: track === "app" ? pkg.name : "", months: track === "app" ? term.months : "", tables: nTables, counters: nCounters, items: track === "app" ? place.join("+") : plateType, custom: custom ? customNote.trim() : "", design_estimate: custom ? designFee(spots) : "" },
       }),
     }).catch(() => null);
     setBusy(false); setDone(true);
