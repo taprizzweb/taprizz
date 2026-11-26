@@ -8,6 +8,7 @@ import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
 import { Pricing } from "@/components/sections/Pricing";
 import { DemosFor } from "@/components/sections/DemosFor";
+import { Custom } from "@/components/sections/Custom";
 import { Faq, Footer } from "@/components/sections/Footerish";
 
 // The page is built once and refreshed every minute, or at once when Admin saves, so visitors get it instantly.
@@ -26,6 +27,7 @@ export default async function Home() {
       <Products />
       <Pricing c={c} />
       <Advantages />
+      <Custom whatsapp={c.settings.whatsapp} />
       <GulabiNetwork partners={c.partners} />
       <BookMeeting c={c} />
       <Shop c={c} />

@@ -20,6 +20,7 @@ export const OWNER_QA = [
 
 // Businesses we have made a demo for. They are NOT partners and have not endorsed Taprizz. Add a name only when a demo for them really exists.
 export const DEMO_FOR: { name: string; kind: string }[] = [
-  { name: "Carbon Cafe Jaipur", kind: "Coffee bar, 3 outlets" },
-  { name: "Nothing Before Coffee", kind: "Cafe" },
+  { name: "Nothing Before Coffee, Jal Mahal", kind: "Cafe" },
+  { name: "Nothing Before Coffee, C Scheme", kind: "Cafe" },
+  { name: "Carbon Cafe", kind: "Coffee bar, Jaipur" },
 ];
