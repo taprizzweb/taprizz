@@ -18,9 +18,19 @@ export async function LegalPage({ title, field }: { title: string; field: "terms
           <h1 className="text-5xl leading-tight md:text-6xl">{title}</h1>
           <p className="mt-3 text-sm text-black/50">Last updated: {c.legal.updated}</p>
           <div className="mt-10 space-y-5 text-[17px] leading-relaxed text-black/75">
-            {blocks.map((b, i) =>
-              b.startsWith("# ") ? <h2 key={i} className="pt-4 text-2xl text-ink">{b.slice(2)}</h2> : <p key={i} className="whitespace-pre-line">{b}</p>
-            )}
+            {blocks.map((b, i) => {
+              // A block that starts with "# " is a heading line followed by its text. Only the heading line is the h2.
+              if (!b.startsWith("# ")) return <p key={i} className="whitespace-pre-line">{b}</p>;
+              const nl = b.indexOf("\n");
+              const head = (nl === -1 ? b : b.slice(0, nl)).slice(2);
+              const rest = nl === -1 ? "" : b.slice(nl + 1).trim();
+              return (
+                <section key={i} className="space-y-3">
+                  <h2 className="pt-4 text-2xl text-ink">{head}</h2>
+                  {rest && <p className="whitespace-pre-line">{rest}</p>}
+                </section>
+              );
+            })}
           </div>
         </article>
       </main>
