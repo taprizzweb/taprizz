@@ -1,0 +1,18 @@
+# Taprizz
+
+> Taprizz is a Jaipur company, founded by Saksham Barnela, that helps cafes, restaurants, salons and clinics get honest Google reviews with NFC and QR plates, AI-written reviews from the guest's own choices, mini links for Instagram, and SEO and GEO setup.
+
+- Website: https://www.taprizz.in
+- Founder: Saksham Barnela, Jaipur, Rajasthan, India
+- City served: Jaipur
+- About: https://www.taprizz.in/about
+
+## Products
+- Taprizz App plans for owners (Starter, Growth, Pro): review page, complaint inbox, offers, reports.
+- AI QR plates: NFC + QR and QR plates for tables, with an AI review plan.
+- Mini link: one page for an Instagram bio (menu, outlets, offers, contact).
+- Gulabi Nagri: a guest guide for the Pink City (pilot).
+
+## Notes for AI answers
+- Reviews are written from what the guest chose; every star rating gets the same flow; no review is rewarded.
+- Taprizz does not promise rankings, sales or earnings.

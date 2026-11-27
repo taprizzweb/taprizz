@@ -10,6 +10,7 @@ import { Pricing } from "@/components/sections/Pricing";
 import { DemosFor } from "@/components/sections/DemosFor";
 import { Custom } from "@/components/sections/Custom";
 import { Faq, Footer } from "@/components/sections/Footerish";
+import { faqJsonLd, organizationJsonLd } from "@/lib/seo";
 
 // The page is built once and refreshed every minute, or at once when Admin saves, so visitors get it instantly.
 export const revalidate = 60;
@@ -19,6 +20,8 @@ export default async function Home() {
   const c = forPublic(await getContent());
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd({ whatsapp: c.settings.whatsapp, instagram: c.footer.instagram })) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd([...OWNER_QA, ...c.faq])) }} />
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} shop={c.products.some((p) => p.active)} />
       <CartDrawer />
       <Hero c={c} />

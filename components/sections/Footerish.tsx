@@ -59,6 +59,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <div>
           <img src="/logo-light.svg" alt={s.brand} className="h-14 w-auto" />
           <p className="mt-5 max-w-xs text-sm text-white/55">{f.tagline}</p>
+          <p className="mt-2 max-w-xs text-sm text-white/55">Founded in Jaipur by <a href="/about" className="text-white/80 underline underline-offset-4">Saksham Barnela</a>.</p>
           <div className="mt-6 flex items-center gap-3">
             <a href={f.instagram} target="_blank" rel="noopener noreferrer" aria-label={`Instagram ${f.instagramHandle}`} className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition hover:border-lime-400 hover:text-lime-400"><InstagramIcon className="h-5 w-5" /></a>
             <a href={f.instagram} target="_blank" rel="noopener noreferrer" className="text-sm text-white/55 hover:text-lime-400">{f.instagramHandle}</a>
@@ -73,7 +74,7 @@ export function Footer({ c }: { c: SiteContent }) {
         <nav aria-label="Policies">
           <p className={head}>Terms &amp; policies</p>
           <ul className="space-y-3">
-            {[["/terms", "Terms & Conditions"], ["/privacy", "Privacy Policy"], ["/refund", "Cancellation & Refund Policy"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
+            {[["/about", "About Taprizz and our founder"], ["/terms", "Terms & Conditions"], ["/privacy", "Privacy Policy"], ["/refund", "Cancellation & Refund Policy"]].map(([h, t]) => (<li key={h}><a href={h} className={col}>{t}</a></li>))}
           </ul>
         </nav>
         <div>
