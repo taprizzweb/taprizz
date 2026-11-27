@@ -23,7 +23,7 @@ export function ClientsMarquee({ partners }: { partners: Partner[] }) {
             <li key={`${c.name}-${i}`} aria-hidden={i >= partners.length || undefined}>
               <a href="#partners" tabIndex={i >= partners.length ? -1 : undefined} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-white/85 transition hover:text-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.image} alt={i < partners.length ? `${c.name} logo` : ""} width={40} height={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
+                <img src={c.image} alt={`${c.name} logo`} width={40} height={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
                 {c.name}
               </a>
             </li>
