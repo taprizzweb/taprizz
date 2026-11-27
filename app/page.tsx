@@ -1,9 +1,9 @@
 import { forPublic, getContent } from "@/lib/content";
 import { Navbar } from "@/components/Navbar";
 import { CartDrawer } from "@/components/CartDrawer";
-import { Hero } from "@/components/sections/Hero";
+import { Hero, Marquee } from "@/components/sections/Hero";
 import { Advantages, BookMeeting, GulabiNetwork, Partners, Products } from "@/components/sections/Home";
-import { OWNER_QA } from "@/lib/home-data";
+import { OWNER_QA, SCROLL_TEXTS } from "@/lib/home-data";
 import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
 import { Pricing } from "@/components/sections/Pricing";
@@ -22,6 +22,7 @@ export default async function Home() {
       <Navbar brand={c.settings.brand} announcement={c.settings.announcement} shop={c.products.some((p) => p.active)} />
       <CartDrawer />
       <Hero c={c} />
+      <Marquee items={SCROLL_TEXTS} />
       <Partners partners={c.partners} />
       <DemosFor />
       <Products />

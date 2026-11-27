@@ -35,3 +35,17 @@ export const HERO_PLATES: { src: string; name: string; w: number; h: number; not
   { src: "/plates/crazy-coffee.png", name: "Crazy Coffee", w: 864, h: 1296, note: "Demo design" },
   { src: "/plates/traut-house.png", name: "Traut Coffee House", w: 864, h: 1296, note: "Demo design" },
 ];
+
+// The scrolling strip under the hero. Short, true lines only: no "best", no guarantees.
+export const SCROLL_TEXTS: string[] = [
+  "NFC + QR Google review plates",
+  "AI-written reviews from your guest's own choices",
+  "Mini link for your Instagram bio",
+  "Menu, offers, maps and Instagram in one scan",
+  "SEO and GEO setup for Jaipur businesses",
+  "Made in Jaipur for cafes and restaurants",
+  "Taprizz App for owners: inbox, offers, reports",
+  "Gulabi Nagri: the guest guide for the Pink City",
+  "Get more honest Google reviews",
+  "Tap. Scan. See what's inside.",
+];

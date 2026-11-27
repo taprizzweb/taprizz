@@ -6,9 +6,20 @@ import { CartProvider } from "@/lib/cart";
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "Taprizz | Reviews, followers and repeat guests for Jaipur businesses",
+  title: "Taprizz | Google Review QR & NFC Plates for Cafes in Jaipur",
   description:
-    "Taprizz puts an AI Google review flow on a premium NFC plaque, with an optional guest platform, plus SEO and GEO work so you are found on Google and in AI answers. Book a demo in Jaipur.",
+    "More honest Google reviews with NFC and QR plates and AI-written reviews from your guests' own choices. Mini link, SEO and GEO setup for Jaipur cafes and restaurants.",
+  keywords: [
+    "Google review QR code", "NFC review plate", "NFC QR review stand", "AI review generator for cafes", "get more Google reviews for cafe",
+    "Google review stand India", "review QR plate Jaipur", "NFC review plate Jaipur", "cafe marketing Jaipur", "restaurant marketing Jaipur",
+    "local SEO Jaipur", "SEO for cafes Jaipur", "GEO optimization for restaurants", "QR menu Jaipur", "link in bio for cafes", "Instagram bio link for restaurants",
+    "QR code se Google review", "cafe ke Google reviews badhaye", "Jaipur cafe reviews", "Taprizz",
+  ],
+  openGraph: {
+    title: "Taprizz | Google Review QR & NFC Plates for Cafes in Jaipur",
+    description: "NFC and QR review plates, AI-written reviews from your guests' own choices, a mini link for Instagram, and SEO and GEO setup for Jaipur businesses.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
