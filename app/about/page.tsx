@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: `About Taprizz | Founded in ${CITY} by ${FOUNDER}`,
   description: `${FOUNDER} founded Taprizz in ${CITY}, ${REGION}. Taprizz makes NFC and QR Google review plates, AI-written reviews, mini links and SEO and GEO setup for local businesses.`,
   alternates: { canonical: `${SITE_URL}/about` },
+  openGraph: {
+    title: `About Taprizz | Founded in ${CITY} by ${FOUNDER}`,
+    description: `${FOUNDER} founded Taprizz in ${CITY}, ${REGION}: NFC and QR Google review plates, AI-written reviews, mini links, SEO and GEO setup.`,
+    url: `${SITE_URL}/about`, siteName: "Taprizz", locale: "en_IN", type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Taprizz, founded in Jaipur by Saksham Barnela" }],
+  },
+  twitter: { card: "summary_large_image", title: `About Taprizz | Founded in ${CITY} by ${FOUNDER}`, images: ["/og.png"] },
 };
 
 // Plain facts only. No numbers, awards or praise that cannot be checked.
