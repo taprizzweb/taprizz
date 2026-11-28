@@ -6,6 +6,7 @@ export const CATEGORIES = [
   { id: "hotel", label: "Hotels & Stays", one: "hotel or homestay" },
   { id: "gym", label: "Gyms", one: "gym" },
   { id: "clinic", label: "Clinics", one: "clinic" },
+  { id: "education", label: "Education", one: "coaching institute" },
 ] as const;
 export type CategoryId = (typeof CATEGORIES)[number]["id"];
 

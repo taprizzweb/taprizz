@@ -69,7 +69,7 @@ export function JsonEditor({ value, onChange, name = "" }: { value: J; onChange:
   if (name === "category") {
     return (
       <select className="input" value={str} onChange={(e) => onChange(e.target.value)}>
-        {[["cafe", "Cafes & Restaurants"], ["salon", "Salons & Spas"], ["hotel", "Hotels & Stays"], ["gym", "Gyms"], ["clinic", "Clinics"]].map(([v, t]) => (<option key={v} value={v}>{t}</option>))}
+        {[["cafe", "Cafes & Restaurants"], ["salon", "Salons & Spas"], ["hotel", "Hotels & Stays"], ["gym", "Gyms"], ["clinic", "Clinics"], ["education", "Education"]].map(([v, t]) => (<option key={v} value={v}>{t}</option>))}
       </select>
     );
   }
