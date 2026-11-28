@@ -21,6 +21,11 @@ export const defaultContent: SiteContent = {
     stats: [],
   },
   partners: [
+    { name: "Carbon", slug: "carbon", image: "/clients/carbon.webp", category: "cafe", about: "A craft coffee bar with three outlets in Jaipur: C Scheme, Raja Park and Vaishali Nagar.", addresses: ["F-6A, Ramesh Marg, C Scheme, Jaipur 302001", "A-58, Shanti Path, Tilak Nagar, Raja Park, Jaipur 302004", "B-42, Prince Road, Vaishali Nagar, Jaipur 302021"] },
+    { name: "Matcha Labs", slug: "", image: "", category: "cafe", addresses: ["Jaipur"] },
+    { name: "Napoli", slug: "", image: "", category: "cafe", addresses: ["Jaipur"] },
+    { name: "Sky Beach", slug: "", image: "", category: "cafe", addresses: ["Jaipur"] },
+    { name: "The Waffle Bite", slug: "", image: "", category: "cafe", addresses: ["Jaipur"] },
     { name: "Coffeekaart", slug: "coffeekaart", image: "/clients/coffeekaart.webp", category: "cafe", about: "A coffee cafe by Batra's Takeaway Corner, with outlets at Raja Park and Gandhi Nagar.", addresses: ["Gali No. 3, Raja Park, Jaipur 302004", "Coffeekaart II: C-1, Railway Station Road, Gandhi Nagar, Jaipur 302015"] },
     { name: "Green Feast", slug: "greenfeast", image: "/clients/greenfeast.webp", category: "cafe", about: "Healthy food and fresh exotic fruits and veggies, with a subscription option.", addresses: ["C-35 A, Lajpat Marg, C Scheme, Jaipur 302001", "Take away: Sector 3, Jawahar Nagar, Jaipur"] },
     { name: "The Tattoo Cafe & Lounge", slug: "", image: "/clients/tattoo.webp", category: "cafe", about: "A cafe and lounge with a view of Hawa Mahal.", addresses: ["3rd Floor, 30, Opposite Hawa Mahal, Hawa Mahal Road, Jaipur 302002"] },

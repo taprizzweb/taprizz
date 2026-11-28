@@ -7,7 +7,6 @@ import { OWNER_QA, SCROLL_TEXTS } from "@/lib/home-data";
 import { Shop } from "@/components/sections/Shop";
 import { Plans } from "@/components/sections/Plans";
 import { Pricing } from "@/components/sections/Pricing";
-import { DemosFor } from "@/components/sections/DemosFor";
 import { Custom } from "@/components/sections/Custom";
 import { Faq, Footer } from "@/components/sections/Footerish";
 import { faqJsonLd, organizationJsonLd } from "@/lib/seo";
@@ -27,7 +26,6 @@ export default async function Home() {
       <Hero c={c} />
       <Marquee items={SCROLL_TEXTS} />
       <Partners partners={c.partners} />
-      <DemosFor />
       <Products />
       <Pricing c={c} />
       <Advantages />

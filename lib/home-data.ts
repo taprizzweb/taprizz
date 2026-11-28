@@ -18,19 +18,11 @@ export const OWNER_QA = [
   { q: "What do SEO and GEO mean for my business?", a: "SEO is being found on Google Search and Maps. GEO is being understood and mentioned when people ask an AI assistant, such as ChatGPT or Gemini, for a place near them. Both start from clear, consistent information and honest, recent reviews. Nobody can guarantee a rank or a mention." },
 ];
 
-// Businesses we have made a demo for. They are NOT partners and have not endorsed Taprizz. Add a name only when a demo for them really exists.
-export const DEMO_FOR: { name: string; kind: string }[] = [
-  { name: "Nothing Before Coffee, Jal Mahal", kind: "Cafe" },
-  { name: "Nothing Before Coffee, C Scheme", kind: "Cafe" },
-  { name: "Carbon Cafe", kind: "Coffee bar, Jaipur" },
-  { name: "Crazy Coffee", kind: "Cafe" },
-  { name: "Traut Coffee House", kind: "Cafe" },
-];
 
 // Plate designs shown one after another in the hero. Add a file to /public/plates and a line here. `note` is shown under the plate (use "Demo design" for a business that is not a partner).
 export const HERO_PLATES: { src: string; name: string; w: number; h: number; note?: string }[] = [
   { src: "/plates/green-feast.png", name: "Green Feast", w: 864, h: 1296 },
-  { src: "/plates/carbon.png", name: "Carbon", w: 864, h: 1296, note: "Demo design" },
+  { src: "/plates/carbon.png", name: "Carbon", w: 864, h: 1296 },
   { src: "/plates/nbc.png", name: "Nothing Before Coffee", w: 864, h: 1296, note: "Demo design" },
   { src: "/plates/crazy-coffee.png", name: "Crazy Coffee", w: 864, h: 1296, note: "Demo design" },
   { src: "/plates/traut-house.png", name: "Traut Coffee House", w: 864, h: 1296, note: "Demo design" },

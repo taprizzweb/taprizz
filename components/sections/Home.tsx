@@ -11,6 +11,13 @@ import { CATEGORIES, type CategoryId } from "@/lib/home-data";
 const miniUrl = (slug: string) => `https://link.taprizz.in/${slug}`;
 
 // A thin row at the very top of the page: logo and name of every partner. It slides when there are many; with a few it just stands still.
+/** The partner's logo, or its first letter in a circle until the logo is added. */
+function PartnerLogo({ c, size, className, lazy = false }: { c: Partner; size: number; className: string; lazy?: boolean }) {
+  if (!c.image) return <span aria-hidden className={`grid place-items-center bg-white font-bold text-black/70 ${className.replace("object-contain", "").replace("p-0.5", "")}`} style={{ fontSize: size * 0.4 }}>{c.name.slice(0, 1).toUpperCase()}</span>;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={c.image} alt={`${c.name} logo`} width={size} height={size} loading={lazy ? "lazy" : undefined} className={className} />;
+}
+
 export function ClientsMarquee({ partners }: { partners: Partner[] }) {
   const slide = partners.length >= 5;
   const row = slide ? [...partners, ...partners, ...partners] : partners;
@@ -22,8 +29,7 @@ export function ClientsMarquee({ partners }: { partners: Partner[] }) {
           {row.map((c, i) => (
             <li key={`${c.name}-${i}`} aria-hidden={i >= partners.length || undefined}>
               <a href="#partners" tabIndex={i >= partners.length ? -1 : undefined} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-white/85 transition hover:text-white">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.image} alt={`${c.name} logo`} width={40} height={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
+                <PartnerLogo c={c} size={40} className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
                 {c.name}
               </a>
             </li>
@@ -62,8 +68,7 @@ export function Partners({ partners }: { partners: Partner[] }) {
               <li key={c.name} className="list-none">
                 <article className="flex h-full flex-col rounded-[26px] border border-black/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
                   <div className="flex items-center gap-4">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.image} alt={`${c.name} logo`} width={120} height={120} loading="lazy" className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain" />
+                    <PartnerLogo c={c} size={120} lazy className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain" />
                     <div className="min-w-0">
                       <span className="rounded-full bg-black/[0.06] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/60">{catLabel(c.category)}</span>
                       <h3 className="mt-2 text-2xl leading-tight md:text-3xl">{c.name}</h3>
