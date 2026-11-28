@@ -27,3 +27,7 @@ body { background: #141517; color: #ededee; }
 label.lbl { display: block; font-size: 0.78rem; color: #9a9a9a; margin-bottom: 0.3rem; }
 .light label.lbl { color: #3a3b3f; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* A row that scrolls sideways without a visible scrollbar */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

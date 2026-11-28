@@ -44,50 +44,73 @@ const mapsUrl = (name: string, address: string) => `https://www.google.com/maps/
 
 export function Partners({ partners }: { partners: Partner[] }) {
   const [cat, setCat] = useState<"all" | CategoryId>("all");
-  const shown = cat === "all" ? partners : partners.filter((c) => c.category === cat);
-  const count = (id: CategoryId) => partners.filter((c) => c.category === id).length;
-  const chip = (on: boolean) => `rounded-full border px-5 py-2.5 text-sm font-semibold transition ${on ? "border-black bg-black text-white" : "border-black/20 bg-white hover:border-black/50"}`;
+  const [q, setQ] = useState("");
+  const [open, setOpen] = useState<Partner | null>(null);
+  const term = q.trim().toLowerCase();
+  const shown = partners.filter((c) => (cat === "all" || c.category === cat) && (!term || c.name.toLowerCase().includes(term)));
+  const chip = (on: boolean) => `shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition ${on ? "bg-black text-white" : "bg-white text-black/70 shadow-sm hover:text-black"}`;
   const catLabel = (id: CategoryId) => CATEGORIES.find((x) => x.id === id)!.label;
   return (
-    <section id="partners" className="grid-light scroll-mt-20 px-5 py-20 text-ink md:px-8 md:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <SectionHead light title="Our partners in Jaipur" subtitle="Real businesses already using Taprizz. See all of them, or pick a category. Tap a mini link to open their page." />
-        <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Partner categories">
-          <button type="button" aria-pressed={cat === "all"} onClick={() => setCat("all")} className={chip(cat === "all")}>All <span className="ml-1 opacity-60">{partners.length}</span></button>
-          {CATEGORIES.map((c) => (<button type="button" key={c.id} aria-pressed={cat === c.id} onClick={() => setCat(c.id)} className={chip(cat === c.id)}>{c.label} <span className="ml-1 opacity-60">{count(c.id)}</span></button>))}
+    <section id="partners" className="grid-light scroll-mt-20 px-5 py-14 text-ink md:px-8 md:py-20">
+      <div className="mx-auto max-w-[1100px]">
+        <div className="mb-6 flex items-baseline justify-between gap-4">
+          <h2 className="text-4xl md:text-5xl">Taprizz Partners</h2>
+          <span className="text-base text-black/55">Jaipur</span>
+        </div>
+        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search partners" aria-label="Search partners" className="w-full rounded-full border border-black/10 bg-white px-6 py-3.5 text-lg outline-none placeholder:text-black/40 focus:border-black/40" />
+        <div className="no-scrollbar -mx-5 mt-4 flex gap-2 overflow-x-auto px-5 md:mx-0 md:px-0" role="group" aria-label="Partner categories">
+          <button type="button" aria-pressed={cat === "all"} onClick={() => setCat("all")} className={chip(cat === "all")}>All</button>
+          {CATEGORIES.map((c) => (<button type="button" key={c.id} aria-pressed={cat === c.id} onClick={() => setCat(c.id)} className={chip(cat === c.id)}>{c.label}</button>))}
         </div>
         {shown.length === 0 ? (
-          <div className="rounded-[26px] border border-dashed border-black/25 bg-white/60 p-8 md:p-12">
-            <p className="text-2xl font-semibold md:text-3xl">No {CATEGORIES.find((x) => x.id === cat)?.one} partner here yet.</p>
-            <p className="mt-2 max-w-xl text-black/60">Be the first {CATEGORIES.find((x) => x.id === cat)?.one} in Jaipur on Taprizz. Your logo, name and address will show here.</p>
-            <a href="#book" className="mt-6 inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 font-semibold text-white transition hover:bg-black/85">Book a meeting <ArrowUpRight className="h-4 w-4" /></a>
-          </div>
+          <p className="mt-10 text-center text-black/55">No partner found.</p>
         ) : (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-6 grid grid-cols-3 gap-3 md:grid-cols-4 lg:grid-cols-6">
             {shown.map((c) => (
               <li key={c.name} className="list-none">
-                <article className="flex h-full flex-col rounded-[26px] border border-black/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
-                  <div className="flex items-center gap-4">
-                    <PartnerLogo c={c} size={120} lazy className="h-24 w-24 shrink-0 rounded-2xl border border-black/5 bg-white object-contain" />
-                    <div className="min-w-0">
-                      <span className="rounded-full bg-black/[0.06] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/60">{catLabel(c.category)}</span>
-                      <h3 className="mt-2 text-2xl leading-tight md:text-3xl">{c.name}</h3>
-                    </div>
-                  </div>
-                  {c.about && <p className="mt-4 text-[15px] leading-snug text-black/70">{c.about}</p>}
-                  <ul className="mt-5 space-y-2.5">
-                    {c.addresses.map((a) => (
-                      <li key={a}><a href={mapsUrl(c.name, a)} target="_blank" rel="noopener noreferrer" className="flex gap-2 text-sm text-black/65 transition hover:text-black"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span>{a}</span></a></li>
-                    ))}
-                  </ul>
-                  {c.slug && <a href={miniUrl(c.slug)} target="_blank" rel="noopener noreferrer" className="mt-auto flex w-fit items-center gap-1.5 pt-6 text-sm font-semibold break-all underline-offset-4 hover:underline">link.taprizz.in/{c.slug}<ArrowUpRight className="h-4 w-4 shrink-0" /></a>}
-                </article>
+                <button type="button" onClick={() => setOpen(c)} className="flex h-full w-full flex-col items-center rounded-3xl bg-white px-2 py-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                  <PartnerLogo c={c} size={160} lazy className="h-20 w-20 rounded-full bg-white object-contain md:h-24 md:w-24" />
+                  <span className="mt-3 text-[13px] font-bold uppercase leading-tight tracking-wide md:text-sm">{c.name}</span>
+                </button>
               </li>
             ))}
           </ul>
         )}
       </div>
+      {open && <PartnerSheet c={open} label={catLabel(open.category)} onClose={() => setOpen(null)} />}
     </section>
+  );
+}
+
+/** A small card with a few lines about the partner. It opens when a partner is tapped. */
+function PartnerSheet({ c, label, onClose }: { c: Partner; label: string; onClose: () => void }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", key);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", key); };
+  }, [onClose]);
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={c.name}>
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative w-full max-w-md rounded-t-[28px] bg-white p-6 pb-8 text-ink sm:rounded-[28px]">
+        <button type="button" onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-black/[0.06] text-lg">×</button>
+        <div className="flex items-center gap-4 pr-10">
+          <PartnerLogo c={c} size={160} className="h-20 w-20 shrink-0 rounded-full border border-black/5 bg-white object-contain" />
+          <div className="min-w-0">
+            <span className="rounded-full bg-black/[0.06] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/60">{label}</span>
+            <h3 className="mt-1.5 text-2xl leading-tight">{c.name}</h3>
+          </div>
+        </div>
+        {c.about && <p className="mt-4 text-[15px] leading-snug text-black/70">{c.about}</p>}
+        <ul className="mt-4 space-y-2">
+          {c.addresses.map((a) => (
+            <li key={a}><a href={mapsUrl(c.name, a)} target="_blank" rel="noopener noreferrer" className="flex gap-2 text-sm text-black/65 hover:text-black"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span>{a}</span></a></li>
+          ))}
+        </ul>
+        {c.slug && <a href={miniUrl(c.slug)} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-black px-5 py-3 text-sm font-semibold text-white">Open page <ArrowUpRight className="h-4 w-4" /></a>}
+      </div>
+    </div>
   );
 }
 
