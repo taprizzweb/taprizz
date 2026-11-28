@@ -157,7 +157,7 @@ export function Products() {
               <span className="w-fit rounded-full border border-white/30 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]">AI Review page</span>
               <h3 className="mt-5 text-3xl leading-[1.05] md:text-4xl">Honest reviews, written in three taps.</h3>
               <ul className="mt-6 space-y-3">{REVIEW_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/70"><Check className="mt-1 h-4 w-4 shrink-0" />{p}</li>))}</ul>
-              <a href="#book" className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 font-semibold transition hover:border-lime-400 hover:text-lime-400" style={{ marginTop: "2rem" }}>Book a demo <ArrowUpRight className="h-4 w-4" /></a>
+              <div className="mt-auto flex flex-wrap gap-3" style={{ marginTop: "2rem" }}><button type="button" onClick={() => window.dispatchEvent(new CustomEvent("taprizz:pricing", { detail: "ai" }))} className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300">See plans and prices</button><a href="#book" className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 font-semibold transition hover:border-lime-400 hover:text-lime-400">Book a demo <ArrowUpRight className="h-4 w-4" /></a></div>
             </article>
           </Reveal>
           <Reveal delay={0.12}>
@@ -165,7 +165,7 @@ export function Products() {
               <span className="w-fit rounded-full bg-lime-400 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-black">Taprizz App</span>
               <h3 className="mt-5 text-3xl leading-[1.05] md:text-4xl">Your whole customer experience, on one tap.</h3>
               <ul className="mt-6 space-y-3">{APP_POINTS.map((p) => (<li key={p} className="flex gap-3 text-white/75"><Check className="mt-1 h-4 w-4 shrink-0 text-lime-400" />{p}</li>))}</ul>
-              <a href="#book" className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300" style={{ marginTop: "2rem" }}>Book a meeting <ArrowUpRight className="h-4 w-4" /></a>
+              <div className="mt-auto flex flex-wrap gap-3" style={{ marginTop: "2rem" }}><button type="button" onClick={() => window.dispatchEvent(new CustomEvent("taprizz:pricing", { detail: "app" }))} className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-7 py-3.5 font-semibold text-black transition hover:bg-lime-300">See plans and prices</button><a href="#book" className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 font-semibold transition hover:border-lime-400 hover:text-lime-400">Book a meeting <ArrowUpRight className="h-4 w-4" /></a></div>
             </article>
           </Reveal>
         </div>

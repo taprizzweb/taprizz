@@ -26,11 +26,11 @@ export default async function Home() {
       <Hero c={c} />
       <Marquee items={SCROLL_TEXTS} />
       <Partners partners={c.partners} />
+      <GulabiNetwork partners={c.partners} />
       <Products />
       <Pricing c={c} />
       <Advantages />
       <Custom whatsapp={c.settings.whatsapp} />
-      <GulabiNetwork partners={c.partners} />
       <BookMeeting c={c} />
       <Shop c={c} />
       <Plans c={c} />

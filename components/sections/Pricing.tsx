@@ -115,6 +115,22 @@ function Picker({ pkg, whatsapp, onClose }: { pkg: Pkg; whatsapp: string; onClos
 export function Pricing({ c }: { c: SiteContent }) {
   const [open, setOpen] = useState<Pkg | null>(null);
   const [tab, setTab] = useState<"app" | "ai">("app");
+  // The prices stay hidden until someone taps "See plans and prices" on the AI plates or the Taprizz App card, or follows a #pricing link.
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const open = (t?: "app" | "ai") => {
+      setShown(true);
+      if (t) setTab(t);
+      setTimeout(() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+    };
+    const onEvent = (e: Event) => open((e as CustomEvent<"app" | "ai">).detail);
+    const onHash = () => { if (window.location.hash === "#pricing") open(); };
+    window.addEventListener("taprizz:pricing", onEvent);
+    window.addEventListener("hashchange", onHash);
+    onHash();
+    return () => { window.removeEventListener("taprizz:pricing", onEvent); window.removeEventListener("hashchange", onHash); };
+  }, []);
+  if (!shown) return <div id="pricing" className="scroll-mt-20" />;
   const seg = (on: boolean) => `flex-1 rounded-full px-5 py-3 text-sm font-semibold transition md:text-base ${on ? "bg-lime-400 text-black" : "text-white/70 hover:text-white"}`;
   return (
     <section id="pricing" className="scroll-mt-20 bg-black px-5 py-20 md:px-8 md:py-28">
