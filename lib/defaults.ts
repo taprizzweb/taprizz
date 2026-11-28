@@ -22,6 +22,13 @@ export const defaultContent: SiteContent = {
   },
   partners: [
     { name: "Carbon", slug: "carbon", image: "/clients/carbon.webp", category: "cafe", about: "A craft coffee bar with three outlets in Jaipur: C Scheme, Raja Park and Vaishali Nagar.", addresses: ["F-6A, Ramesh Marg, C Scheme, Jaipur 302001", "A-58, Shanti Path, Tilak Nagar, Raja Park, Jaipur 302004", "B-42, Prince Road, Vaishali Nagar, Jaipur 302021"] },
+    { name: "Nothing Before Coffee", slug: "nbc", image: "/clients/nbc.webp", category: "cafe", about: "A coffee cafe chain with many outlets across Jaipur.", addresses: ["Jaipur"] },
+    { name: "Knead", slug: "knead", image: "/clients/knead.png", category: "cafe", about: "Freshly baked, made to order.", addresses: ["159, Hanuman Nagar, Vaishali Nagar, Jaipur 302021"] },
+    { name: "Bubblier", slug: "bubblier", image: "/clients/bubblier.webp", category: "cafe", about: "Drinks for the perfect 4pm break.", addresses: ["4th Floor, Dainik Navajyoti Tower, Amrapali Circle, Vaishali Nagar, Jaipur 302021"] },
+    { name: "Sequoia Cafe", slug: "sequoia", image: "/clients/sequoia.webp", category: "cafe", addresses: ["The Utopia, 1st Floor, Plot 190, Ram Gali 1, Panchwati Circle, Raja Park, Jaipur 302004"] },
+    { name: "Opera", slug: "opera", image: "/clients/opera.webp", category: "cafe", about: "Your everyday Italian home.", addresses: ["F-7, Ramesh Marg, C Scheme, Jaipur 302001"] },
+    { name: "Traut Coffee House", slug: "traut-coffee-house", image: "/clients/traut.webp", category: "cafe", about: "Coffee, matcha and food.", addresses: ["3, Ajmer Rd, Bhrigu Nagar, Vidhyut Nagar, Chitrakoot, Jaipur"] },
+    { name: "Petit Paris", slug: "petit-paris", image: "/clients/petitparis.webp", category: "cafe", about: "A patisserie in C Scheme.", addresses: ["Shop 1, Jamnalal Bajaj Marg, C Scheme, Jaipur 302001"] },
     { name: "Matcha Labs", slug: "", image: "/clients/matchalabs.webp", category: "cafe", addresses: ["Jaipur"] },
     { name: "Napoli", slug: "", image: "/clients/napoli.webp", category: "cafe", about: "A pizzeria and bistro serving authentic Italian food.", addresses: ["Jaipur"] },
     { name: "Sky Beach", slug: "", image: "/clients/skybeach.webp", category: "cafe", addresses: ["Jaipur"] },
